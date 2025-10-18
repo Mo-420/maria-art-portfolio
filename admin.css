@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .login-container {
@@ -15,9 +16,11 @@
 
 .login-box {
     background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 .login-box h2 {
@@ -81,9 +84,11 @@
     width: 100%;
     max-width: 1200px;
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 .admin-header {
@@ -144,10 +149,21 @@
     padding: 2rem;
 }
 
+.section-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
 .management-section h2 {
     color: #2c3e50;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     font-size: 1.8rem;
+}
+
+.section-subtitle {
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
 }
 
 /* Artwork List */
