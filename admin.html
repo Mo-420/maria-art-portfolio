@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maria's Art - Admin Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Login Form -->
+        <div id="login-form" class="login-container">
+            <div class="login-box">
+                <h2>Artist Portal Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+                <p class="login-note">Default credentials: admin / maria2024</p>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-dashboard" class="admin-dashboard" style="display: none;">
+            <header class="admin-header">
+                <h1>Maria's Art Admin Portal</h1>
+                <div class="admin-nav">
+                    <button id="view-artworks" class="nav-btn active">Manage Artworks</button>
+                    <button id="add-artwork" class="nav-btn">Add New Artwork</button>
+                    <button id="logout" class="logout-btn">Logout</button>
+                </div>
+            </header>
+
+            <!-- Artwork Management Section -->
+            <section id="artwork-management" class="management-section">
+                <h2>Manage Existing Artworks</h2>
+                <div class="artwork-list" id="artworkList">
+                    <!-- Artworks will be loaded here dynamically -->
+                </div>
+            </section>
+
+            <!-- Add New Artwork Section -->
+            <section id="add-artwork-section" class="management-section" style="display: none;">
+                <h2>Add New Artwork</h2>
+                <form id="artworkForm" class="artwork-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="artworkTitle">Title:</label>
+                            <input type="text" id="artworkTitle" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="artworkYear">Year:</label>
+                            <input type="number" id="artworkYear" name="year" min="1900" max="2030" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="artworkMedium">Medium:</label>
+                            <input type="text" id="artworkMedium" name="medium" placeholder="e.g., Oil on Canvas" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="artworkSize">Size:</label>
+                            <input type="text" id="artworkSize" name="size" placeholder="e.g., 24x36 inches" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artworkDescription">Description:</label>
+                        <textarea id="artworkDescription" name="description" rows="4" placeholder="Describe the artwork, inspiration, techniques used..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artworkPrice">Price (optional):</label>
+                        <input type="number" id="artworkPrice" name="price" placeholder="Enter price in USD">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artworkImage">Upload Image:</label>
+                        <input type="file" id="artworkImage" name="image" accept="image/*" required>
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">Add Artwork</button>
+                        <button type="button" id="cancelAdd" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

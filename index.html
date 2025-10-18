@@ -17,6 +17,7 @@
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><a href="admin.html" class="admin-link">Artist Portal</a></li>
             </ul>
         </nav>
     </header>
@@ -32,22 +33,14 @@
 
         <section id="gallery" class="gallery">
             <h2>Art Gallery</h2>
-            <div class="gallery-grid">
-                <div class="artwork">
-                    <img src="images/artwork1.jpg" alt="Artwork 1" loading="lazy">
-                    <h3>Sunset Dreams</h3>
-                    <p>Oil on Canvas, 2024</p>
-                </div>
-                <div class="artwork">
-                    <img src="images/artwork2.jpg" alt="Artwork 2" loading="lazy">
-                    <h3>Urban Reflections</h3>
-                    <p>Acrylic on Canvas, 2024</p>
-                </div>
-                <div class="artwork">
-                    <img src="images/artwork3.jpg" alt="Artwork 3" loading="lazy">
-                    <h3>Nature's Symphony</h3>
-                    <p>Mixed Media, 2024</p>
-                </div>
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="2024">2024</button>
+                <button class="filter-btn" data-filter="2023">2023</button>
+                <button class="filter-btn" data-filter="available">Available</button>
+            </div>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Artworks will be loaded dynamically -->
             </div>
         </section>
 
@@ -73,6 +66,7 @@
         <p>&copy; 2024 Maria's Art Portfolio. All rights reserved.</p>
     </footer>
 
+    <script src="sample-data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
