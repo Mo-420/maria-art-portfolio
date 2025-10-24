@@ -60,6 +60,21 @@
   ],
   "categories": ["art", "portfolio", "admin"],
   "lang": "en",
-  "dir": "ltr"
+  "dir": "ltr",
+  "shortcuts": [
+    {
+      "name": "Main Portfolio",
+      "short_name": "Portfolio",
+      "description": "View Maria's art portfolio",
+      "url": "/",
+      "icons": [
+        {
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
 }
 

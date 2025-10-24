@@ -9,6 +9,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="admin.css">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="Maria's Art Admin">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Maria's Art Admin">
+    <meta name="description" content="Maria's Art Portfolio Admin Portal - Manage artworks and poetry">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-config" content="/icons/browserconfig.xml">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#667eea">
+    <link rel="shortcut icon" href="/favicon.ico">
 </head>
 <body>
     <div class="admin-container">
@@ -149,5 +170,70 @@
     </div>
 
     <script src="admin.js?v=2"></script>
+    
+    <!-- PWA Install Prompt -->
+    <div id="pwa-install-prompt" class="pwa-install-prompt" style="display: none;">
+        <div class="pwa-install-content">
+            <div class="pwa-install-icon">📱</div>
+            <div class="pwa-install-text">
+                <h3>Install Admin Portal</h3>
+                <p>Save Maria's Art Admin to your home screen for quick access!</p>
+            </div>
+            <div class="pwa-install-buttons">
+                <button id="pwa-install-btn" class="pwa-install-button">Install</button>
+                <button id="pwa-dismiss-btn" class="pwa-dismiss-button">Not Now</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // PWA Install functionality
+        let deferredPrompt;
+        const installPrompt = document.getElementById('pwa-install-prompt');
+        const installBtn = document.getElementById('pwa-install-btn');
+        const dismissBtn = document.getElementById('pwa-dismiss-btn');
+        
+        // Check if already installed
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            // Already installed, hide prompt
+            installPrompt.style.display = 'none';
+        }
+        
+        // Listen for beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install prompt after a delay
+            setTimeout(() => {
+                if (!localStorage.getItem('pwa-install-dismissed')) {
+                    installPrompt.style.display = 'block';
+                }
+            }, 3000);
+        });
+        
+        // Install button click
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response to the install prompt: ${outcome}`);
+                deferredPrompt = null;
+                installPrompt.style.display = 'none';
+            }
+        });
+        
+        // Dismiss button click
+        dismissBtn.addEventListener('click', () => {
+            installPrompt.style.display = 'none';
+            localStorage.setItem('pwa-install-dismissed', 'true');
+        });
+        
+        // Listen for app installed
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA was installed');
+            installPrompt.style.display = 'none';
+        });
+    </script>
 </body>
 </html>

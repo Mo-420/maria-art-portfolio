@@ -653,6 +653,101 @@
     line-height: 1.6;
 }
 
+/* PWA Install Prompt */
+.pwa-install-prompt {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px) saturate(150%);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    z-index: 1000;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.pwa-install-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pwa-install-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.pwa-install-text {
+    flex: 1;
+}
+
+.pwa-install-text h3 {
+    margin: 0 0 0.5rem 0;
+    color: #1c1c1e;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.pwa-install-text p {
+    margin: 0;
+    color: #6e6e73;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.pwa-install-buttons {
+    display: flex;
+    gap: 0.8rem;
+    flex-shrink: 0;
+}
+
+.pwa-install-button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.pwa-install-button:hover {
+    background: #5a6fd8;
+    transform: translateY(-1px);
+}
+
+.pwa-dismiss-button {
+    background: rgba(255, 255, 255, 0.2);
+    color: #6e6e73;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.pwa-dismiss-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .admin-container {
@@ -678,5 +773,28 @@
     
     .form-actions {
         flex-direction: column;
+    }
+    
+    .pwa-install-prompt {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+    }
+    
+    .pwa-install-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .pwa-install-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .pwa-install-button,
+    .pwa-dismiss-button {
+        flex: 1;
+        max-width: 120px;
     }
 }
