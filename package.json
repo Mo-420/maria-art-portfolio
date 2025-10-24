@@ -1,0 +1,13 @@
+{
+  "name": "maria-art-portfolio",
+  "version": "1.0.0",
+  "description": "Maria's Art Portfolio with Poetry Management",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Static site - no build needed'",
+    "deploy": "echo 'Static site deployment'"
+  },
+  "keywords": ["portfolio", "art", "poetry", "static"],
+  "author": "Maria",
+  "license": "MIT"
+}
