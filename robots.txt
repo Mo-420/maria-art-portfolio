@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://your-domain.pages.dev/sitemap.xml
+
+# Disallow admin area
+Disallow: /admin.html
+Disallow: /admin/

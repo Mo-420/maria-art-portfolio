@@ -1,0 +1,5 @@
+# SPA fallback - redirect all routes to index.html
+/*    /index.html   200
+
+# Admin routes
+/admin    /admin.html    200

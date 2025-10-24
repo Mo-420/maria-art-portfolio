@@ -27,7 +27,6 @@
                     </div>
                     <button type="submit" class="login-btn">Login</button>
                 </form>
-                <p class="login-note">Default credentials: admin / maria2024</p>
             </div>
         </div>
 
@@ -38,6 +37,8 @@
                 <div class="admin-nav">
                     <button id="view-artworks" class="nav-btn active">Manage Artworks</button>
                     <button id="add-artwork" class="nav-btn">Add New Artwork</button>
+                    <button id="view-poetry" class="nav-btn">Manage Poetry</button>
+                    <button id="add-poetry" class="nav-btn">Add New Poetry</button>
                     <button id="logout" class="logout-btn">Logout</button>
                 </div>
             </header>
@@ -84,14 +85,14 @@
                         <textarea id="artworkDescription" name="description" rows="4" placeholder="Describe the artwork, inspiration, techniques used..." required></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label for="artworkPrice">Price (optional):</label>
-                        <input type="number" id="artworkPrice" name="price" placeholder="Enter price in USD">
-                    </div>
 
                     <div class="form-group">
                         <label for="artworkImage">Upload Image:</label>
-                        <input type="file" id="artworkImage" name="image" accept="image/*" required>
+                        <div class="image-upload-container">
+                            <input type="file" id="artworkImage" name="image" accept="image/*" capture="environment" required>
+                            <button type="button" id="cameraBtn" class="camera-btn">📷 Take Photo</button>
+                            <button type="button" id="galleryBtn" class="gallery-btn">🖼️ Choose from Gallery</button>
+                        </div>
                         <div class="image-preview" id="imagePreview"></div>
                     </div>
 
@@ -101,9 +102,52 @@
                     </div>
                 </form>
             </section>
+
+            <!-- Poetry Management Section -->
+            <section id="poetry-management" class="management-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Manage Poetry</h2>
+                    <p class="section-subtitle">Create, edit, and organize your poetry collection</p>
+                </div>
+                <div class="poetry-list" id="poetryList">
+                    <!-- Poetry will be loaded here dynamically -->
+                </div>
+            </section>
+
+            <!-- Add New Poetry Section -->
+            <section id="add-poetry-section" class="management-section" style="display: none;">
+                <h2>Add New Poetry</h2>
+                <form id="poetryForm" class="poetry-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="poetryTitle">Title:</label>
+                            <input type="text" id="poetryTitle" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="poetryDate">Date:</label>
+                            <input type="text" id="poetryDate" name="date" placeholder="e.g., March 2024" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="poetryTheme">Theme:</label>
+                        <input type="text" id="poetryTheme" name="theme" placeholder="e.g., Urban Life, Nature, Art & Creation" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="poetryContent">Poetry Content:</label>
+                        <textarea id="poetryContent" name="content" rows="8" placeholder="Enter your poetry here... Use &lt;br&gt; tags for line breaks" required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">Add Poetry</button>
+                        <button type="button" id="cancelPoetryAdd" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </section>
         </div>
     </div>
 
-    <script src="admin.js"></script>
+    <script src="admin.js?v=2"></script>
 </body>
 </html>
