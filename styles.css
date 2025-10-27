@@ -974,13 +974,24 @@ body.dark-scroll .admin-link {
     text-align: center;
 }
 
-/* Desktop Contact Section */
+/* Desktop Contact Section - Hidden by default, shown on desktop */
 .desktop-contact {
-    display: block;
+    display: none;
 }
 
 .mobile-contact {
-    display: none;
+    display: block;
+}
+
+/* Show desktop contact on larger screens */
+@media (min-width: 769px) {
+    .desktop-contact {
+        display: block;
+    }
+    
+    .mobile-contact {
+        display: none;
+    }
 }
 
 /* Desktop Contact Layout */
@@ -2065,14 +2076,7 @@ footer p {
         text-align: center;
     }
     
-    /* Hide desktop contact, show mobile contact */
-    .contact .desktop-contact {
-        display: none !important;
-    }
-    
-    .contact .mobile-contact {
-        display: block !important;
-    }
+    /* Mobile contact styles are handled by default display rules above */
     
     .contact-grid {
         grid-template-columns: 1fr;
