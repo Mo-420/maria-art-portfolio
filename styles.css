@@ -985,17 +985,14 @@ body.dark-scroll .admin-link {
 
 /* Desktop Contact Layout */
 .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    max-width: 1200px;
+    display: block;
+    max-width: 1000px;
     margin: 0 auto;
-    align-items: start;
 }
 
 .contact-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
     width: 100%;
     max-width: 900px;
@@ -2069,12 +2066,12 @@ footer p {
     }
     
     /* Hide desktop contact, show mobile contact */
-    .desktop-contact {
-        display: none;
+    .contact .desktop-contact {
+        display: none !important;
     }
     
-    .mobile-contact {
-        display: block;
+    .contact .mobile-contact {
+        display: block !important;
     }
     
     .contact-grid {
