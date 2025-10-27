@@ -10,6 +10,7 @@ class ArtGallery {
         this.bindEvents();
         this.loadArtworks();
         this.initMobileMenu();
+        this.initContactForm();
     }
 
     bindEvents() {
@@ -561,6 +562,35 @@ class ArtGallery {
                     mobileToggle.classList.remove('active');
                     document.body.style.overflow = '';
                 }
+            });
+        }
+    }
+
+    initContactForm() {
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(contactForm);
+                const name = formData.get('name');
+                const email = formData.get('email');
+                const phone = formData.get('phone');
+                const message = formData.get('message');
+                
+                // Create mailto link
+                const subject = `Contact from ${name}`;
+                const body = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
+                const mailtoLink = `mailto:maria@art.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                // Open email client
+                window.location.href = mailtoLink;
+                
+                // Show success message
+                alert('Thank you for your message! Your email client should open with your message ready to send.');
+                
+                // Reset form
+                contactForm.reset();
             });
         }
     }
