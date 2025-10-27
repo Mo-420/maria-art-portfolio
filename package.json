@@ -7,7 +7,26 @@
     "build": "echo 'Static site - no build needed'",
     "deploy": "echo 'Static site deployment'"
   },
-  "keywords": ["portfolio", "art", "poetry", "static"],
+  "keywords": [
+    "portfolio",
+    "art",
+    "poetry",
+    "static"
+  ],
   "author": "Maria",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mo-420/maria-art-portfolio.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Mo-420/maria-art-portfolio/issues"
+  },
+  "homepage": "https://github.com/Mo-420/maria-art-portfolio#readme",
+  "dependencies": {
+    "@capacitor/android": "^7.4.4",
+    "@capacitor/cli": "^7.4.4",
+    "@capacitor/core": "^7.4.4"
+  }
 }

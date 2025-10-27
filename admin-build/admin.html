@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maria's Art - Admin Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="application-name" content="Maria's Art Admin">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Maria's Art Admin">
+    <meta name="description" content="Maria's Art Portfolio Admin Portal - Manage artworks and poetry">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-config" content="/icons/browserconfig.xml">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#667eea">
+    <link rel="shortcut icon" href="/favicon.ico">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Login Form -->
+        <div id="login-form" class="login-container">
+            <div class="login-box">
+                <h2>Artist Portal Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-dashboard" class="admin-dashboard" style="display: none;">
+            <header class="admin-header">
+                <h1>Maria's Art Admin Portal</h1>
+                <div class="admin-nav">
+                    <button id="view-artworks" class="nav-btn active">Manage Artworks</button>
+                    <button id="add-artwork" class="nav-btn">Add New Artwork</button>
+                    <button id="view-poetry" class="nav-btn">Manage Poetry</button>
+                    <button id="add-poetry" class="nav-btn">Add New Poetry</button>
+                    <button id="logout" class="logout-btn">Logout</button>
+                </div>
+            </header>
+
+            <!-- Artwork Management Section -->
+            <section id="artwork-management" class="management-section">
+                <div class="section-header">
+                    <h2>Manage Existing Artworks</h2>
+                    <p class="section-subtitle">Upload, edit, and organize your art collection</p>
+                </div>
+                <div class="artwork-list" id="artworkList">
+                    <!-- Artworks will be loaded here dynamically -->
+                </div>
+            </section>
+
+            <!-- Add New Artwork Section -->
+            <section id="add-artwork-section" class="management-section" style="display: none;">
+                <h2>Add New Artwork</h2>
+                <form id="artworkForm" class="artwork-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="artworkTitle">Title:</label>
+                            <input type="text" id="artworkTitle" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="artworkYear">Year:</label>
+                            <input type="number" id="artworkYear" name="year" min="1900" max="2030" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="artworkMedium">Medium:</label>
+                            <input type="text" id="artworkMedium" name="medium" placeholder="e.g., Oil on Canvas" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="artworkSize">Size:</label>
+                            <input type="text" id="artworkSize" name="size" placeholder="e.g., 24x36 inches" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artworkDescription">Description:</label>
+                        <textarea id="artworkDescription" name="description" rows="4" placeholder="Describe the artwork, inspiration, techniques used..." required></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="artworkImage">Upload Image:</label>
+                        <div class="image-upload-container">
+                            <input type="file" id="artworkImage" name="image" accept="image/*" capture="environment" required>
+                            <button type="button" id="cameraBtn" class="camera-btn">📷 Take Photo</button>
+                            <button type="button" id="galleryBtn" class="gallery-btn">🖼️ Choose from Gallery</button>
+                        </div>
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">Add Artwork</button>
+                        <button type="button" id="cancelAdd" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Poetry Management Section -->
+            <section id="poetry-management" class="management-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Manage Poetry</h2>
+                    <p class="section-subtitle">Create, edit, and organize your poetry collection</p>
+                </div>
+                <div class="poetry-list" id="poetryList">
+                    <!-- Poetry will be loaded here dynamically -->
+                </div>
+            </section>
+
+            <!-- Add New Poetry Section -->
+            <section id="add-poetry-section" class="management-section" style="display: none;">
+                <h2>Add New Poetry</h2>
+                <form id="poetryForm" class="poetry-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="poetryTitle">Title:</label>
+                            <input type="text" id="poetryTitle" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="poetryDate">Date:</label>
+                            <input type="text" id="poetryDate" name="date" placeholder="e.g., March 2024" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="poetryTheme">Theme:</label>
+                        <input type="text" id="poetryTheme" name="theme" placeholder="e.g., Urban Life, Nature, Art & Creation" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="poetryContent">Poetry Content:</label>
+                        <textarea id="poetryContent" name="content" rows="8" placeholder="Enter your poetry here... Use &lt;br&gt; tags for line breaks" required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">Add Poetry</button>
+                        <button type="button" id="cancelPoetryAdd" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <script src="admin.js?v=2"></script>
+    
+    <!-- PWA Install Prompt -->
+    <div id="pwa-install-prompt" class="pwa-install-prompt" style="display: none;">
+        <div class="pwa-install-content">
+            <div class="pwa-install-icon">📱</div>
+            <div class="pwa-install-text">
+                <h3>Install Admin Portal</h3>
+                <p>Save Maria's Art Admin to your home screen for quick access!</p>
+            </div>
+            <div class="pwa-install-buttons">
+                <button id="pwa-install-btn" class="pwa-install-button">Install</button>
+                <button id="pwa-dismiss-btn" class="pwa-dismiss-button">Not Now</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // PWA Install functionality
+        let deferredPrompt;
+        const installPrompt = document.getElementById('pwa-install-prompt');
+        const installBtn = document.getElementById('pwa-install-btn');
+        const dismissBtn = document.getElementById('pwa-dismiss-btn');
+        
+        // Check if already installed
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            // Already installed, hide prompt
+            installPrompt.style.display = 'none';
+        }
+        
+        // Listen for beforeinstallprompt event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install prompt after a delay
+            setTimeout(() => {
+                if (!localStorage.getItem('pwa-install-dismissed')) {
+                    installPrompt.style.display = 'block';
+                }
+            }, 3000);
+        });
+        
+        // Install button click
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response to the install prompt: ${outcome}`);
+                deferredPrompt = null;
+                installPrompt.style.display = 'none';
+            }
+        });
+        
+        // Dismiss button click
+        dismissBtn.addEventListener('click', () => {
+            installPrompt.style.display = 'none';
+            localStorage.setItem('pwa-install-dismissed', 'true');
+        });
+        
+        // Listen for app installed
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA was installed');
+            installPrompt.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

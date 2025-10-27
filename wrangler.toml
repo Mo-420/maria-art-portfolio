@@ -1,0 +1,20 @@
+name = "maria-art-portfolio"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "maria-art-portfolio"
+compatibility_date = "2024-01-01"
+
+# Pages configuration
+pages_build_output_dir = "."
+
+# Custom domains
+[[env.production.routes]]
+pattern = "maryilu.com/*"
+custom_domain = true
+
+[[env.production.routes]]
+pattern = "www.maryilu.com/*"
+custom_domain = true
+
+

@@ -1,0 +1,8 @@
+{
+  "appId": "com.maria.art.admin",
+  "appName": "Maria's Art Admin",
+  "webDir": "admin-build",
+  "server": {
+    "androidScheme": "https"
+  }
+}
