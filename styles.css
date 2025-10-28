@@ -508,7 +508,7 @@ body.dark-scroll .admin-link {
 .artwork {
     background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(35px) saturate(140%);
-    border-radius: 24px;
+    border-radius: 20px;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -520,7 +520,8 @@ body.dark-scroll .admin-link {
         inset 0 -1px 0 rgba(255, 255, 255, 0.08);
     display: flex;
     flex-direction: column;
-    height: 700px;
+    height: auto;
+    min-height: 500px;
 }
 
 .artwork::before {
@@ -556,7 +557,8 @@ body.dark-scroll .admin-link {
 .artwork-image {
     position: relative;
     overflow: hidden;
-    height: 400px;
+    height: 300px;
+    aspect-ratio: 4/3;
 }
 
 .artwork img {
@@ -690,20 +692,21 @@ body.dark-scroll .admin-link {
 }
 
 .artwork-content {
-    padding: 2rem;
+    padding: 1.5rem;
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
     flex: 1;
+    gap: 1rem;
 }
 
 .artwork h3 {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
-    font-size: 1.3rem;
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
     font-weight: 500;
     color: var(--text-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     letter-spacing: -0.01em;
     line-height: 1.3;
 }
@@ -712,36 +715,38 @@ body.dark-scroll .admin-link {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
     font-size: 0.85rem;
     color: var(--text-secondary);
 }
 
 .artwork-meta span {
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .artwork-description {
     color: var(--text-secondary);
     line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    flex: 1;
 }
 
 .artwork-price {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
-    font-size: 1.3rem;
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
     font-weight: 500;
     color: var(--accent-navy);
-    margin-bottom: 1.5rem;
+    margin-top: auto;
 }
 
 .artwork-actions {
     display: flex;
     gap: 0.75rem;
-    margin-top: auto;
-    padding-top: 1rem;
+    margin-top: 1rem;
 }
 
 .btn-view,
@@ -752,9 +757,9 @@ body.dark-scroll .admin-link {
     color: var(--text-primary);
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 0.75rem 1rem;
-    border-radius: 10px;
+    border-radius: 12px;
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: clamp(0.85rem, 2vw, 0.9rem);
     cursor: pointer;
     transition: all 0.3s ease;
     letter-spacing: -0.01em;
@@ -762,6 +767,7 @@ body.dark-scroll .admin-link {
     box-shadow: 
         0 4px 16px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    min-height: 44px;
 }
 
 .btn-view:hover,
@@ -974,92 +980,9 @@ body.dark-scroll .admin-link {
     text-align: center;
 }
 
-/* Desktop Contact Section - Hidden by default, shown on desktop */
-.desktop-contact {
-    display: none;
-}
+/* Contact section is now unified and responsive */
 
-.mobile-contact {
-    display: block;
-}
-
-/* Show desktop contact on larger screens */
-@media (min-width: 769px) {
-    .desktop-contact {
-        display: block;
-    }
-    
-    .mobile-contact {
-        display: none;
-    }
-}
-
-/* Desktop Contact Layout */
-.contact-content {
-    display: block;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.contact-info {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.contact-info p {
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(35px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 24px;
-    padding: 2rem;
-    text-align: center;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25),
-        inset 0 -1px 0 rgba(255, 255, 255, 0.08);
-}
-
-.contact-method {
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.contact-method:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-.contact-method h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-}
-
-.contact-method a {
-    color: var(--accent-primary);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.contact-method a:hover {
-    color: var(--text-primary);
-}
+/* Unified Contact Layout - Responsive */
 
 .contact-form {
     background: rgba(255, 255, 255, 0.12);
@@ -1127,12 +1050,12 @@ body.dark-scroll .admin-link {
     box-shadow: 0 8px 25px rgba(167, 198, 212, 0.4);
 }
 
-/* Mobile Contact Grid */
+/* Contact Grid */
 .contact-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1000px;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 100%;
     margin: 0 auto;
 }
 
@@ -1739,20 +1662,185 @@ footer p {
     z-index: 2;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* Mobile-First Responsive Design */
+
+/* Base styles for mobile (320px+) */
+body {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+h1, h2, h3 {
+    font-size: clamp(1.2rem, 4vw, 2rem);
+}
+
+/* Gallery - Mobile first */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+/* Navigation - Mobile first */
+.nav-links {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links.active {
+    left: 0;
+}
+
+.nav-links a {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--text-primary-light);
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    background: rgba(167, 198, 212, 0.1);
+    transition: all 0.3s ease;
+    width: 80%;
+    text-align: center;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contact - Mobile first */
+
+/* Poetry - Mobile first */
+.poetry-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Tablet and up (600px+) */
+@media (min-width: 600px) {
     .gallery-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
     }
     
-    .contact-info {
-        grid-template-columns: 1fr;
+    .poetry-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .nav-links {
+        display: flex;
+        position: static;
+        width: auto;
+        height: auto;
+        background: transparent;
+        backdrop-filter: none;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 2rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .nav-links a {
+        font-size: 0.95rem;
+        font-weight: 400;
+        color: var(--text-secondary-light);
+        text-decoration: none;
+        padding: 0.5rem 0;
+        border-radius: 0;
+        background: transparent;
+        transition: all 0.3s ease;
+        width: auto;
+        text-align: left;
+        min-height: auto;
+        display: block;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    
+    .nav-links a:hover {
+        color: var(--text-primary-light);
+    }
+    
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 1px;
+        background: var(--accent-primary);
+        transition: width 0.3s ease;
+    }
+    
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+    
+    .mobile-menu-toggle {
+        display: none;
+    }
+}
+
+/* Desktop and up (900px+) */
+@media (min-width: 900px) {
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    
+    .poetry-grid {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+        max-width: 1000px;
+    }
+    
+    .contact-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        max-width: 1000px;
+    }
+}
+
+/* Large desktop (1200px+) */
+@media (min-width: 1200px) {
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
 }
 
 /* Mobile Navigation Toggle */
 .mobile-menu-toggle {
-    display: none;
+    display: block;
     background: none;
     border: none;
     cursor: pointer;
@@ -1795,7 +1883,6 @@ footer p {
     }
     
     .mobile-menu-toggle {
-        display: block;
         order: 2;
     }
     
@@ -1806,46 +1893,6 @@ footer p {
     .logo h1 {
         font-size: 1.4rem;
         color: var(--text-primary-light);
-    }
-    
-    .nav-links {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100vh;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: left 0.3s ease;
-        z-index: 1000;
-        gap: 1.5rem;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .nav-links.active {
-        left: 0;
-    }
-    
-    .nav-links a {
-        font-size: 1.3rem;
-        font-weight: 500;
-        color: var(--text-primary-light);
-        text-decoration: none;
-        padding: 1rem 2rem;
-        border-radius: 15px;
-        background: rgba(167, 198, 212, 0.1);
-        transition: all 0.3s ease;
-        width: 80%;
-        text-align: center;
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
     
     .nav-links a:hover {
@@ -1917,11 +1964,6 @@ footer p {
         min-width: 80px;
     }
     
-    .gallery-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding: 0;
-    }
     
     .artwork {
         height: auto;
@@ -1998,12 +2040,6 @@ footer p {
         text-align: center;
     }
     
-    .poetry-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        max-width: 100%;
-        margin: 0;
-    }
     
     .poem-card {
         padding: 2rem;
@@ -2077,12 +2113,6 @@ footer p {
     }
     
     /* Mobile contact styles are handled by default display rules above */
-    
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        max-width: 100%;
-    }
     
     .contact-card {
         padding: 2rem 1.5rem;
@@ -2271,6 +2301,7 @@ footer p {
     input[type="tel"],
     textarea {
         font-size: 16px;
+        appearance: none;
         -webkit-appearance: none;
         border-radius: 12px;
     }
@@ -2372,9 +2403,6 @@ footer p {
         padding: 1.5rem;
     }
     
-    .contact-method {
-        padding: 1.25rem;
-    }
     
     .form-group input,
     .form-group textarea {
@@ -2418,15 +2446,66 @@ footer p {
         font-weight: 500;
         text-shadow: none;
     }
+}
+
+/* Accessibility improvements */
+/* Focus styles for better keyboard navigation */
+.filter-btn:focus,
+.cta-button:focus,
+.btn-view:focus,
+.btn-inquire:focus,
+.submit-btn:focus,
+.mobile-menu-toggle:focus,
+.contact-link:focus,
+.nav-links a:focus {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(167, 198, 212, 0.3);
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--accent-primary);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 10000;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .artwork,
+    .poem-card,
+    .contact-card {
+        border: 2px solid currentColor;
+    }
     
-    /* Improved focus states for accessibility */
-    .filter-btn:focus,
-    .cta-button:focus,
-    .btn-view:focus,
-    .btn-inquire:focus,
-    .submit-btn:focus {
-        outline: 2px solid var(--accent-primary);
-        outline-offset: 2px;
+    .btn-view,
+    .btn-inquire,
+    .filter-btn,
+    .cta-button {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
 

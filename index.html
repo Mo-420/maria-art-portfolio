@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0, minimum-scale=0.5">
     <title>Maria's Art Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,53 +10,54 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <nav>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
             <div class="logo">
                 <h1>Maria's Art</h1>
             </div>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#poetry">Poetry</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="#home" role="menuitem">Home</a></li>
+                <li role="none"><a href="#gallery" role="menuitem">Gallery</a></li>
+                <li role="none"><a href="#poetry" role="menuitem">Poetry</a></li>
+                <li role="none"><a href="#about" role="menuitem">About</a></li>
+                <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section id="home" class="hero section-light">
+    <main role="main" id="main-content">
+        <section id="home" class="hero section-light" aria-labelledby="hero-heading">
             <div class="hero-content">
-                <h2>Welcome to Maria's Art World</h2>
+                <h2 id="hero-heading">Welcome to Maria's Art World</h2>
                 <p>Discover the beauty of contemporary art through Maria's unique perspective</p>
-                <a href="#gallery" class="cta-button">View Gallery</a>
+                <a href="#gallery" class="cta-button" aria-label="View Maria's art gallery">View Gallery</a>
             </div>
         </section>
 
-        <section id="gallery" class="gallery section-light">
-            <h2>Art Gallery</h2>
-            <div class="gallery-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="2024">2024</button>
-                <button class="filter-btn" data-filter="2023">2023</button>
-                <button class="filter-btn" data-filter="available">Available</button>
+        <section id="gallery" class="gallery section-light" aria-labelledby="gallery-heading">
+            <h2 id="gallery-heading">Art Gallery</h2>
+            <div class="gallery-filters" role="group" aria-label="Filter artworks">
+                <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+                <button class="filter-btn" data-filter="2024" aria-pressed="false">2024</button>
+                <button class="filter-btn" data-filter="2023" aria-pressed="false">2023</button>
+                <button class="filter-btn" data-filter="available" aria-pressed="false">Available</button>
             </div>
-            <div class="gallery-grid" id="galleryGrid">
+            <div class="gallery-grid" id="galleryGrid" role="grid" aria-label="Artwork gallery">
                 <!-- Artworks will be loaded dynamically -->
             </div>
         </section>
 
-        <section id="poetry" class="poetry section-dark">
-            <h2>Poetry</h2>
+        <section id="poetry" class="poetry section-dark" aria-labelledby="poetry-heading">
+            <h2 id="poetry-heading">Poetry</h2>
             <p class="section-subtitle">Words that dance with colors and emotions</p>
-            <div class="poetry-grid">
-                <div class="poem-card">
+            <div class="poetry-grid" role="list" aria-label="Poetry collection">
+                <article class="poem-card" role="listitem">
                     <h3>Urban Dreams</h3>
                     <div class="poem-content">
                         <p>In the city's heartbeat,<br>
@@ -65,12 +66,12 @@
                         In colors bold and bright.</p>
                     </div>
                     <div class="poem-meta">
-                        <span class="poem-date">March 2024</span>
-                        <span class="poem-theme">Urban Life</span>
+                        <time class="poem-date" datetime="2024-03">March 2024</time>
+                        <span class="poem-theme" aria-label="Theme: Urban Life">Urban Life</span>
                     </div>
-                </div>
+                </article>
                 
-                <div class="poem-card">
+                <article class="poem-card" role="listitem">
                     <h3>Nature's Whisper</h3>
                     <div class="poem-content">
                         <p>Through the trees,<br>
@@ -79,12 +80,12 @@
                         In silent ease.</p>
                     </div>
                     <div class="poem-meta">
-                        <span class="poem-date">February 2024</span>
-                        <span class="poem-theme">Nature</span>
+                        <time class="poem-date" datetime="2024-02">February 2024</time>
+                        <span class="poem-theme" aria-label="Theme: Nature">Nature</span>
                     </div>
-                </div>
+                </article>
                 
-                <div class="poem-card">
+                <article class="poem-card" role="listitem">
                     <h3>Creative Fire</h3>
                     <div class="poem-content">
                         <p>In my studio,<br>
@@ -93,12 +94,12 @@
                         A story grows.</p>
                     </div>
                     <div class="poem-meta">
-                        <span class="poem-date">January 2024</span>
-                        <span class="poem-theme">Art & Creation</span>
+                        <time class="poem-date" datetime="2024-01">January 2024</time>
+                        <span class="poem-theme" aria-label="Theme: Art & Creation">Art & Creation</span>
                     </div>
-                </div>
+                </article>
                 
-                <div class="poem-card">
+                <article class="poem-card" role="listitem">
                     <h3>Evening Light</h3>
                     <div class="poem-content">
                         <p>As day turns to night,<br>
@@ -107,80 +108,57 @@
                         Of all we know.</p>
                     </div>
                     <div class="poem-meta">
-                        <span class="poem-date">December 2023</span>
-                        <span class="poem-theme">Time & Light</span>
+                        <time class="poem-date" datetime="2023-12">December 2023</time>
+                        <span class="poem-theme" aria-label="Theme: Time & Light">Time & Light</span>
                     </div>
-                </div>
+                </article>
             </div>
         </section>
 
-        <section id="about" class="about section-dark">
+        <section id="about" class="about section-dark" aria-labelledby="about-heading">
             <div class="about-content">
-                <h2>About Maria</h2>
+                <h2 id="about-heading">About Maria</h2>
                 <p>Maria is a passionate artist who explores the intersection of color, emotion, and form. Her work reflects a deep connection to nature and urban life, creating pieces that speak to the soul.</p>
                 <p>With over 10 years of experience in various mediums, Maria continues to push the boundaries of contemporary art.</p>
             </div>
         </section>
 
-        <section id="contact" class="contact section-dark">
-            <h2>Get In Touch</h2>
+        <section id="contact" class="contact section-dark" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Get In Touch</h2>
             
-            <!-- Desktop Contact Section -->
-            <div class="contact-content desktop-contact">
-                <div class="contact-info">
-                    <div class="contact-method">
-                        <h3>Instagram</h3>
-                        <a href="https://www.instagram.com/marialuisas_arttt" target="_blank" rel="noopener">@marialuisas_arttt</a>
-                    </div>
-                    <div class="contact-method">
-                        <h3>Email</h3>
-                        <a href="mailto:maria@art.com">maria@art.com</a>
-                    </div>
-                    <div class="contact-method">
-                        <h3>Snapchat</h3>
-                        <a href="https://www.snapchat.com/add/maria.art" target="_blank" rel="noopener">@maria.art</a>
-                    </div>
-                    <div class="contact-method">
-                        <h3>Artsy</h3>
-                        <a href="https://www.artsy.net/artist/maria-art" target="_blank" rel="noopener">View on Artsy</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Mobile Contact Section -->
-            <div class="contact-grid mobile-contact">
-                <div class="contact-card">
-                    <div class="contact-icon">📸</div>
+            <div class="contact-grid" role="list" aria-label="Contact methods">
+                <div class="contact-card" role="listitem">
+                    <div class="contact-icon" aria-hidden="true">📸</div>
                     <h3>Instagram</h3>
                     <p>Follow my latest artwork and behind-the-scenes content</p>
-                    <a href="https://www.instagram.com/marialuisas_arttt" target="_blank" rel="noopener" class="contact-link">
+                    <a href="https://www.instagram.com/marialuisas_arttt" target="_blank" rel="noopener" class="contact-link" aria-label="Follow Maria on Instagram">
                         @marialuisas_arttt
                     </a>
                 </div>
                 
-                <div class="contact-card">
-                    <div class="contact-icon">📧</div>
+                <div class="contact-card" role="listitem">
+                    <div class="contact-icon" aria-hidden="true">📧</div>
                     <h3>Email</h3>
                     <p>For inquiries, commissions, or collaborations</p>
-                    <a href="mailto:maria@art.com" class="contact-link">
+                    <a href="mailto:maria@art.com" class="contact-link" aria-label="Send email to Maria">
                         maria@art.com
                     </a>
                 </div>
                 
-                <div class="contact-card">
-                    <div class="contact-icon">📱</div>
+                <div class="contact-card" role="listitem">
+                    <div class="contact-icon" aria-hidden="true">📱</div>
                     <h3>Snapchat</h3>
                     <p>See my daily creative process and studio moments</p>
-                    <a href="https://www.snapchat.com/add/maria.art" target="_blank" rel="noopener" class="contact-link">
+                    <a href="https://www.snapchat.com/add/maria.art" target="_blank" rel="noopener" class="contact-link" aria-label="Add Maria on Snapchat">
                         @maria.art
                     </a>
                 </div>
                 
-                <div class="contact-card">
-                    <div class="contact-icon">🎨</div>
+                <div class="contact-card" role="listitem">
+                    <div class="contact-icon" aria-hidden="true">🎨</div>
                     <h3>Artsy</h3>
                     <p>Browse my portfolio and available artworks</p>
-                    <a href="https://www.artsy.net/artist/maria-art" target="_blank" rel="noopener" class="contact-link">
+                    <a href="https://www.artsy.net/artist/maria-art" target="_blank" rel="noopener" class="contact-link" aria-label="View Maria's portfolio on Artsy">
                         View on Artsy
                     </a>
                 </div>
