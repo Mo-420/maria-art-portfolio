@@ -40,7 +40,7 @@ const sampleArtworks = [
         medium: "Oil on Canvas",
         size: "20x24 inches",
         description: "A deeply personal exploration of emotional states through abstract forms and colors. This intimate piece reflects the artist's journey through different emotional landscapes, using color and texture to convey complex feelings.",
-        price: null,
+        price: 0, // Not for sale
         imageUrl: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImVtb3Rpb25zIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZTc0YzNjO3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMzAlIiBzdHlsZT0ic3RvcC1jb2xvcjojOWI1OWQ2O3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iNzAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMzQ5OGRiO3N0b3Atb3BhY2l0eToxIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzY2N2VlYTtzdG9wLW9wYWNpdHk6MSIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2Vtb3Rpb25zKSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+QWJzdHJhY3QgRW1vdGlvbnM8L3RleHQ+PC9zdmc+",
         createdAt: "2023-08-05T16:45:00Z"
     }

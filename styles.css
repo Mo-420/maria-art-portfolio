@@ -1050,13 +1050,30 @@ body.dark-scroll .admin-link {
     box-shadow: 0 8px 25px rgba(167, 198, 212, 0.4);
 }
 
-/* Contact Grid */
+/* Balanced Contact Grid */
 .contact-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    max-width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
     margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Responsive adjustments for different screen sizes */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 0.5rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .contact-grid {
+        gap: 2.5rem;
+        max-width: 1200px;
+    }
 }
 
 .contact-card {

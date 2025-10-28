@@ -36,6 +36,8 @@ class ArtGallery {
                     if (navLinks.classList.contains('active')) {
                         navLinks.classList.remove('active');
                         mobileToggle.classList.remove('active');
+                        mobileToggle.setAttribute('aria-expanded', 'false');
+                        document.body.style.overflow = '';
                     }
                 }
             });
@@ -90,8 +92,11 @@ class ArtGallery {
         // Update active filter button
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.classList.remove('active');
+            btn.setAttribute('aria-pressed', 'false');
         });
-        document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
+        const activeBtn = document.querySelector(`[data-filter="${filter}"]`);
+        activeBtn.classList.add('active');
+        activeBtn.setAttribute('aria-pressed', 'true');
         
         this.loadArtworks();
     }
@@ -141,7 +146,7 @@ class ArtGallery {
                 <div class="artwork-description">
                     ${artwork.description}
                 </div>
-                ${artwork.price ? `<div class="artwork-price">$${artwork.price.toLocaleString()}</div>` : ''}
+                ${artwork.price && artwork.price > 0 ? `<div class="artwork-price">$${artwork.price.toLocaleString()}</div>` : artwork.price === 0 ? `<div class="artwork-price">Not for sale</div>` : ''}
                 <div class="artwork-actions">
                     <button class="btn-view" onclick="artGallery.viewArtwork('${artwork.id}')">View</button>
                     <button class="btn-inquire" onclick="artGallery.inquireAbout('${artwork.id}')">Inquire</button>
@@ -164,16 +169,18 @@ class ArtGallery {
     }
 
     getArtworkImageHTML(artwork) {
+        const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';
+        
         // Handle multiple images with scrolling
         if (artwork.images && artwork.images.length > 0) {
             if (artwork.images.length === 1) {
-                return `<img src="${artwork.images[0]}" alt="${artwork.title}" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg=='">`;
+                return this.createResponsiveImage(artwork.images[0], artwork.title, placeholderImage);
             } else {
                 return `
                     <div class="image-carousel">
                         <div class="image-scroll-container">
                             ${artwork.images.map((img, index) => 
-                                `<img src="${img}" alt="${artwork.title} - Image ${index + 1}" loading="lazy" class="carousel-image ${index === 0 ? 'active' : ''}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg=='">`
+                                this.createResponsiveImage(img, `${artwork.title} - Image ${index + 1}`, placeholderImage, `carousel-image ${index === 0 ? 'active' : ''}`)
                             ).join('')}
                         </div>
                         <div class="carousel-indicators">
@@ -182,8 +189,8 @@ class ArtGallery {
                             ).join('')}
                         </div>
                         <div class="carousel-nav">
-                            <button class="carousel-prev" onclick="artGallery.scrollCarousel(this, -1)">‹</button>
-                            <button class="carousel-next" onclick="artGallery.scrollCarousel(this, 1)">›</button>
+                            <button class="carousel-prev" onclick="artGallery.scrollCarousel(this, -1)" aria-label="Previous image">‹</button>
+                            <button class="carousel-next" onclick="artGallery.scrollCarousel(this, 1)" aria-label="Next image">›</button>
                         </div>
                     </div>
                 `;
@@ -191,7 +198,7 @@ class ArtGallery {
         }
         // Handle legacy single image
         else if (artwork.imageUrl) {
-            return `<img src="${artwork.imageUrl}" alt="${artwork.title}" loading="lazy" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg=='">`;
+            return this.createResponsiveImage(artwork.imageUrl, artwork.title, placeholderImage);
         }
         // No images
         else {
@@ -204,17 +211,36 @@ class ArtGallery {
         }
     }
 
+    createResponsiveImage(src, alt, placeholder, className = '') {
+        // For demo purposes, we'll use the same image for all sizes
+        // In a real implementation, you would have different sized versions
+        const sizes = '(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw';
+        const srcset = `${src} 480w, ${src} 768w, ${src} 1200w`;
+        
+        return `<img 
+            src="${src}" 
+            srcset="${srcset}"
+            sizes="${sizes}"
+            alt="${alt}" 
+            loading="lazy" 
+            class="${className}"
+            onerror="this.src='${placeholder}'"
+            style="width: 100%; height: 100%; object-fit: cover;">`;
+    }
+
     getModalImageHTML(artwork) {
+        const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';
+        
         // Handle multiple images in modal
         if (artwork.images && artwork.images.length > 0) {
             if (artwork.images.length === 1) {
-                return `<img src="${artwork.images[0]}" alt="${artwork.title}" class="artwork-modal-image">`;
+                return this.createResponsiveImage(artwork.images[0], artwork.title, placeholderImage, 'artwork-modal-image');
             } else {
                 return `
                     <div class="modal-image-carousel">
                         <div class="modal-image-scroll-container">
                             ${artwork.images.map((img, index) => 
-                                `<img src="${img}" alt="${artwork.title} - Image ${index + 1}" class="artwork-modal-image ${index === 0 ? 'active' : ''}">`
+                                this.createResponsiveImage(img, `${artwork.title} - Image ${index + 1}`, placeholderImage, `artwork-modal-image ${index === 0 ? 'active' : ''}`)
                             ).join('')}
                         </div>
                         <div class="modal-carousel-indicators">
@@ -223,8 +249,8 @@ class ArtGallery {
                             ).join('')}
                         </div>
                         <div class="modal-carousel-nav">
-                            <button class="modal-carousel-prev" onclick="artGallery.scrollModalCarousel(this, -1)">‹</button>
-                            <button class="modal-carousel-next" onclick="artGallery.scrollModalCarousel(this, 1)">›</button>
+                            <button class="modal-carousel-prev" onclick="artGallery.scrollModalCarousel(this, -1)" aria-label="Previous image">‹</button>
+                            <button class="modal-carousel-next" onclick="artGallery.scrollModalCarousel(this, 1)" aria-label="Next image">›</button>
                         </div>
                     </div>
                 `;
@@ -232,7 +258,7 @@ class ArtGallery {
         }
         // Handle legacy single image
         else if (artwork.imageUrl) {
-            return `<img src="${artwork.imageUrl}" alt="${artwork.title}" class="artwork-modal-image">`;
+            return this.createResponsiveImage(artwork.imageUrl, artwork.title, placeholderImage, 'artwork-modal-image');
         }
         // No images
         else {
@@ -364,7 +390,7 @@ class ArtGallery {
                             ${artwork.year ? `<p><strong>Year:</strong> ${artwork.year}</p>` : ''}
                             ${artwork.medium ? `<p><strong>Medium:</strong> ${artwork.medium}</p>` : ''}
                             ${artwork.size ? `<p><strong>Size:</strong> ${artwork.size}</p>` : ''}
-                            ${artwork.price ? `<p><strong>Price:</strong> $${artwork.price.toLocaleString()}</p>` : ''}
+                            ${artwork.price && artwork.price > 0 ? `<p><strong>Price:</strong> $${artwork.price.toLocaleString()}</p>` : artwork.price === 0 ? `<p><strong>Status:</strong> Not for sale</p>` : ''}
                         </div>
                         ${artwork.description ? `
                         <div class="artwork-description">
@@ -525,11 +551,15 @@ class ArtGallery {
         if (mobileToggle && navLinks) {
             mobileToggle.addEventListener('click', (e) => {
                 e.stopPropagation();
+                const isOpen = navLinks.classList.contains('active');
                 navLinks.classList.toggle('active');
                 mobileToggle.classList.toggle('active');
                 
+                // Update aria-expanded
+                mobileToggle.setAttribute('aria-expanded', !isOpen);
+                
                 // Prevent body scroll when menu is open
-                if (navLinks.classList.contains('active')) {
+                if (!isOpen) {
                     document.body.style.overflow = 'hidden';
                 } else {
                     document.body.style.overflow = '';
@@ -541,6 +571,7 @@ class ArtGallery {
                 if (!mobileToggle.contains(e.target) && !navLinks.contains(e.target)) {
                     navLinks.classList.remove('active');
                     mobileToggle.classList.remove('active');
+                    mobileToggle.setAttribute('aria-expanded', 'false');
                     document.body.style.overflow = '';
                 }
             });
@@ -550,6 +581,7 @@ class ArtGallery {
                 if (e.target.tagName === 'A') {
                     navLinks.classList.remove('active');
                     mobileToggle.classList.remove('active');
+                    mobileToggle.setAttribute('aria-expanded', 'false');
                     document.body.style.overflow = '';
                 }
             });
@@ -559,6 +591,7 @@ class ArtGallery {
                 if (e.key === 'Escape' && navLinks.classList.contains('active')) {
                     navLinks.classList.remove('active');
                     mobileToggle.classList.remove('active');
+                    mobileToggle.setAttribute('aria-expanded', 'false');
                     document.body.style.overflow = '';
                 }
             });
