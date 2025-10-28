@@ -2480,23 +2480,6 @@ h1, h2, h3 {
     box-shadow: 0 0 0 4px rgba(167, 198, 212, 0.3);
 }
 
-/* Skip link for keyboard users */
-.skip-link {
-    position: absolute;
-    top: -40px;
-    left: 6px;
-    background: var(--accent-primary);
-    color: white;
-    padding: 8px;
-    text-decoration: none;
-    border-radius: 4px;
-    z-index: 10000;
-    transition: top 0.3s;
-}
-
-.skip-link:focus {
-    top: 6px;
-}
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
