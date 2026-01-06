@@ -797,12 +797,12 @@
         text-align: center;
         padding: 1rem;
         gap: 1rem;
-        position: relative;
+        position: relative !important;
         width: 100%;
         max-width: 100%;
         margin: 0 auto;
         box-sizing: border-box;
-        top: 0;
+        top: auto !important;
     }
     
     .admin-header h1 {
