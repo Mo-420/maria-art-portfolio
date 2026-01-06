@@ -107,6 +107,12 @@
     box-sizing: border-box;
 }
 
+.form-help {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    color: rgba(28, 28, 30, 0.75);
+}
+
 .form-group textarea {
     min-height: 100px;
     resize: vertical;

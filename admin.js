@@ -288,15 +288,15 @@ class ArtAdmin {
     async handleArtworkSubmit() {
         const formData = new FormData(document.getElementById('artworkForm'));
         const imageFile = document.getElementById('artworkImage').files[0];
+        const imageUrlInput = document.getElementById('artworkImageUrl');
+        const imageUrl = imageUrlInput ? String(imageUrlInput.value || '').trim() : '';
 
-        if (!imageFile) {
-            alert('Please select an image file.');
+        if (!imageFile && !imageUrl) {
+            alert('Please select an image file or provide an image URL.');
             return;
         }
 
-        // Convert image to base64 for storage
-        const reader = new FileReader();
-        reader.onload = async (e) => {
+        const buildAndSave = async (finalImageUrl) => {
             const artwork = {
                 id: Date.now(),
                 title: formData.get('title'),
@@ -304,7 +304,7 @@ class ArtAdmin {
                 medium: formData.get('medium'),
                 size: formData.get('size'),
                 description: formData.get('description'),
-                imageUrl: e.target.result,
+                imageUrl: finalImageUrl,
                 createdAt: new Date().toISOString()
             };
 
@@ -315,10 +315,22 @@ class ArtAdmin {
             this.updateActiveNav('view-artworks');
             document.getElementById('artworkForm').reset();
             document.getElementById('imagePreview').innerHTML = '';
+            if (imageUrlInput) imageUrlInput.value = '';
             
             alert('Artwork added successfully!');
         };
-        reader.readAsDataURL(imageFile);
+
+        if (imageFile) {
+            // Convert image to base64 for storage
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                await buildAndSave(e.target.result);
+            };
+            reader.readAsDataURL(imageFile);
+            return;
+        }
+
+        await buildAndSave(imageUrl);
     }
 
     editArtwork(index) {

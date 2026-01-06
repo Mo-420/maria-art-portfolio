@@ -7,9 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=8d14acc">
-    <link rel="stylesheet" href="admin.css?v=8d14acc">
-    <script src="data-api.js?v=8d14acc"></script>
+    <link rel="stylesheet" href="styles.css?v=20260106b">
+    <link rel="stylesheet" href="admin.css?v=20260106b">
+    <script src="data-api.js?v=20260106b"></script>
     
     <!-- PWA Meta Tags -->
     <meta name="application-name" content="Maria's Art Admin">
@@ -114,11 +114,17 @@
                     <div class="form-group">
                         <label for="artworkImage">Upload Image:</label>
                         <div class="image-upload-container">
-                            <input type="file" id="artworkImage" name="image" accept="image/*" capture="environment" required>
+                            <input type="file" id="artworkImage" name="image" accept="image/*" capture="environment">
                             <button type="button" id="cameraBtn" class="camera-btn">📷 Take Photo</button>
                             <button type="button" id="galleryBtn" class="gallery-btn">🖼️ Choose from Gallery</button>
                         </div>
                         <div class="image-preview" id="imagePreview"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artworkImageUrl">Or Image URL (optional):</label>
+                        <input type="url" id="artworkImageUrl" name="imageUrl" placeholder="https://...">
+                        <p class="form-help">Tip: on Android you can upload from camera/gallery. This URL field is mainly for quick testing.</p>
                     </div>
 
                     <div class="form-actions">
@@ -207,7 +213,7 @@
         </div>
     </div>
 
-    <script src="admin.js?v=8d14acc"></script>
+    <script src="admin.js?v=20260106b"></script>
     
     <!-- PWA Install Prompt -->
     <div id="pwa-install-prompt" class="pwa-install-prompt" style="display: none;">
