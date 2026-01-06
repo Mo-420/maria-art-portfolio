@@ -1932,13 +1932,17 @@ h1, h2, h3 {
 
 /* Mobile Navigation Toggle */
 .mobile-menu-toggle {
-    display: block;
+    display: none;
     background: none;
     border: none;
     cursor: pointer;
     padding: 0.5rem;
     z-index: 1001;
     position: relative;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
 }
 
 .mobile-menu-toggle span {
