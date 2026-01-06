@@ -1052,8 +1052,9 @@ body.dark-scroll .admin-link {
 
 /* Balanced Contact Grid */
 .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 2rem;
     max-width: 1000px;
     margin: 0 auto;
@@ -1125,9 +1126,18 @@ body.dark-scroll .admin-link {
 .contact-icon {
     font-size: 3rem;
     margin-bottom: 1.5rem;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     filter: grayscale(0.2);
     transition: all 0.3s ease;
+}
+
+.contact-icon svg {
+    width: 64px;
+    height: 64px;
+    color: currentColor;
+    fill: currentColor;
 }
 
 .contact-card:hover .contact-icon {
@@ -1885,7 +1895,7 @@ h1, h2, h3 {
     }
     
     .contact-grid {
-        grid-template-columns: repeat(4, 1fr);
+        justify-content: center;
         gap: 2rem;
         max-width: 1000px;
     }
@@ -2185,10 +2195,20 @@ h1, h2, h3 {
         border-radius: 20px;
     }
     
-    .contact-icon {
-        font-size: 2.5rem;
-        margin-bottom: 1.25rem;
-    }
+.contact-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-icon svg {
+    width: 64px;
+    height: 64px;
+    color: currentColor;
+    fill: currentColor;
+}
     
     .contact-card h3 {
         font-size: 1.2rem;
