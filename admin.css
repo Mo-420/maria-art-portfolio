@@ -531,40 +531,40 @@
     background: rgba(255, 255, 255, 0.2);
     color: #1c1c1e;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 1.1rem 2.2rem;
-    border-radius: 16px;
-    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-height: 44px;
 }
 
 .submit-btn:hover {
-    background: rgba(255, 255, 255, 0.28);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
 }
 
 .cancel-btn {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.1);
     color: #1c1c1e;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 1.1rem 2.2rem;
-    border-radius: 16px;
-    font-size: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    min-height: 44px;
 }
 
 .cancel-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
-    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
 }
 
 /* Camera/Gallery buttons */
