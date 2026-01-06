@@ -1943,10 +1943,23 @@ h1, h2, h3 {
 }
 
 @media (max-width: 768px) {
+    /* Prevent horizontal scroll */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+    
+    * {
+        max-width: 100%;
+    }
+    
     header {
         width: calc(100% - 1rem);
         top: 0.5rem;
         border-radius: 16px;
+        position: fixed;
+        z-index: 1000;
     }
     
     nav {
@@ -1955,6 +1968,10 @@ h1, h2, h3 {
     
     .mobile-menu-toggle {
         order: 2;
+        min-width: 44px;
+        min-height: 44px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
     }
     
     .logo {
