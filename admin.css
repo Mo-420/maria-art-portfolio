@@ -802,6 +802,7 @@
         max-width: 100%;
         margin: 0 auto;
         box-sizing: border-box;
+        top: 0;
     }
     
     .admin-header h1 {
