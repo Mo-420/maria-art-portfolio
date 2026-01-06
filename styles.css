@@ -1991,22 +1991,30 @@ h1, h2, h3 {
         padding: 1rem 1.5rem;
     }
     
-.mobile-menu-toggle {
-    display: none;
-    order: 2;
-    min-width: 44px;
-    min-height: 44px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 0.5rem;
-    flex-direction: column;
-    gap: 4px;
-    justify-content: center;
-    align-items: center;
-}
+    .mobile-menu-toggle {
+        display: flex !important;
+        order: 2;
+        min-width: 44px;
+        min-height: 44px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        padding: 0.5rem;
+        flex-direction: column;
+        gap: 4px;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .nav-links {
+        display: none !important;
+    }
+    
+    .nav-links.active {
+        display: flex !important;
+    }
 
 .mobile-menu-toggle span {
     display: block;
