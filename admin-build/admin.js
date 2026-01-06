@@ -122,6 +122,12 @@ class ArtAdmin {
             this.updateActiveNav('add-poetry');
         });
 
+        document.getElementById('edit-content').addEventListener('click', () => {
+            this.showSection('edit-content-section');
+            this.updateActiveNav('edit-content');
+            this.loadSiteContent();
+        });
+
         document.getElementById('logout').addEventListener('click', () => {
             this.logout();
         });
@@ -149,6 +155,17 @@ class ArtAdmin {
             this.showSection('poetry-management');
             this.updateActiveNav('view-poetry');
             document.getElementById('poetryForm').reset();
+        });
+
+        // Content form
+        document.getElementById('contentForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleContentSubmit();
+        });
+
+        document.getElementById('cancelContentEdit').addEventListener('click', () => {
+            this.showSection('artwork-management');
+            this.updateActiveNav('view-artworks');
         });
 
         // Image preview
@@ -511,6 +528,36 @@ class ArtAdmin {
         // This would typically be handled by a backend API
         // For now, we'll just store in localStorage and the public site will read from there
         console.log('Poetry updated:', this.poetry);
+    }
+
+    loadSiteContent() {
+        const content = JSON.parse(localStorage.getItem('siteContent')) || {
+            heroHeading: "Welcome to Maria's Art World",
+            heroParagraph: "Discover the beauty of contemporary art through Maria's unique perspective",
+            aboutParagraph1: "Maria is a passionate artist who explores the intersection of color, emotion, and form. Her work reflects a deep connection to nature and urban life, creating pieces that speak to the soul.",
+            aboutParagraph2: "With over 10 years of experience in various mediums, Maria continues to push the boundaries of contemporary art."
+        };
+
+        document.getElementById('heroHeading').value = content.heroHeading;
+        document.getElementById('heroParagraph').value = content.heroParagraph;
+        document.getElementById('aboutParagraph1').value = content.aboutParagraph1;
+        document.getElementById('aboutParagraph2').value = content.aboutParagraph2;
+    }
+
+    handleContentSubmit() {
+        const content = {
+            heroHeading: document.getElementById('heroHeading').value,
+            heroParagraph: document.getElementById('heroParagraph').value,
+            aboutParagraph1: document.getElementById('aboutParagraph1').value,
+            aboutParagraph2: document.getElementById('aboutParagraph2').value
+        };
+
+        localStorage.setItem('siteContent', JSON.stringify(content));
+        alert('Site content updated successfully! Changes will appear on the main site.');
+        
+        // Return to artworks view
+        this.showSection('artwork-management');
+        this.updateActiveNav('view-artworks');
     }
 }
 

@@ -1052,9 +1052,8 @@ body.dark-scroll .admin-link {
 
 /* Balanced Contact Grid */
 .contact-grid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     max-width: 1000px;
     margin: 0 auto;
@@ -1064,8 +1063,7 @@ body.dark-scroll .admin-link {
 /* Responsive adjustments for different screen sizes */
 @media (max-width: 768px) {
     .contact-grid {
-        display: flex;
-        justify-content: center;
+        grid-template-columns: 1fr;
         gap: 1.5rem;
         padding: 0 0.5rem;
     }
@@ -1127,18 +1125,9 @@ body.dark-scroll .admin-link {
 .contact-icon {
     font-size: 3rem;
     margin-bottom: 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
     filter: grayscale(0.2);
     transition: all 0.3s ease;
-}
-
-.contact-icon svg {
-    width: 64px;
-    height: 64px;
-    color: currentColor;
-    fill: currentColor;
 }
 
 .contact-card:hover .contact-icon {
@@ -1896,7 +1885,7 @@ h1, h2, h3 {
     }
     
     .contact-grid {
-        justify-content: center;
+        grid-template-columns: repeat(4, 1fr);
         gap: 2rem;
         max-width: 1000px;
     }
@@ -2196,25 +2185,10 @@ h1, h2, h3 {
         border-radius: 20px;
     }
     
-.contact-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1.25rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.contact-icon svg {
-    width: 56px;
-    height: 56px;
-}
-
-.contact-icon svg {
-    width: 64px;
-    height: 64px;
-    color: currentColor;
-    fill: currentColor;
-}
+    .contact-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.25rem;
+    }
     
     .contact-card h3 {
         font-size: 1.2rem;

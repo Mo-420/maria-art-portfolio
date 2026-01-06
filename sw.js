@@ -2,11 +2,10 @@
 const CACHE_NAME = 'maria-art-admin-v1';
 const urlsToCache = [
   '/',
-  '/admin.html',
+  '/index.html',
   '/admin.css',
   '/admin.js',
   '/styles.css',
-  '/script.js',
   '/manifest.json',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png'

@@ -2,7 +2,7 @@
   "name": "Maria's Art Admin",
   "short_name": "Art Admin",
   "description": "Admin portal for managing Maria's art portfolio",
-  "start_url": "/admin.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#1a1a1a",
   "theme_color": "#6366f1",

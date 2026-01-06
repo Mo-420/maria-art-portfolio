@@ -56,6 +56,7 @@
             <header class="admin-header">
                 <h1>Maria's Art Admin Portal</h1>
                 <div class="admin-nav">
+                    <button id="edit-content" class="nav-btn">Edit Site Content</button>
                     <button id="view-artworks" class="nav-btn active">Manage Artworks</button>
                     <button id="add-artwork" class="nav-btn">Add New Artwork</button>
                     <button id="view-poetry" class="nav-btn">Manage Poetry</button>
@@ -163,6 +164,40 @@
                     <div class="form-actions">
                         <button type="submit" class="submit-btn">Add Poetry</button>
                         <button type="button" id="cancelPoetryAdd" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Edit Site Content Section -->
+            <section id="edit-content-section" class="management-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Edit Site Content</h2>
+                    <p class="section-subtitle">Update hero section and about section text</p>
+                </div>
+                <form id="contentForm" class="content-form">
+                    <div class="form-group">
+                        <label for="heroHeading">Hero Heading:</label>
+                        <input type="text" id="heroHeading" name="heroHeading" placeholder="Welcome to Maria's Art World" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="heroParagraph">Hero Paragraph:</label>
+                        <textarea id="heroParagraph" name="heroParagraph" rows="3" placeholder="Discover the beauty of contemporary art through Maria's unique perspective" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="aboutParagraph1">About Paragraph 1:</label>
+                        <textarea id="aboutParagraph1" name="aboutParagraph1" rows="3" placeholder="Maria is a passionate artist who explores the intersection of color, emotion, and form..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="aboutParagraph2">About Paragraph 2:</label>
+                        <textarea id="aboutParagraph2" name="aboutParagraph2" rows="3" placeholder="With over 10 years of experience in various mediums..." required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn">Save Changes</button>
+                        <button type="button" id="cancelContentEdit" class="cancel-btn">Cancel</button>
                     </div>
                 </form>
             </section>
