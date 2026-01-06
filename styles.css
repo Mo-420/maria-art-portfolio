@@ -1093,6 +1093,8 @@ body.dark-scroll .admin-link {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    width: 100%;
+    max-width: 400px;
     box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.2),
@@ -1911,12 +1913,13 @@ h1, h2, h3 {
         gap: 2rem;
         max-width: 1000px;
         width: 100%;
+        margin: 0 auto;
     }
     
     .contact-card {
         width: 100%;
         max-width: 400px;
-        margin: 0 auto;
+        margin: 0;
     }
 }
 
