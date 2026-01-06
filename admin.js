@@ -128,7 +128,7 @@ class ArtAdmin {
                     } else if (sectionId === 'poetry-management') {
                         this.loadPoetry();
                     } else if (sectionId === 'edit-content-section') {
-                        this.loadSiteContent();
+                        await this.loadSiteContent();
                     }
                 }
             });
@@ -139,9 +139,9 @@ class ArtAdmin {
         });
 
         // Artwork form
-        document.getElementById('artworkForm').addEventListener('submit', (e) => {
+        document.getElementById('artworkForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            this.handleArtworkSubmit();
+            await this.handleArtworkSubmit();
         });
 
         document.getElementById('cancelAdd').addEventListener('click', () => {
@@ -152,9 +152,9 @@ class ArtAdmin {
         });
 
         // Poetry form
-        document.getElementById('poetryForm').addEventListener('submit', (e) => {
+        document.getElementById('poetryForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            this.handlePoetrySubmit();
+            await this.handlePoetrySubmit();
         });
 
         document.getElementById('cancelPoetryAdd').addEventListener('click', () => {
@@ -164,9 +164,9 @@ class ArtAdmin {
         });
 
         // Content form
-        document.getElementById('contentForm').addEventListener('submit', (e) => {
+        document.getElementById('contentForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            this.handleContentSubmit();
+            await this.handleContentSubmit();
         });
 
         document.getElementById('cancelContentEdit').addEventListener('click', () => {
@@ -327,7 +327,7 @@ class ArtAdmin {
         alert(`Edit functionality for "${artwork.title}" would open here. This would include pre-filling the form with existing data.`);
     }
 
-    deleteArtwork(index) {
+    async deleteArtwork(index) {
         const artwork = this.artworks[index];
         if (confirm(`Are you sure you want to delete "${artwork.title}"?`)) {
             this.artworks.splice(index, 1);
@@ -552,7 +552,7 @@ class ArtAdmin {
         document.getElementById('aboutParagraph2').value = content.aboutParagraph2;
     }
 
-    handleContentSubmit() {
+    async handleContentSubmit() {
         const content = {
             heroHeading: document.getElementById('heroHeading').value,
             heroParagraph: document.getElementById('heroParagraph').value,
