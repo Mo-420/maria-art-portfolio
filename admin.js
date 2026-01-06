@@ -296,7 +296,7 @@ class ArtAdmin {
 
         // Convert image to base64 for storage
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = async (e) => {
             const artwork = {
                 id: Date.now(),
                 title: formData.get('title'),
@@ -327,7 +327,7 @@ class ArtAdmin {
         alert(`Edit functionality for "${artwork.title}" would open here. This would include pre-filling the form with existing data.`);
     }
 
-    async     async deleteArtwork(index) {
+    async deleteArtwork(index) {
         const artwork = this.artworks[index];
         if (confirm(`Are you sure you want to delete "${artwork.title}"?`)) {
             this.artworks.splice(index, 1);
@@ -535,7 +535,7 @@ class ArtAdmin {
     }
 
     async loadSiteContent() {
-        const content = await this.dataAPI.getSiteContent();
+        let content = await this.dataAPI.getSiteContent();
         if (!content || Object.keys(content).length === 0) {
             content = {
                 heroHeading: "Welcome to Maria's Art World",
