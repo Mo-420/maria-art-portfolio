@@ -1,20 +1,7 @@
-name = "maria-art-portfolio"
+name = "maria-art-data-api"
+main = "cloudflare-worker.js"
 compatibility_date = "2024-01-01"
 
-[env.production]
-name = "maria-art-portfolio"
-compatibility_date = "2024-01-01"
-
-# Pages configuration
-pages_build_output_dir = "."
-
-# Custom domains
-[[env.production.routes]]
-pattern = "maryilu.com/*"
-custom_domain = true
-
-[[env.production.routes]]
-pattern = "www.maryilu.com/*"
-custom_domain = true
-
-
+[[kv_namespaces]]
+binding = "ART_DATA"
+id = "a4b2ecc13ea74e13b4aa14e329d6892f"

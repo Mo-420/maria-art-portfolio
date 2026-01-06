@@ -2,15 +2,197 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maria's Art Admin</title>
-    <script>
-        // Redirect to admin.html
-        window.location.href = 'admin.html';
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0, minimum-scale=0.5">
+    <title>Maria's Art Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <p>Redirecting to admin portal...</p>
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <div class="logo">
+                <h1>Maria's Art</h1>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="#home" role="menuitem">Home</a></li>
+                <li role="none"><a href="#gallery" role="menuitem">Gallery</a></li>
+                <li role="none"><a href="#poetry" role="menuitem">Poetry</a></li>
+                <li role="none"><a href="#about" role="menuitem">About</a></li>
+                <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main" id="main-content">
+        <section id="home" class="hero section-light" aria-labelledby="hero-heading">
+            <div class="hero-content">
+                <h2 id="hero-heading">Welcome to Maria's Art World</h2>
+                <p>Discover the beauty of contemporary art through Maria's unique perspective</p>
+                <a href="#gallery" class="cta-button" aria-label="View Maria's art gallery">View Gallery</a>
+            </div>
+        </section>
+
+        <section id="gallery" class="gallery section-light" aria-labelledby="gallery-heading">
+            <h2 id="gallery-heading">Art Gallery</h2>
+            <div class="gallery-filters" role="group" aria-label="Filter artworks">
+                <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+                <button class="filter-btn" data-filter="2024" aria-pressed="false">2024</button>
+                <button class="filter-btn" data-filter="2023" aria-pressed="false">2023</button>
+                <button class="filter-btn" data-filter="available" aria-pressed="false">Available</button>
+            </div>
+            <div class="gallery-grid" id="galleryGrid" role="grid" aria-label="Artwork gallery">
+                <!-- Artworks will be loaded dynamically -->
+            </div>
+        </section>
+
+        <section id="poetry" class="poetry section-dark" aria-labelledby="poetry-heading">
+            <h2 id="poetry-heading">Poetry</h2>
+            <p class="section-subtitle">Words that dance with colors and emotions</p>
+            <div class="poetry-grid" role="list" aria-label="Poetry collection">
+                <article class="poem-card" role="listitem">
+                    <h3>Urban Dreams</h3>
+                    <div class="poem-content">
+                        <p>In the city's heartbeat,<br>
+                        Where shadows meet light,<br>
+                        I paint my dreams<br>
+                        In colors bold and bright.</p>
+                    </div>
+                    <div class="poem-meta">
+                        <time class="poem-date" datetime="2024-03">March 2024</time>
+                        <span class="poem-theme" aria-label="Theme: Urban Life">Urban Life</span>
+                    </div>
+                </article>
+                
+                <article class="poem-card" role="listitem">
+                    <h3>Nature's Whisper</h3>
+                    <div class="poem-content">
+                        <p>Through the trees,<br>
+                        A gentle breeze,<br>
+                        Nature speaks<br>
+                        In silent ease.</p>
+                    </div>
+                    <div class="poem-meta">
+                        <time class="poem-date" datetime="2024-02">February 2024</time>
+                        <span class="poem-theme" aria-label="Theme: Nature">Nature</span>
+                    </div>
+                </article>
+                
+                <article class="poem-card" role="listitem">
+                    <h3>Creative Fire</h3>
+                    <div class="poem-content">
+                        <p>In my studio,<br>
+                        Where magic flows,<br>
+                        Every brushstroke<br>
+                        A story grows.</p>
+                    </div>
+                    <div class="poem-meta">
+                        <time class="poem-date" datetime="2024-01">January 2024</time>
+                        <span class="poem-theme" aria-label="Theme: Art & Creation">Art & Creation</span>
+                    </div>
+                </article>
+                
+                <article class="poem-card" role="listitem">
+                    <h3>Evening Light</h3>
+                    <div class="poem-content">
+                        <p>As day turns to night,<br>
+                        Golden hour's glow,<br>
+                        Captures the soul<br>
+                        Of all we know.</p>
+                    </div>
+                    <div class="poem-meta">
+                        <time class="poem-date" datetime="2023-12">December 2023</time>
+                        <span class="poem-theme" aria-label="Theme: Time & Light">Time & Light</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="about" class="about section-dark" aria-labelledby="about-heading">
+            <div class="about-content">
+                <h2 id="about-heading">About Maria</h2>
+                <p>Maria is a passionate artist who explores the intersection of color, emotion, and form. Her work reflects a deep connection to nature and urban life, creating pieces that speak to the soul.</p>
+                <p>With over 10 years of experience in various mediums, Maria continues to push the boundaries of contemporary art.</p>
+            </div>
+        </section>
+
+        <section id="contact" class="contact section-dark" aria-labelledby="contact-heading">
+            <h2 id="contact-heading">Get In Touch</h2>
+            
+            <div class="contact-grid" role="list" aria-label="Contact methods">
+                <div class="contact-card" role="listitem">
+                    <div class="contact-icon" aria-hidden="true">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Instagram</h3>
+                    <p>Follow my latest artwork and behind-the-scenes content</p>
+                    <a href="https://www.instagram.com/marialuisas_arttt" target="_blank" rel="noopener" class="contact-link" aria-label="Follow Maria on Instagram">
+                        @marialuisas_arttt
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="section-dark">
+        <p>&copy; 2024 Maria's Art Portfolio. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Load site content from API
+        async function loadSiteContent() {
+            try {
+                const dataAPI = new DataAPI();
+                const content = await dataAPI.getSiteContent();
+                
+                if (content.heroHeading) {
+                    const heroHeading = document.getElementById('hero-heading');
+                    if (heroHeading) heroHeading.textContent = content.heroHeading;
+                }
+                
+                if (content.heroParagraph) {
+                    const heroParagraph = document.querySelector('#home .hero-content p');
+                    if (heroParagraph) heroParagraph.textContent = content.heroParagraph;
+                }
+                
+                if (content.aboutParagraph1 || content.aboutParagraph2) {
+                    const aboutParagraphs = document.querySelectorAll('#about .about-content p');
+                    if (aboutParagraphs.length > 0 && content.aboutParagraph1) {
+                        aboutParagraphs[0].textContent = content.aboutParagraph1;
+                    }
+                    if (aboutParagraphs.length > 1 && content.aboutParagraph2) {
+                        aboutParagraphs[1].textContent = content.aboutParagraph2;
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading site content:', e);
+            }
+        }
+        
+        // Load on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadSiteContent);
+        } else {
+            loadSiteContent();
+        }
+        
+        // Also listen for storage events to update when admin makes changes
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'siteContent') {
+                loadSiteContent();
+            }
+        });
+    </script>
+    <script src="data-api.js"></script>
+    <script src="sample-data.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-

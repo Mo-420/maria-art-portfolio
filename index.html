@@ -147,10 +147,11 @@
     </footer>
 
     <script>
-        // Load site content from localStorage
-        function loadSiteContent() {
+        // Load site content from API
+        async function loadSiteContent() {
             try {
-                const content = JSON.parse(localStorage.getItem('siteContent')) || {};
+                const dataAPI = new DataAPI();
+                const content = await dataAPI.getSiteContent();
                 
                 if (content.heroHeading) {
                     const heroHeading = document.getElementById('hero-heading');
@@ -190,6 +191,7 @@
             }
         });
     </script>
+    <script src="data-api.js"></script>
     <script src="sample-data.js"></script>
     <script src="script.js"></script>
 </body>

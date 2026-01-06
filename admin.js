@@ -1,11 +1,25 @@
 // Admin Portal JavaScript
 class ArtAdmin {
     constructor() {
-        this.artworks = JSON.parse(localStorage.getItem('artworks')) || [];
-        this.poetry = JSON.parse(localStorage.getItem('poetry')) || [];
+        this.dataAPI = new DataAPI();
+        this.artworks = [];
+        this.poetry = [];
+        this.siteContent = {};
         this.currentUser = null;
-        this.loadSampleData();
+        this.loadData();
         this.init();
+    }
+
+    async loadData() {
+        // Load from API (with localStorage fallback)
+        this.artworks = await this.dataAPI.getArtworks();
+        this.poetry = await this.dataAPI.getPoetry();
+        this.siteContent = await this.dataAPI.getSiteContent();
+        
+        // If no data, load sample data
+        if (this.artworks.length === 0 && this.poetry.length === 0) {
+            this.loadSampleData();
+        }
     }
 
     loadSampleData() {
@@ -271,7 +285,7 @@ class ArtAdmin {
         }
     }
 
-    handleArtworkSubmit() {
+    async handleArtworkSubmit() {
         const formData = new FormData(document.getElementById('artworkForm'));
         const imageFile = document.getElementById('artworkImage').files[0];
 
@@ -295,7 +309,7 @@ class ArtAdmin {
             };
 
             this.artworks.push(artwork);
-            this.saveArtworks();
+            await this.saveArtworks();
             this.loadArtworks();
             this.showSection('artwork-management');
             this.updateActiveNav('view-artworks');
@@ -317,21 +331,20 @@ class ArtAdmin {
         const artwork = this.artworks[index];
         if (confirm(`Are you sure you want to delete "${artwork.title}"?`)) {
             this.artworks.splice(index, 1);
-            this.saveArtworks();
+            await this.saveArtworks();
             this.loadArtworks();
             alert('Artwork deleted successfully!');
         }
     }
 
-    saveArtworks() {
-        localStorage.setItem('artworks', JSON.stringify(this.artworks));
-        // Also update the public gallery
-        this.updatePublicGallery();
+    async saveArtworks() {
+        // Save to API (with localStorage fallback)
+        await this.dataAPI.saveArtworks(this.artworks);
+        console.log('Artworks saved to API');
     }
 
     updatePublicGallery() {
-        // This would typically be handled by a backend API
-        // For now, we'll just store in localStorage and the public site will read from there
+        // Data is now stored in Cloudflare KV, accessible globally
         console.log('Artworks updated:', this.artworks);
     }
 
@@ -472,7 +485,7 @@ class ArtAdmin {
         return div;
     }
 
-    handlePoetrySubmit() {
+    async handlePoetrySubmit() {
         const formData = new FormData(document.getElementById('poetryForm'));
         
         const poem = {
@@ -485,11 +498,11 @@ class ArtAdmin {
         };
 
         this.poetry.push(poem);
-        this.savePoetry();
-        this.loadPoetry();
-        this.showSection('poetry-management');
-        this.updateActiveNav('view-poetry');
-        document.getElementById('poetryForm').reset();
+            await this.savePoetry();
+            this.loadPoetry();
+            this.showSection('poetry-management');
+            this.updateActiveNav('view-poetry');
+            document.getElementById('poetryForm').reset();
         
         alert('Poetry added successfully!');
     }
@@ -504,31 +517,34 @@ class ArtAdmin {
         const poem = this.poetry[index];
         if (confirm(`Are you sure you want to delete "${poem.title}"?`)) {
             this.poetry.splice(index, 1);
-            this.savePoetry();
+            await this.savePoetry();
             this.loadPoetry();
             alert('Poetry deleted successfully!');
         }
     }
 
-    savePoetry() {
-        localStorage.setItem('poetry', JSON.stringify(this.poetry));
-        // Also update the public gallery
-        this.updatePublicPoetry();
+    async savePoetry() {
+        // Save to API (with localStorage fallback)
+        await this.dataAPI.savePoetry(this.poetry);
+        console.log('Poetry saved to API');
     }
 
     updatePublicPoetry() {
-        // This would typically be handled by a backend API
-        // For now, we'll just store in localStorage and the public site will read from there
+        // Data is now stored in Cloudflare KV, accessible globally
         console.log('Poetry updated:', this.poetry);
     }
 
-    loadSiteContent() {
-        const content = JSON.parse(localStorage.getItem('siteContent')) || {
-            heroHeading: "Welcome to Maria's Art World",
-            heroParagraph: "Discover the beauty of contemporary art through Maria's unique perspective",
-            aboutParagraph1: "Maria is a passionate artist who explores the intersection of color, emotion, and form. Her work reflects a deep connection to nature and urban life, creating pieces that speak to the soul.",
-            aboutParagraph2: "With over 10 years of experience in various mediums, Maria continues to push the boundaries of contemporary art."
-        };
+    async loadSiteContent() {
+        const content = await this.dataAPI.getSiteContent();
+        if (!content || Object.keys(content).length === 0) {
+            content = {
+                heroHeading: "Welcome to Maria's Art World",
+                heroParagraph: "Discover the beauty of contemporary art through Maria's unique perspective",
+                aboutParagraph1: "Maria is a passionate artist who explores the intersection of color, emotion, and form. Her work reflects a deep connection to nature and urban life, creating pieces that speak to the soul.",
+                aboutParagraph2: "With over 10 years of experience in various mediums, Maria continues to push the boundaries of contemporary art."
+            };
+        }
+        this.siteContent = content;
 
         document.getElementById('heroHeading').value = content.heroHeading;
         document.getElementById('heroParagraph').value = content.heroParagraph;
@@ -544,7 +560,8 @@ class ArtAdmin {
             aboutParagraph2: document.getElementById('aboutParagraph2').value
         };
 
-        localStorage.setItem('siteContent', JSON.stringify(content));
+        await this.dataAPI.saveSiteContent(content);
+        this.siteContent = content;
         alert('Site content updated successfully! Changes will appear on the main site.');
         
         // Return to artworks view

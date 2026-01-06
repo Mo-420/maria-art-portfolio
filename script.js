@@ -1,8 +1,14 @@
 // Gallery Management
 class ArtGallery {
     constructor() {
-        this.artworks = JSON.parse(localStorage.getItem('artworks')) || [];
+        this.dataAPI = new DataAPI();
+        this.artworks = [];
         this.currentFilter = 'all';
+        this.loadArtworksData();
+    }
+
+    async loadArtworksData() {
+        this.artworks = await this.dataAPI.getArtworks();
         this.init();
     }
 
@@ -621,7 +627,13 @@ document.addEventListener('mouseenter', (e) => {
 // Poetry Management
 class PoetryManager {
     constructor() {
-        this.poetry = JSON.parse(localStorage.getItem('poetry')) || [];
+        this.dataAPI = new DataAPI();
+        this.poetry = [];
+        this.loadPoetryData();
+    }
+
+    async loadPoetryData() {
+        this.poetry = await this.dataAPI.getPoetry();
         this.init();
     }
 
