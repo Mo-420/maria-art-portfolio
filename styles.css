@@ -2204,6 +2204,11 @@ h1, h2, h3 {
 }
 
 .contact-icon svg {
+    width: 56px;
+    height: 56px;
+}
+
+.contact-icon svg {
     width: 64px;
     height: 64px;
     color: currentColor;
