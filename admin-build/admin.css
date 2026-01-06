@@ -794,11 +794,31 @@
         text-align: center;
         padding: 1rem;
         gap: 1rem;
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        box-sizing: border-box;
     }
     
     .admin-header h1 {
         font-size: 1.5rem;
         margin: 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .header-content {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .logout-btn {
+        width: 100%;
+        max-width: 200px;
     }
     
     .admin-nav {
@@ -807,6 +827,8 @@
         gap: 0.75rem;
         width: 100%;
         max-width: 100%;
+        margin: 0 auto;
+        justify-items: stretch;
     }
     
     .nav-btn,
@@ -824,6 +846,10 @@
     
     .management-section {
         padding: 1.5rem 1rem;
+        margin-top: 1rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
     
     .section-header h2 {
