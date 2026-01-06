@@ -1,8 +1,14 @@
 {
   "appId": "com.maria.art.admin",
   "appName": "Maria's Art Admin",
-  "webDir": "admin-build",
   "server": {
+    "url": "https://maryilu.com/admin.html",
+    "cleartext": false,
     "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false
   }
 }

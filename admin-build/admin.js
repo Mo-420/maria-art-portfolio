@@ -99,33 +99,25 @@ class ArtAdmin {
             this.handleLogin();
         });
 
-        // Navigation
-        document.getElementById('view-artworks').addEventListener('click', () => {
-            this.showSection('artwork-management');
-            this.updateActiveNav('view-artworks');
-            this.loadArtworks();
-        });
-
-        document.getElementById('add-artwork').addEventListener('click', () => {
-            this.showSection('add-artwork-section');
-            this.updateActiveNav('add-artwork');
-        });
-
-        document.getElementById('view-poetry').addEventListener('click', () => {
-            this.showSection('poetry-management');
-            this.updateActiveNav('view-poetry');
-            this.loadPoetry();
-        });
-
-        document.getElementById('add-poetry').addEventListener('click', () => {
-            this.showSection('add-poetry-section');
-            this.updateActiveNav('add-poetry');
-        });
-
-        document.getElementById('edit-content').addEventListener('click', () => {
-            this.showSection('edit-content-section');
-            this.updateActiveNav('edit-content');
-            this.loadSiteContent();
+        // Navigation - improved with data attributes
+        const navButtons = document.querySelectorAll('.nav-btn');
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const sectionId = btn.getAttribute('data-section');
+                if (sectionId) {
+                    this.showSection(sectionId);
+                    this.updateActiveNav(btn.id);
+                    
+                    // Load data when switching to view sections
+                    if (sectionId === 'artwork-management') {
+                        this.loadArtworks();
+                    } else if (sectionId === 'poetry-management') {
+                        this.loadPoetry();
+                    } else if (sectionId === 'edit-content-section') {
+                        this.loadSiteContent();
+                    }
+                }
+            });
         });
 
         document.getElementById('logout').addEventListener('click', () => {
