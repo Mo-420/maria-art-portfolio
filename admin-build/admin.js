@@ -116,7 +116,7 @@ class ArtAdmin {
         // Navigation - improved with data attributes
         const navButtons = document.querySelectorAll('.nav-btn');
         navButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', async () => {
                 const sectionId = btn.getAttribute('data-section');
                 if (sectionId) {
                     this.showSection(sectionId);
@@ -327,7 +327,7 @@ class ArtAdmin {
         alert(`Edit functionality for "${artwork.title}" would open here. This would include pre-filling the form with existing data.`);
     }
 
-    async deleteArtwork(index) {
+    async     async deleteArtwork(index) {
         const artwork = this.artworks[index];
         if (confirm(`Are you sure you want to delete "${artwork.title}"?`)) {
             this.artworks.splice(index, 1);
@@ -498,11 +498,11 @@ class ArtAdmin {
         };
 
         this.poetry.push(poem);
-            await this.savePoetry();
-            this.loadPoetry();
-            this.showSection('poetry-management');
-            this.updateActiveNav('view-poetry');
-            document.getElementById('poetryForm').reset();
+        await this.savePoetry();
+        this.loadPoetry();
+        this.showSection('poetry-management');
+        this.updateActiveNav('view-poetry');
+        document.getElementById('poetryForm').reset();
         
         alert('Poetry added successfully!');
     }
@@ -513,7 +513,7 @@ class ArtAdmin {
         alert(`Edit functionality for "${poem.title}" would open here. This would include pre-filling the form with existing data.`);
     }
 
-    deletePoem(index) {
+    async deletePoem(index) {
         const poem = this.poetry[index];
         if (confirm(`Are you sure you want to delete "${poem.title}"?`)) {
             this.poetry.splice(index, 1);
