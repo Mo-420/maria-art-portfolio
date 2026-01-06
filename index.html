@@ -146,6 +146,32 @@
         <p>&copy; 2024 Maria's Art Portfolio. All rights reserved.</p>
     </footer>
 
+    <script>
+        // Load site content from localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const content = JSON.parse(localStorage.getItem('siteContent')) || {};
+            
+            if (content.heroHeading) {
+                const heroHeading = document.getElementById('hero-heading');
+                if (heroHeading) heroHeading.textContent = content.heroHeading;
+            }
+            
+            if (content.heroParagraph) {
+                const heroParagraph = document.querySelector('#home .hero-content p');
+                if (heroParagraph) heroParagraph.textContent = content.heroParagraph;
+            }
+            
+            if (content.aboutParagraph1 || content.aboutParagraph2) {
+                const aboutParagraphs = document.querySelectorAll('#about .about-content p');
+                if (aboutParagraphs.length > 0 && content.aboutParagraph1) {
+                    aboutParagraphs[0].textContent = content.aboutParagraph1;
+                }
+                if (aboutParagraphs.length > 1 && content.aboutParagraph2) {
+                    aboutParagraphs[1].textContent = content.aboutParagraph2;
+                }
+            }
+        });
+    </script>
     <script src="sample-data.js"></script>
     <script src="script.js"></script>
 </body>
