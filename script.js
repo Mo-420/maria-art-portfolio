@@ -10,6 +10,18 @@ class ArtGallery {
     async loadArtworksData() {
         this.artworks = await this.dataAPI.getArtworks();
         this.init();
+        
+        // Reload artworks when page becomes visible (user switches back to tab)
+        document.addEventListener('visibilitychange', async () => {
+            if (!document.hidden) {
+                const freshArtworks = await this.dataAPI.getArtworks();
+                // Only reload if data has changed
+                if (JSON.stringify(freshArtworks) !== JSON.stringify(this.artworks)) {
+                    this.artworks = freshArtworks;
+                    this.loadArtworks();
+                }
+            }
+        });
     }
 
     init() {
@@ -619,9 +631,10 @@ document.addEventListener('mousemove', (e) => {
 
 // Add cursor glow effect to interactive elements
 document.addEventListener('mouseenter', (e) => {
-    if (e.target.closest('.artwork, .cta-button, .filter-btn, .nav-links a, .contact-item')) {
-        e.target.closest('.artwork, .cta-button, .filter-btn, .nav-links a, .contact-item').style.cursor = 'pointer';
-    }
+    const target = e.target;
+    if (!(target instanceof Element)) return;
+    const clickable = target.closest('.artwork, .cta-button, .filter-btn, .nav-links a, .contact-item');
+    if (clickable) clickable.style.cursor = 'pointer';
 }, true);
 
 // Poetry Management
@@ -635,6 +648,18 @@ class PoetryManager {
     async loadPoetryData() {
         this.poetry = await this.dataAPI.getPoetry();
         this.init();
+        
+        // Reload poetry when page becomes visible (user switches back to tab)
+        document.addEventListener('visibilitychange', async () => {
+            if (!document.hidden) {
+                const freshPoetry = await this.dataAPI.getPoetry();
+                // Only reload if data has changed
+                if (JSON.stringify(freshPoetry) !== JSON.stringify(this.poetry)) {
+                    this.poetry = freshPoetry;
+                    this.loadPoetry();
+                }
+            }
+        });
     }
 
     init() {
