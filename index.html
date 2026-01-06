@@ -148,27 +148,45 @@
 
     <script>
         // Load site content from localStorage
-        document.addEventListener('DOMContentLoaded', () => {
-            const content = JSON.parse(localStorage.getItem('siteContent')) || {};
-            
-            if (content.heroHeading) {
-                const heroHeading = document.getElementById('hero-heading');
-                if (heroHeading) heroHeading.textContent = content.heroHeading;
-            }
-            
-            if (content.heroParagraph) {
-                const heroParagraph = document.querySelector('#home .hero-content p');
-                if (heroParagraph) heroParagraph.textContent = content.heroParagraph;
-            }
-            
-            if (content.aboutParagraph1 || content.aboutParagraph2) {
-                const aboutParagraphs = document.querySelectorAll('#about .about-content p');
-                if (aboutParagraphs.length > 0 && content.aboutParagraph1) {
-                    aboutParagraphs[0].textContent = content.aboutParagraph1;
+        function loadSiteContent() {
+            try {
+                const content = JSON.parse(localStorage.getItem('siteContent')) || {};
+                
+                if (content.heroHeading) {
+                    const heroHeading = document.getElementById('hero-heading');
+                    if (heroHeading) heroHeading.textContent = content.heroHeading;
                 }
-                if (aboutParagraphs.length > 1 && content.aboutParagraph2) {
-                    aboutParagraphs[1].textContent = content.aboutParagraph2;
+                
+                if (content.heroParagraph) {
+                    const heroParagraph = document.querySelector('#home .hero-content p');
+                    if (heroParagraph) heroParagraph.textContent = content.heroParagraph;
                 }
+                
+                if (content.aboutParagraph1 || content.aboutParagraph2) {
+                    const aboutParagraphs = document.querySelectorAll('#about .about-content p');
+                    if (aboutParagraphs.length > 0 && content.aboutParagraph1) {
+                        aboutParagraphs[0].textContent = content.aboutParagraph1;
+                    }
+                    if (aboutParagraphs.length > 1 && content.aboutParagraph2) {
+                        aboutParagraphs[1].textContent = content.aboutParagraph2;
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading site content:', e);
+            }
+        }
+        
+        // Load on DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadSiteContent);
+        } else {
+            loadSiteContent();
+        }
+        
+        // Also listen for storage events to update when admin makes changes
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'siteContent') {
+                loadSiteContent();
             }
         });
     </script>
