@@ -221,11 +221,17 @@
     color: #1c1c1e;
     padding: 1.25rem 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    position: sticky;
-    top: 0;
+    /* Override global site `header { left:50%; transform:translateX(-50%); position:fixed; ... }` from styles.css */
+    position: sticky !important;
+    top: 0 !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    border-radius: 0 !important;
     z-index: 100;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    width: 100%;
     box-sizing: border-box;
     margin: 0;
 }
@@ -252,6 +258,9 @@
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 0.5rem;
     width: 100%;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
 }
 
 .nav-btn {
