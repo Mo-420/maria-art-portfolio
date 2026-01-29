@@ -73,7 +73,7 @@
             <section id="artwork-management" class="management-section">
                 <div class="section-header">
                     <h2>Manage Existing Artworks</h2>
-                    <p class="section-subtitle">Upload, edit, and organize your art collection</p>
+                    <p class="section-subtitle">Upload, edit, and organize your art collection. Changes sync to the live site and to the app—existing APK users see updates when they open the app.</p>
                 </div>
                 <div class="artwork-list" id="artworkList">
                     <!-- Artworks will be loaded here dynamically -->
@@ -115,7 +115,7 @@
                     <div class="form-group">
                         <label for="artworkImage">Upload Image:</label>
                         <div class="image-upload-container">
-                            <input type="file" id="artworkImage" name="image" accept="image/*" capture="environment">
+                            <input type="file" id="artworkImage" name="image" accept="image/*">
                             <button type="button" id="cameraBtn" class="camera-btn">📷 Take Photo</button>
                             <button type="button" id="galleryBtn" class="gallery-btn">🖼️ Choose from Gallery</button>
                         </div>
@@ -125,7 +125,7 @@
                     <div class="form-group">
                         <label for="artworkImageUrl">Or Image URL (optional):</label>
                         <input type="url" id="artworkImageUrl" name="imageUrl" placeholder="https://...">
-                        <p class="form-help">Tip: on Android you can upload from camera/gallery. This URL field is mainly for quick testing.</p>
+                        <p class="form-help">Tip: use “Take Photo” for a new shot or “Choose from Gallery” to pick an existing image. URL field is for quick testing.</p>
                     </div>
 
                     <div class="form-actions">
