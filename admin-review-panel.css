@@ -1,0 +1,89 @@
+/* Review panel fixes for the Maryilu Studio shell. */
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.admin-container,
+.admin-dashboard,
+.management-section,
+.admin-header,
+.header-content,
+.admin-nav,
+.admin-mode-strip {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.admin-nav .nav-btn,
+.logout-btn,
+.admin-mode-pill,
+.site-editor-tab,
+.editor-lang-tab {
+    min-height: 44px !important;
+}
+
+@media (max-width: 900px) {
+    body .admin-container {
+        padding: 0.75rem !important;
+    }
+
+    body .admin-dashboard {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    body .admin-header {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        border-radius: 8px !important;
+    }
+
+    body .header-content {
+        gap: 0.75rem !important;
+        flex-wrap: wrap !important;
+    }
+
+    body .admin-nav {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 0.55rem !important;
+        overflow: visible !important;
+    }
+
+    body .admin-nav .nav-btn {
+        min-width: 0 !important;
+        min-height: 44px !important;
+        white-space: normal !important;
+    }
+
+    body .admin-mode-strip,
+    body .studio-dashboard-grid,
+    body .settings-grid,
+    body .lead-toolbar,
+    body .site-editor-options {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    body .site-editor-card,
+    body .settings-card,
+    body .studio-dashboard-card,
+    body .lead-toolbar,
+    body .shop-upload-composer {
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 520px) {
+    body .admin-nav {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    body .login-box {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}

@@ -1,11 +1,20 @@
 // Service Worker for Maria's Art Admin PWA
-const CACHE_NAME = 'maria-art-admin-v5';
+const CACHE_NAME = 'maryilu-site-v27-warm-studio';
 
 // Keep the precache list minimal to avoid pinning old app code.
 const urlsToCache = [
   '/',
   '/index.html',
+  '/checkout-success.html',
   '/admin.html',
+  '/admin.css',
+  '/admin.js',
+  '/data-api.js',
+  '/instagram-fixtures.js',
+  '/store-warm.css',
+  '/portfolio.css',
+  '/portfolio.js',
+  '/site-data.js',
   '/manifest.json'
 ];
 
@@ -34,7 +43,12 @@ self.addEventListener('fetch', event => {
     url.hostname.endsWith('workers.dev') ||
     url.pathname === '/artworks' ||
     url.pathname === '/poetry' ||
-    url.pathname === '/site-content'
+    url.pathname === '/site-content' ||
+    url.pathname === '/instagram-media' ||
+    url.pathname === '/shop-items' ||
+    url.pathname.startsWith('/checkout/') ||
+    url.pathname === '/stripe-webhook' ||
+    url.pathname.startsWith('/order-requests')
   ) {
     event.respondWith(fetch(req, { cache: 'no-store' }));
     return;
@@ -97,32 +111,3 @@ self.addEventListener('activate', event => {
   );
   self.clients.claim();
 });
-
-// Handle background sync for offline artwork submissions
-self.addEventListener('sync', event => {
-  if (event.tag === 'background-sync') {
-    event.waitUntil(doBackgroundSync());
-  }
-});
-
-function doBackgroundSync() {
-  // Handle offline submissions when connection is restored
-  return new Promise((resolve) => {
-    // Check for pending submissions in localStorage
-    const pendingSubmissions = JSON.parse(localStorage.getItem('pendingSubmissions') || '[]');
-    
-    if (pendingSubmissions.length > 0) {
-      // Process pending submissions
-      pendingSubmissions.forEach(submission => {
-        // Sync with server when online
-        console.log('Syncing pending submission:', submission);
-      });
-      
-      // Clear pending submissions
-      localStorage.removeItem('pendingSubmissions');
-    }
-    
-    resolve();
-  });
-}
-

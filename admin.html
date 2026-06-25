@@ -2,53 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Maria's Art - Admin Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Maryilu - Admin Portal</title>
     <meta name="robots" content="noindex, nofollow, noarchive">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260106c">
-    <link rel="stylesheet" href="admin.css?v=20260106c">
-    <script src="data-api.js?v=20260106c"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=20260617-admin">
+    <link rel="stylesheet" href="admin.css?v=20260624-rose-store-images-2">
+    <link rel="stylesheet" href="admin-review-panel.css?v=20260624-review-panel">
+    <link rel="stylesheet" href="maryilu-pro-max.css?v=20260624-premium-palette-cleanup5">
+    <link rel="stylesheet" href="admin-store-images.css?v=20260624-store-image-manager-3">
+    <script src="data-api.js?v=20260624-warm-store-images"></script>
+    <script src="site-data.js?v=20260624-transforming-store"></script>
     
     <!-- PWA Meta Tags -->
-    <meta name="application-name" content="Maria's Art Admin">
+    <meta name="application-name" content="Maryilu Admin">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Maria's Art Admin">
-    <meta name="description" content="Maria's Art Portfolio Admin Portal - Manage artworks and poetry">
+    <meta name="apple-mobile-web-app-title" content="Maryilu Admin">
+    <meta name="description" content="Maryilu admin portal - manage shop items, order requests, artwork, and poetry">
     <meta name="format-detection" content="telephone=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="msapplication-config" content="/icons/browserconfig.xml">
-    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="msapplication-TileColor" content="#061115">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="theme-color" content="#667eea">
+    <meta name="theme-color" content="#061115">
     
     <!-- PWA Icons -->
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="/heart-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/heart-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/heart-icon.png">
     <link rel="manifest" href="/manifest.json">
-    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#667eea">
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/heart-icon.png">
 </head>
 <body>
-    <div class="admin-container">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="admin-container" id="main-content">
         <!-- Login Form -->
         <div id="login-form" class="login-container">
             <div class="login-box">
                 <h2>Artist Portal Login</h2>
+                <p class="login-subtitle">Enter the Worker admin token to manage orders, shop items, Instagram sync, and site content.</p>
                 <form id="loginForm">
                     <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" required>
+                        <label for="loginAdminToken">Admin token:</label>
+                        <input type="password" id="loginAdminToken" name="loginAdminToken" autocomplete="current-password" placeholder="Worker ADMIN_TOKEN" required>
+                        <p class="form-help">Saved only in this browser. Protect the live admin page with Cloudflare Access before production launch.</p>
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <button type="submit" class="login-btn">Login</button>
+                    <button type="submit" class="login-btn">Unlock Admin</button>
+                    <p class="login-status" id="loginStatus" aria-live="polite"></p>
                 </form>
             </div>
         </div>
@@ -57,23 +60,191 @@
         <div id="admin-dashboard" class="admin-dashboard" style="display: none;">
             <header class="admin-header">
                 <div class="header-content">
-                    <h1>Maria's Art Admin</h1>
+                    <h1>Maryilu Studio</h1>
                     <button id="logout" class="logout-btn">Logout</button>
                 </div>
                 <nav class="admin-nav">
-                    <button id="edit-content" class="nav-btn" data-section="edit-content-section">Edit Content</button>
-                    <button id="view-artworks" class="nav-btn active" data-section="artwork-management">Artworks</button>
-                    <button id="add-artwork" class="nav-btn" data-section="add-artwork-section">Add Artwork</button>
-                    <button id="view-poetry" class="nav-btn" data-section="poetry-management">Poetry</button>
-                    <button id="add-poetry" class="nav-btn" data-section="add-poetry-section">Add Poetry</button>
+                    <button id="view-dashboard" class="nav-btn nav-btn-launch active" data-section="studio-dashboard-section">Dashboard</button>
+                    <button id="edit-content" class="nav-btn nav-btn-launch" data-section="edit-content-section">Site Editor</button>
+                    <button id="view-artworks" class="nav-btn nav-btn-launch" data-section="artwork-management">Art Library</button>
+                    <button id="view-leads" class="nav-btn nav-btn-launch" data-section="lead-management">Orders</button>
+                    <button id="view-shop-items" class="nav-btn nav-btn-launch" data-section="shop-item-management">Social</button>
+                    <button id="view-settings" class="nav-btn nav-btn-launch" data-section="settings-section">Settings</button>
+                    <button id="add-artwork" class="nav-btn nav-btn-support studio-hidden-nav" data-section="add-artwork-section" data-nav-target="view-artworks" type="button">Add Artwork</button>
+                    <button id="view-poetry" class="nav-btn nav-btn-support studio-hidden-nav" data-section="poetry-management" data-nav-target="view-artworks" type="button">Poetry</button>
+                    <button id="add-poetry" class="nav-btn nav-btn-support studio-hidden-nav" data-section="add-poetry-section" data-nav-target="view-artworks" type="button">Add Poetry</button>
                 </nav>
+                <div class="admin-mode-strip" aria-label="Maryilu admin launch workspace">
+                    <article>
+                        <span>Studio flow</span>
+                        <strong>Dashboard, editor, library, orders, social, and settings stay separated.</strong>
+                    </article>
+                    <article>
+                        <span>Site editor</span>
+                        <strong>Homepage copy saves to site settings when available, with a local draft fallback.</strong>
+                    </article>
+                    <article>
+                        <span>Payment guard</span>
+                        <strong>Stripe stays reviewed before checkout appears.</strong>
+                    </article>
+                </div>
             </header>
 
-            <!-- Artwork Management Section -->
-            <section id="artwork-management" class="management-section">
+            <section id="studio-dashboard-section" class="management-section studio-dashboard-section">
+                <div class="section-header studio-section-hero">
+                    <div>
+                        <span class="studio-kicker">Maryilu Studio</span>
+                        <h2>Today’s workspace</h2>
+                        <p class="section-subtitle">A calm command center for Maria’s site, art library, customer requests, social drafts, and launch settings.</p>
+                    </div>
+                    <div class="studio-dashboard-status" id="studioDashboardStatus" aria-live="polite">Studio ready</div>
+                </div>
+                <div class="studio-dashboard-grid" id="studioDashboardCards">
+                    <button class="studio-dashboard-card" type="button" data-studio-jump="edit-content-section" data-nav-target="edit-content">
+                        <span>Site Editor</span>
+                        <strong id="dashboardEditorStatus">Local draft ready</strong>
+                        <small>Homepage copy, CTAs, trust, pricing, social, and form options.</small>
+                    </button>
+                    <button class="studio-dashboard-card" type="button" data-studio-jump="artwork-management" data-nav-target="view-artworks">
+                        <span>Art Library</span>
+                        <strong id="dashboardArtworkCount">0 works</strong>
+                        <small>Portfolio archive, upload support, and poetry tools.</small>
+                    </button>
+                    <button class="studio-dashboard-card" type="button" data-studio-jump="lead-management" data-nav-target="view-leads">
+                        <span>Orders</span>
+                        <strong id="dashboardOrderCount">Token needed</strong>
+                        <small>Custom requests and payment-link workflow.</small>
+                    </button>
+                    <button class="studio-dashboard-card" type="button" data-studio-jump="shop-item-management" data-nav-target="view-shop-items">
+                        <span>Social</span>
+                        <strong id="dashboardShopCount">Review drafts</strong>
+                        <small>Instagram sync, caption analysis, and shop review.</small>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Order Request Lead Inbox -->
+            <section id="lead-management" class="management-section" style="display: none;">
                 <div class="section-header">
-                    <h2>Manage Existing Artworks</h2>
-                    <p class="section-subtitle">Upload, edit, and organize your art collection. Changes sync to the live site and to the app—existing APK users see updates when they open the app.</p>
+                    <h2>Orders</h2>
+                    <p class="section-subtitle">Review custom order leads and move each request through Maryilu's production status pipeline.</p>
+                </div>
+                <div class="lead-toolbar">
+                    <div class="form-group">
+                        <label for="adminToken">Admin token:</label>
+                        <input type="password" id="adminToken" name="adminToken" placeholder="Worker ADMIN_TOKEN">
+                        <p class="form-help">Required for protected lead access and publishing artwork, poetry, or site content. Saved only in this browser.</p>
+                    </div>
+                    <button id="saveAdminToken" class="submit-btn" type="button">Save Token</button>
+                    <button id="refreshLeads" class="cancel-btn" type="button">Refresh Requests</button>
+                </div>
+                <div class="lead-status-message" id="leadStatusMessage" aria-live="polite"></div>
+                <div class="lead-list" id="leadList">
+                    <!-- Order requests will be loaded here dynamically -->
+                </div>
+            </section>
+
+            <section id="shop-item-management" class="management-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Social</h2>
+                    <p class="section-subtitle">Review Instagram-derived drafts, correct titles/prices, and choose what appears publicly or becomes buyable with Stripe. Priced posts stay hidden until approved.</p>
+                    <span id="workerEnvironmentBadge" class="worker-env-badge" aria-live="polite">Checking Worker</span>
+                </div>
+                <div class="launch-cockpit-panel" id="launchCockpitPanel" aria-live="polite">
+                    <div class="launch-cockpit-empty">
+                        <strong>Launch cockpit</strong>
+                        <small>Save the Worker admin token to see store, Stripe, Instagram, mobile, and production readiness in one place.</small>
+                    </div>
+                </div>
+                <div class="lead-toolbar">
+                    <div class="form-group compact-token-field">
+                        <label for="shopAdminToken">Admin token:</label>
+                        <input type="password" id="shopAdminToken" name="shopAdminToken" placeholder="Worker ADMIN_TOKEN">
+                    </div>
+                    <button id="saveShopAdminToken" class="submit-btn" type="button">Save Token</button>
+                    <button id="refreshShopItems" class="cancel-btn" type="button">Refresh Shop Items</button>
+                    <button id="syncInstagramShop" class="submit-btn" type="button">Sync Real Instagram</button>
+                    <button id="simulateInstagramSync" class="cancel-btn local-qa-btn" type="button">Run Local Test Import</button>
+                    <button id="openShopUploadComposer" class="submit-btn" type="button">Upload Art</button>
+                    <button id="addManualShopItem" class="cancel-btn" type="button">Quick Hidden Draft</button>
+                </div>
+                <form id="shopUploadForm" class="shop-upload-composer" aria-label="Upload art to the Maryilu shop">
+                    <div class="shop-upload-preview" id="shopUploadPreview">
+                        <span>Upload Art</span>
+                    </div>
+                    <div class="shop-upload-fields">
+                        <label>
+                            <span>Artwork image</span>
+                            <input type="file" id="shopUploadImage" accept="image/jpeg,image/png,image/webp" required>
+                        </label>
+                        <label>
+                            <span>Title</span>
+                            <input type="text" id="shopUploadTitle" placeholder="Hand-painted keepsake chest" required>
+                        </label>
+                        <label>
+                            <span>Category</span>
+                            <select id="shopUploadCategory">
+                                <option value="custom-gifts">Custom gift</option>
+                                <option value="keepsake-chests">Keepsake chest</option>
+                                <option value="bouquets">Ribbon bouquet</option>
+                                <option value="canvas">Canvas</option>
+                                <option value="baby-shower">Baby shower gift</option>
+                                <option value="original-art">Original art</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Price (€)</span>
+                            <input type="number" id="shopUploadPrice" min="0" step="0.01" placeholder="Optional">
+                        </label>
+                        <label class="shop-upload-caption">
+                            <span>Description</span>
+                            <textarea id="shopUploadCaption" rows="3" placeholder="Materials, occasion, colors, or story."></textarea>
+                        </label>
+                        <label class="checkbox-row shop-upload-public">
+                            <input type="checkbox" id="shopUploadPublishPublic">
+                            <span>Show publicly as request-only</span>
+                        </label>
+                    </div>
+                    <div class="shop-upload-actions">
+                        <button type="submit" class="submit-btn">Save Art Item</button>
+                        <button type="button" id="resetShopUploadForm" class="cancel-btn">Clear</button>
+                        <p id="shopUploadStatus" class="shop-upload-status" aria-live="polite"></p>
+                    </div>
+                </form>
+                <div class="agent-brief-panel" id="agentBriefPanel" aria-live="polite"></div>
+                <div class="automation-status-panel" id="automationStatusPanel" aria-live="polite"></div>
+                <div class="caption-agent-panel" aria-label="Instagram caption agent preview">
+                    <div class="caption-agent-copy">
+                        <strong>Caption agent preview</strong>
+                        <p>Analyze is read-only. Creating a hidden draft writes to the Worker shown above.</p>
+                    </div>
+                    <textarea id="captionAgentInput" rows="4" placeholder="Example: Available hand-painted keepsake chest, €250. Custom colors possible. #gift #mallorca"></textarea>
+                    <div class="caption-agent-actions">
+                        <button id="analyzeCaptionAgent" class="submit-btn" type="button">Analyze Caption</button>
+                        <button id="createCaptionDraft" class="cancel-btn" type="button" disabled>Create Hidden Draft</button>
+                    </div>
+                    <div class="caption-agent-result" id="captionAgentResult" aria-live="polite"></div>
+                </div>
+                <div class="lead-status-message" id="shopItemStatusMessage" aria-live="polite"></div>
+                <div class="shop-item-list" id="shopItemList">
+                    <div class="empty-state">
+                        <h3>Loading shop items...</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Artwork Management Section -->
+            <section id="artwork-management" class="management-section" style="display: none;">
+                <div class="section-header">
+                    <div>
+                        <h2>Art Library</h2>
+                        <p class="section-subtitle">Portfolio archive, upload support, and poetry tools for Maria’s studio catalog.</p>
+                    </div>
+                    <div class="section-actions">
+                        <button class="submit-btn" type="button" data-studio-jump="add-artwork-section" data-nav-target="view-artworks">Add Artwork</button>
+                        <button class="cancel-btn" type="button" data-studio-jump="poetry-management" data-nav-target="view-artworks">Poetry</button>
+                        <button class="cancel-btn" type="button" data-studio-jump="add-poetry-section" data-nav-target="view-artworks">Add Poem</button>
+                    </div>
                 </div>
                 <div class="artwork-list" id="artworkList">
                     <!-- Artworks will be loaded here dynamically -->
@@ -139,7 +310,7 @@
             <section id="poetry-management" class="management-section" style="display: none;">
                 <div class="section-header">
                     <h2>Manage Poetry</h2>
-                    <p class="section-subtitle">Create, edit, and organize your poetry collection</p>
+                    <p class="section-subtitle">Support area for portfolio poetry. Use Shop Items for sellable work and Order Requests for customers.</p>
                 </div>
                 <div class="poetry-list" id="poetryList">
                     <!-- Poetry will be loaded here dynamically -->
@@ -178,43 +349,509 @@
                 </form>
             </section>
 
-            <!-- Edit Site Content Section -->
+            <!-- Site Editor Section -->
             <section id="edit-content-section" class="management-section" style="display: none;">
-                <div class="section-header">
-                    <h2>Edit Site Content</h2>
-                    <p class="section-subtitle">Update hero section and about section text</p>
+                <div class="section-header studio-section-hero">
+                    <div>
+                        <span class="studio-kicker">Homepage</span>
+                        <h2>Site Editor</h2>
+                        <p class="section-subtitle">Edit the homepage copy, CTAs, trust text, pricing, social, and form settings from one studio surface.</p>
+                    </div>
+                    <div class="site-editor-source" id="siteSettingsSource">Loading settings</div>
                 </div>
-                <form id="contentForm" class="content-form">
-                    <div class="form-group">
-                        <label for="heroHeading">Hero Heading:</label>
-                        <input type="text" id="heroHeading" name="heroHeading" placeholder="Welcome to Maria's Art World" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="heroParagraph">Hero Paragraph:</label>
-                        <textarea id="heroParagraph" name="heroParagraph" rows="3" placeholder="Discover the beauty of contemporary art through Maria's unique perspective" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="aboutParagraph1">About Paragraph 1:</label>
-                        <textarea id="aboutParagraph1" name="aboutParagraph1" rows="3" placeholder="Maria is a passionate artist who explores the intersection of color, emotion, and form..." required></textarea>
+                <form id="contentForm" class="content-form site-editor-form">
+                    <div class="site-editor-toolbar">
+                        <div class="site-editor-tabs" role="tablist" aria-label="Site editor language">
+                            <button class="site-language-tab active" type="button" data-site-lang="en">English</button>
+                            <button class="site-language-tab" type="button" data-site-lang="es">Spanish</button>
+                        </div>
+                        <div class="site-editor-actions">
+                            <button type="button" id="reloadSiteSettings" class="cancel-btn">Reload</button>
+                            <button type="submit" class="submit-btn">Save Site Settings</button>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="aboutParagraph2">About Paragraph 2:</label>
-                        <textarea id="aboutParagraph2" name="aboutParagraph2" rows="3" placeholder="With over 10 years of experience in various mediums..." required></textarea>
+                    <div class="site-editor-panel" data-site-panel="en">
+                        <div class="site-editor-grid">
+                            <fieldset class="site-editor-card">
+                                <legend>Homepage copy</legend>
+                                <label for="site-en-metaTitle">Browser title</label>
+                                <input id="site-en-metaTitle" data-copy-field="metaTitle" data-lang="en" type="text">
+                                <label for="site-en-metaDescription">Search description</label>
+                                <textarea id="site-en-metaDescription" data-copy-field="metaDescription" data-lang="en" rows="3"></textarea>
+                                <label for="site-en-heroTitle">Hero headline</label>
+                                <input id="site-en-heroTitle" data-copy-field="heroTitle" data-lang="en" type="text">
+                                <label for="site-en-heroSubtitle">Hero intro</label>
+                                <textarea id="site-en-heroSubtitle" data-copy-field="heroSubtitle" data-lang="en" rows="3"></textarea>
+                                <label for="site-en-heroNote">Hero note</label>
+                                <input id="site-en-heroNote" data-copy-field="heroNote" data-lang="en" type="text">
+                            </fieldset>
+
+                            <fieldset class="site-editor-card">
+                                <legend>Portfolio copy</legend>
+                                <label for="site-en-portfolioTitle">Portfolio headline</label>
+                                <input id="site-en-portfolioTitle" data-copy-field="portfolioTitle" data-lang="en" type="text">
+                                <label for="site-en-portfolioIntro">Portfolio intro</label>
+                                <textarea id="site-en-portfolioIntro" data-copy-field="portfolioIntro" data-lang="en" rows="3"></textarea>
+                                <label for="site-en-portfolioSocialTitle">Portfolio social title</label>
+                                <input id="site-en-portfolioSocialTitle" data-copy-field="portfolioSocialTitle" data-lang="en" type="text">
+                                <label for="site-en-portfolioSocialText">Portfolio social intro</label>
+                                <textarea id="site-en-portfolioSocialText" data-copy-field="portfolioSocialText" data-lang="en" rows="2"></textarea>
+                                <label for="site-en-portfolioAboutTitle">Portfolio about title</label>
+                                <input id="site-en-portfolioAboutTitle" data-copy-field="portfolioAboutTitle" data-lang="en" type="text">
+                                <label for="site-en-portfolioAboutText">Portfolio about text</label>
+                                <textarea id="site-en-portfolioAboutText" data-copy-field="portfolioAboutText" data-lang="en" rows="3"></textarea>
+                            </fieldset>
+
+                            <fieldset class="site-editor-card">
+                                <legend>CTAs</legend>
+                                <label for="site-en-heroPrimaryAvailable">Primary button when art is available</label>
+                                <input id="site-en-heroPrimaryAvailable" data-copy-field="heroPrimaryAvailable" data-lang="en" type="text">
+                                <label for="site-en-heroPrimaryCustom">Primary button for custom path</label>
+                                <input id="site-en-heroPrimaryCustom" data-copy-field="heroPrimaryCustom" data-lang="en" type="text">
+                                <label for="site-en-heroExplore">Explore button</label>
+                                <input id="site-en-heroExplore" data-copy-field="heroExplore" data-lang="en" type="text">
+                                <label for="site-en-heroSecondary">Secondary button</label>
+                                <input id="site-en-heroSecondary" data-copy-field="heroSecondary" data-lang="en" type="text">
+                                <label for="site-en-finalCtaTitle">Final CTA title</label>
+                                <input id="site-en-finalCtaTitle" data-copy-field="finalCtaTitle" data-lang="en" type="text">
+                                <label for="site-en-finalCtaText">Final CTA text</label>
+                                <textarea id="site-en-finalCtaText" data-copy-field="finalCtaText" data-lang="en" rows="2"></textarea>
+                            </fieldset>
+
+                            <fieldset class="site-editor-card site-editor-card-wide">
+                                <legend>Trust text</legend>
+                                <label for="site-en-trustCockpitTitle">Trust headline</label>
+                                <input id="site-en-trustCockpitTitle" data-copy-field="trustCockpitTitle" data-lang="en" type="text">
+                                <label for="site-en-trustCockpitText">Trust intro</label>
+                                <textarea id="site-en-trustCockpitText" data-copy-field="trustCockpitText" data-lang="en" rows="3"></textarea>
+                                <div class="site-editor-mini-grid">
+                                    <label for="site-en-trustCockpitStepOneTitle">Step 1 title</label>
+                                    <input id="site-en-trustCockpitStepOneTitle" data-copy-field="trustCockpitStepOneTitle" data-lang="en" type="text">
+                                    <label for="site-en-trustCockpitStepOneText">Step 1 text</label>
+                                    <input id="site-en-trustCockpitStepOneText" data-copy-field="trustCockpitStepOneText" data-lang="en" type="text">
+                                    <label for="site-en-trustCockpitStepTwoTitle">Step 2 title</label>
+                                    <input id="site-en-trustCockpitStepTwoTitle" data-copy-field="trustCockpitStepTwoTitle" data-lang="en" type="text">
+                                    <label for="site-en-trustCockpitStepTwoText">Step 2 text</label>
+                                    <input id="site-en-trustCockpitStepTwoText" data-copy-field="trustCockpitStepTwoText" data-lang="en" type="text">
+                                    <label for="site-en-trustCockpitStepThreeTitle">Step 3 title</label>
+                                    <input id="site-en-trustCockpitStepThreeTitle" data-copy-field="trustCockpitStepThreeTitle" data-lang="en" type="text">
+                                    <label for="site-en-trustCockpitStepThreeText">Step 3 text</label>
+                                    <input id="site-en-trustCockpitStepThreeText" data-copy-field="trustCockpitStepThreeText" data-lang="en" type="text">
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="site-editor-card">
+                                <legend>Pricing</legend>
+                                <label for="site-en-pricesTitle">Pricing title</label>
+                                <input id="site-en-pricesTitle" data-copy-field="pricesTitle" data-lang="en" type="text">
+                                <label for="site-en-pricesText">Pricing intro</label>
+                                <textarea id="site-en-pricesText" data-copy-field="pricesText" data-lang="en" rows="2"></textarea>
+                                <label for="site-en-priceFromLabel">Price label</label>
+                                <input id="site-en-priceFromLabel" data-copy-field="priceFromLabel" data-lang="en" type="text">
+                            </fieldset>
+
+                            <fieldset class="site-editor-card">
+                                <legend>Social</legend>
+                                <label for="site-en-socialTitle">Social title</label>
+                                <input id="site-en-socialTitle" data-copy-field="socialTitle" data-lang="en" type="text">
+                                <label for="site-en-socialText">Social intro</label>
+                                <textarea id="site-en-socialText" data-copy-field="socialText" data-lang="en" rows="2"></textarea>
+                                <label for="site-en-socialFallbackText">Fallback text</label>
+                                <textarea id="site-en-socialFallbackText" data-copy-field="socialFallbackText" data-lang="en" rows="2"></textarea>
+                                <label for="site-en-instagramCta">Instagram CTA</label>
+                                <input id="site-en-instagramCta" data-copy-field="instagramCta" data-lang="en" type="text">
+                            </fieldset>
+
+                            <fieldset class="site-editor-card site-editor-card-wide">
+                                <legend>Order form</legend>
+                                <label for="site-en-orderTitle">Form title</label>
+                                <input id="site-en-orderTitle" data-copy-field="orderTitle" data-lang="en" type="text">
+                                <label for="site-en-orderIntro">Form intro</label>
+                                <textarea id="site-en-orderIntro" data-copy-field="orderIntro" data-lang="en" rows="2"></textarea>
+                                <label for="site-en-responseExpectation">Response expectation</label>
+                                <input id="site-en-responseExpectation" data-copy-field="responseExpectation" data-lang="en" type="text">
+                                <label for="site-en-depositNotice">Deposit notice</label>
+                                <input id="site-en-depositNotice" data-copy-field="depositNotice" data-lang="en" type="text">
+                                <label for="site-en-requiredNote">Required note</label>
+                                <input id="site-en-requiredNote" data-copy-field="requiredNote" data-lang="en" type="text">
+                                <label for="site-en-privacyNote">Privacy note</label>
+                                <textarea id="site-en-privacyNote" data-copy-field="privacyNote" data-lang="en" rows="2"></textarea>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="site-editor-panel" data-site-panel="es" hidden>
+                        <div class="site-editor-grid">
+                            <fieldset class="site-editor-card">
+                                <legend>Texto de inicio</legend>
+                                <label for="site-es-metaTitle">Titulo del navegador</label>
+                                <input id="site-es-metaTitle" data-copy-field="metaTitle" data-lang="es" type="text">
+                                <label for="site-es-metaDescription">Descripcion para busqueda</label>
+                                <textarea id="site-es-metaDescription" data-copy-field="metaDescription" data-lang="es" rows="3"></textarea>
+                                <label for="site-es-heroTitle">Titular hero</label>
+                                <input id="site-es-heroTitle" data-copy-field="heroTitle" data-lang="es" type="text">
+                                <label for="site-es-heroSubtitle">Intro hero</label>
+                                <textarea id="site-es-heroSubtitle" data-copy-field="heroSubtitle" data-lang="es" rows="3"></textarea>
+                                <label for="site-es-heroNote">Nota hero</label>
+                                <input id="site-es-heroNote" data-copy-field="heroNote" data-lang="es" type="text">
+                            </fieldset>
+
+                            <fieldset class="site-editor-card">
+                                <legend>Texto portfolio</legend>
+                                <label for="site-es-portfolioTitle">Titular portfolio</label>
+                                <input id="site-es-portfolioTitle" data-copy-field="portfolioTitle" data-lang="es" type="text">
+                                <label for="site-es-portfolioIntro">Intro portfolio</label>
+                                <textarea id="site-es-portfolioIntro" data-copy-field="portfolioIntro" data-lang="es" rows="3"></textarea>
+                                <label for="site-es-portfolioSocialTitle">Titulo social portfolio</label>
+                                <input id="site-es-portfolioSocialTitle" data-copy-field="portfolioSocialTitle" data-lang="es" type="text">
+                                <label for="site-es-portfolioSocialText">Intro social portfolio</label>
+                                <textarea id="site-es-portfolioSocialText" data-copy-field="portfolioSocialText" data-lang="es" rows="2"></textarea>
+                                <label for="site-es-portfolioAboutTitle">Titulo sobre portfolio</label>
+                                <input id="site-es-portfolioAboutTitle" data-copy-field="portfolioAboutTitle" data-lang="es" type="text">
+                                <label for="site-es-portfolioAboutText">Texto sobre portfolio</label>
+                                <textarea id="site-es-portfolioAboutText" data-copy-field="portfolioAboutText" data-lang="es" rows="3"></textarea>
+                            </fieldset>
+
+                            <fieldset class="site-editor-card">
+                                <legend>CTAs</legend>
+                                <label for="site-es-heroPrimaryAvailable">Boton principal con arte disponible</label>
+                                <input id="site-es-heroPrimaryAvailable" data-copy-field="heroPrimaryAvailable" data-lang="es" type="text">
+                                <label for="site-es-heroPrimaryCustom">Boton principal personalizado</label>
+                                <input id="site-es-heroPrimaryCustom" data-copy-field="heroPrimaryCustom" data-lang="es" type="text">
+                                <label for="site-es-heroExplore">Boton explorar</label>
+                                <input id="site-es-heroExplore" data-copy-field="heroExplore" data-lang="es" type="text">
+                                <label for="site-es-heroSecondary">Boton secundario</label>
+                                <input id="site-es-heroSecondary" data-copy-field="heroSecondary" data-lang="es" type="text">
+                                <label for="site-es-finalCtaTitle">Titulo CTA final</label>
+                                <input id="site-es-finalCtaTitle" data-copy-field="finalCtaTitle" data-lang="es" type="text">
+                                <label for="site-es-finalCtaText">Texto CTA final</label>
+                                <textarea id="site-es-finalCtaText" data-copy-field="finalCtaText" data-lang="es" rows="2"></textarea>
+                            </fieldset>
+
+                            <fieldset class="site-editor-card site-editor-card-wide">
+                                <legend>Confianza</legend>
+                                <label for="site-es-trustCockpitTitle">Titular de confianza</label>
+                                <input id="site-es-trustCockpitTitle" data-copy-field="trustCockpitTitle" data-lang="es" type="text">
+                                <label for="site-es-trustCockpitText">Intro de confianza</label>
+                                <textarea id="site-es-trustCockpitText" data-copy-field="trustCockpitText" data-lang="es" rows="3"></textarea>
+                                <div class="site-editor-mini-grid">
+                                    <label for="site-es-trustCockpitStepOneTitle">Paso 1 titulo</label>
+                                    <input id="site-es-trustCockpitStepOneTitle" data-copy-field="trustCockpitStepOneTitle" data-lang="es" type="text">
+                                    <label for="site-es-trustCockpitStepOneText">Paso 1 texto</label>
+                                    <input id="site-es-trustCockpitStepOneText" data-copy-field="trustCockpitStepOneText" data-lang="es" type="text">
+                                    <label for="site-es-trustCockpitStepTwoTitle">Paso 2 titulo</label>
+                                    <input id="site-es-trustCockpitStepTwoTitle" data-copy-field="trustCockpitStepTwoTitle" data-lang="es" type="text">
+                                    <label for="site-es-trustCockpitStepTwoText">Paso 2 texto</label>
+                                    <input id="site-es-trustCockpitStepTwoText" data-copy-field="trustCockpitStepTwoText" data-lang="es" type="text">
+                                    <label for="site-es-trustCockpitStepThreeTitle">Paso 3 titulo</label>
+                                    <input id="site-es-trustCockpitStepThreeTitle" data-copy-field="trustCockpitStepThreeTitle" data-lang="es" type="text">
+                                    <label for="site-es-trustCockpitStepThreeText">Paso 3 texto</label>
+                                    <input id="site-es-trustCockpitStepThreeText" data-copy-field="trustCockpitStepThreeText" data-lang="es" type="text">
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="site-editor-card">
+                                <legend>Precios</legend>
+                                <label for="site-es-pricesTitle">Titulo precios</label>
+                                <input id="site-es-pricesTitle" data-copy-field="pricesTitle" data-lang="es" type="text">
+                                <label for="site-es-pricesText">Intro precios</label>
+                                <textarea id="site-es-pricesText" data-copy-field="pricesText" data-lang="es" rows="2"></textarea>
+                                <label for="site-es-priceFromLabel">Etiqueta precio</label>
+                                <input id="site-es-priceFromLabel" data-copy-field="priceFromLabel" data-lang="es" type="text">
+                            </fieldset>
+
+                            <fieldset class="site-editor-card">
+                                <legend>Social</legend>
+                                <label for="site-es-socialTitle">Titulo social</label>
+                                <input id="site-es-socialTitle" data-copy-field="socialTitle" data-lang="es" type="text">
+                                <label for="site-es-socialText">Intro social</label>
+                                <textarea id="site-es-socialText" data-copy-field="socialText" data-lang="es" rows="2"></textarea>
+                                <label for="site-es-socialFallbackText">Texto fallback</label>
+                                <textarea id="site-es-socialFallbackText" data-copy-field="socialFallbackText" data-lang="es" rows="2"></textarea>
+                                <label for="site-es-instagramCta">CTA Instagram</label>
+                                <input id="site-es-instagramCta" data-copy-field="instagramCta" data-lang="es" type="text">
+                            </fieldset>
+
+                            <fieldset class="site-editor-card site-editor-card-wide">
+                                <legend>Formulario de pedido</legend>
+                                <label for="site-es-orderTitle">Titulo formulario</label>
+                                <input id="site-es-orderTitle" data-copy-field="orderTitle" data-lang="es" type="text">
+                                <label for="site-es-orderIntro">Intro formulario</label>
+                                <textarea id="site-es-orderIntro" data-copy-field="orderIntro" data-lang="es" rows="2"></textarea>
+                                <label for="site-es-responseExpectation">Expectativa de respuesta</label>
+                                <input id="site-es-responseExpectation" data-copy-field="responseExpectation" data-lang="es" type="text">
+                                <label for="site-es-depositNotice">Nota deposito</label>
+                                <input id="site-es-depositNotice" data-copy-field="depositNotice" data-lang="es" type="text">
+                                <label for="site-es-requiredNote">Nota obligatoria</label>
+                                <input id="site-es-requiredNote" data-copy-field="requiredNote" data-lang="es" type="text">
+                                <label for="site-es-privacyNote">Nota privacidad</label>
+                                <textarea id="site-es-privacyNote" data-copy-field="privacyNote" data-lang="es" rows="2"></textarea>
+                            </fieldset>
+                        </div>
+                    </div>
+
+                    <div class="site-editor-options">
+                        <fieldset class="site-editor-card">
+                            <legend>Homepage options</legend>
+                            <label class="checkbox-row">
+                                <input id="siteOrdersOpen" data-option-field="ordersOpen" type="checkbox">
+                                <span>Custom order form open</span>
+                            </label>
+                            <label class="checkbox-row">
+                                <input id="siteShowStartingPrices" data-option-field="showStartingPrices" type="checkbox">
+                                <span>Show starting prices</span>
+                            </label>
+                            <label class="checkbox-row">
+                                <input id="siteShowSocialSection" data-option-field="showSocialSection" type="checkbox">
+                                <span>Show social section</span>
+                            </label>
+                            <label class="checkbox-row">
+                                <input id="siteUseLiveInstagram" data-option-field="useLiveInstagram" type="checkbox">
+                                <span>Prefer live Instagram feed</span>
+                            </label>
+                            <label class="checkbox-row">
+                                <input id="siteDirectCheckoutEnabled" data-option-field="directCheckoutEnabled" type="checkbox">
+                                <span>Allow reviewed direct checkout CTAs</span>
+                            </label>
+                        </fieldset>
+
+                        <fieldset class="site-editor-card">
+                            <legend>Links and commerce</legend>
+                            <label for="sitePrimaryHref">Primary CTA link</label>
+                            <input id="sitePrimaryHref" data-setting-path="cta.primaryHref" type="text" placeholder="#products">
+                            <label for="siteSecondaryHref">Secondary CTA link</label>
+                            <input id="siteSecondaryHref" data-setting-path="cta.secondaryHref" type="text" placeholder="#order">
+                            <label for="siteInstagramUrl">Instagram URL</label>
+                            <input id="siteInstagramUrl" data-setting-path="social.instagramUrl" type="url" placeholder="https://instagram.com/...">
+                            <label for="siteInstagramHandle">Instagram handle</label>
+                            <input id="siteInstagramHandle" data-setting-path="social.instagramHandle" type="text" placeholder="@marialuisas_arttt">
+                            <label for="siteDefaultCurrency">Currency</label>
+                            <input id="siteDefaultCurrency" data-setting-path="pricing.currency" type="text" placeholder="EUR">
+                            <label for="siteDepositPercent">Deposit percent</label>
+                            <input id="siteDepositPercent" data-setting-path="form.depositPercent" type="number" min="0" max="100" step="1">
+                        </fieldset>
+                    </div>
+
+                    <fieldset class="site-editor-card site-editor-card-wide store-image-editor">
+                        <legend>Store Images</legend>
+                        <p class="form-help">Homepage images only. Shop inventory images stay in the Shop Items uploader.</p>
+                        <p class="store-image-platform-note">Uploads are prepared as high-quality WebP images. Production stores them in R2 and serves `/media/...`; local preview can use a compressed browser-only fallback.</p>
+                        <div class="store-image-grid">
+                            <article class="store-image-slot" data-store-image-slot="storeHero">
+                                <div class="store-image-preview" data-store-image-preview="storeHero">Photo placeholder: Hero product</div>
+                                <div class="store-image-fields">
+                                    <h3>Hero product</h3>
+                                    <label>
+                                        <span>Image file</span>
+                                        <input type="file" data-store-image-file="storeHero" accept="image/jpeg,image/png,image/webp">
+                                    </label>
+                                    <button type="button" class="cancel-btn" data-store-image-upload="storeHero">Upload / Replace</button>
+                                    <label>
+                                        <span>Media URL</span>
+                                        <input type="text" data-store-image-field="mediaUrl" data-store-image-slot-id="storeHero" placeholder="/media/...">
+                                    </label>
+                                    <label>
+                                        <span>Alt text</span>
+                                        <input type="text" data-store-image-field="alt" data-store-image-slot-id="storeHero">
+                                    </label>
+                                    <label>
+                                        <span>Placeholder label</span>
+                                        <input type="text" data-store-image-field="placeholderLabel" data-store-image-slot-id="storeHero">
+                                    </label>
+                                    <p class="store-image-status" data-store-image-status="storeHero" aria-live="polite"></p>
+                                </div>
+                            </article>
+                            <article class="store-image-slot" data-store-image-slot="gift-boxes">
+                                <div class="store-image-preview" data-store-image-preview="gift-boxes">Photo placeholder: Painted chest</div>
+                                <div class="store-image-fields">
+                                    <h3>Painted chests</h3>
+                                    <label>
+                                        <span>Image file</span>
+                                        <input type="file" data-store-image-file="gift-boxes" accept="image/jpeg,image/png,image/webp">
+                                    </label>
+                                    <button type="button" class="cancel-btn" data-store-image-upload="gift-boxes">Upload / Replace</button>
+                                    <label>
+                                        <span>Media URL</span>
+                                        <input type="text" data-store-image-field="mediaUrl" data-store-image-slot-id="gift-boxes" placeholder="/media/...">
+                                    </label>
+                                    <label>
+                                        <span>Alt text</span>
+                                        <input type="text" data-store-image-field="alt" data-store-image-slot-id="gift-boxes">
+                                    </label>
+                                    <label>
+                                        <span>Placeholder label</span>
+                                        <input type="text" data-store-image-field="placeholderLabel" data-store-image-slot-id="gift-boxes">
+                                    </label>
+                                    <p class="store-image-status" data-store-image-status="gift-boxes" aria-live="polite"></p>
+                                </div>
+                            </article>
+                            <article class="store-image-slot" data-store-image-slot="flowers">
+                                <div class="store-image-preview" data-store-image-preview="flowers">Photo placeholder: Ribbon bouquet</div>
+                                <div class="store-image-fields">
+                                    <h3>Ribbon bouquets</h3>
+                                    <label>
+                                        <span>Image file</span>
+                                        <input type="file" data-store-image-file="flowers" accept="image/jpeg,image/png,image/webp">
+                                    </label>
+                                    <button type="button" class="cancel-btn" data-store-image-upload="flowers">Upload / Replace</button>
+                                    <label>
+                                        <span>Media URL</span>
+                                        <input type="text" data-store-image-field="mediaUrl" data-store-image-slot-id="flowers" placeholder="/media/...">
+                                    </label>
+                                    <label>
+                                        <span>Alt text</span>
+                                        <input type="text" data-store-image-field="alt" data-store-image-slot-id="flowers">
+                                    </label>
+                                    <label>
+                                        <span>Placeholder label</span>
+                                        <input type="text" data-store-image-field="placeholderLabel" data-store-image-slot-id="flowers">
+                                    </label>
+                                    <p class="store-image-status" data-store-image-status="flowers" aria-live="polite"></p>
+                                </div>
+                            </article>
+                            <article class="store-image-slot" data-store-image-slot="canvases">
+                                <div class="store-image-preview" data-store-image-preview="canvases">Photo placeholder: Custom canvas</div>
+                                <div class="store-image-fields">
+                                    <h3>Custom canvases</h3>
+                                    <label>
+                                        <span>Image file</span>
+                                        <input type="file" data-store-image-file="canvases" accept="image/jpeg,image/png,image/webp">
+                                    </label>
+                                    <button type="button" class="cancel-btn" data-store-image-upload="canvases">Upload / Replace</button>
+                                    <label>
+                                        <span>Media URL</span>
+                                        <input type="text" data-store-image-field="mediaUrl" data-store-image-slot-id="canvases" placeholder="/media/...">
+                                    </label>
+                                    <label>
+                                        <span>Alt text</span>
+                                        <input type="text" data-store-image-field="alt" data-store-image-slot-id="canvases">
+                                    </label>
+                                    <label>
+                                        <span>Placeholder label</span>
+                                        <input type="text" data-store-image-field="placeholderLabel" data-store-image-slot-id="canvases">
+                                    </label>
+                                    <p class="store-image-status" data-store-image-status="canvases" aria-live="polite"></p>
+                                </div>
+                            </article>
+                            <article class="store-image-slot" data-store-image-slot="baby-shower">
+                                <div class="store-image-preview" data-store-image-preview="baby-shower">Photo placeholder: Baby gift</div>
+                                <div class="store-image-fields">
+                                    <h3>Baby gifts</h3>
+                                    <label>
+                                        <span>Image file</span>
+                                        <input type="file" data-store-image-file="baby-shower" accept="image/jpeg,image/png,image/webp">
+                                    </label>
+                                    <button type="button" class="cancel-btn" data-store-image-upload="baby-shower">Upload / Replace</button>
+                                    <label>
+                                        <span>Media URL</span>
+                                        <input type="text" data-store-image-field="mediaUrl" data-store-image-slot-id="baby-shower" placeholder="/media/...">
+                                    </label>
+                                    <label>
+                                        <span>Alt text</span>
+                                        <input type="text" data-store-image-field="alt" data-store-image-slot-id="baby-shower">
+                                    </label>
+                                    <label>
+                                        <span>Placeholder label</span>
+                                        <input type="text" data-store-image-field="placeholderLabel" data-store-image-slot-id="baby-shower">
+                                    </label>
+                                    <p class="store-image-status" data-store-image-status="baby-shower" aria-live="polite"></p>
+                                </div>
+                            </article>
+                            <article class="store-image-slot" data-store-image-slot="about">
+                                <div class="store-image-preview" data-store-image-preview="about">Photo placeholder: Maria in the studio</div>
+                                <div class="store-image-fields">
+                                    <h3>About Maryilu</h3>
+                                    <label>
+                                        <span>Image file</span>
+                                        <input type="file" data-store-image-file="about" accept="image/jpeg,image/png,image/webp">
+                                    </label>
+                                    <button type="button" class="cancel-btn" data-store-image-upload="about">Upload / Replace</button>
+                                    <label>
+                                        <span>Media URL</span>
+                                        <input type="text" data-store-image-field="mediaUrl" data-store-image-slot-id="about" placeholder="/media/...">
+                                    </label>
+                                    <label>
+                                        <span>Alt text</span>
+                                        <input type="text" data-store-image-field="alt" data-store-image-slot-id="about">
+                                    </label>
+                                    <label>
+                                        <span>Placeholder label</span>
+                                        <input type="text" data-store-image-field="placeholderLabel" data-store-image-slot-id="about">
+                                    </label>
+                                    <p class="store-image-status" data-store-image-status="about" aria-live="polite"></p>
+                                </div>
+                            </article>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="site-editor-card site-editor-card-wide">
+                        <legend>Pricing cards</legend>
+                        <div class="pricing-editor-list" id="pricingEditorList"></div>
+                    </fieldset>
+
+                    <div class="site-editor-preview" id="siteEditorPreview" aria-live="polite">
+                        <span>Preview</span>
+                        <strong>Custom Art Gifts Worth Keeping</strong>
+                        <p>Load settings to preview the active hero and custom order language.</p>
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" class="submit-btn">Save Changes</button>
+                        <button type="submit" class="submit-btn">Save Site Settings</button>
                         <button type="button" id="cancelContentEdit" class="cancel-btn">Cancel</button>
+                        <p id="siteEditorStatus" class="site-editor-status" aria-live="polite"></p>
                     </div>
                 </form>
+            </section>
+
+            <section id="settings-section" class="management-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Settings</h2>
+                    <p class="section-subtitle">Connection settings for this browser. Production protection still belongs in Cloudflare and the Worker.</p>
+                </div>
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>Worker connection</h3>
+                        <div class="form-group">
+                            <label for="settingsAdminToken">Admin token</label>
+                            <input type="password" id="settingsAdminToken" placeholder="Worker ADMIN_TOKEN">
+                            <p class="form-help">Saved only in this browser and shared with Orders, Social, and Site Editor.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="settingsApiUrl">Worker API URL</label>
+                            <input type="url" id="settingsApiUrl" placeholder="https://maria-art-data-api...">
+                            <p class="form-help">Leave blank to use the default production Worker or the local Worker in preview.</p>
+                        </div>
+                        <div class="settings-actions">
+                            <button id="saveStudioSettings" class="submit-btn" type="button">Save Settings</button>
+                            <button id="resetStudioSettings" class="cancel-btn" type="button">Use Default API</button>
+                        </div>
+                        <p id="studioSettingsStatus" class="site-editor-status" aria-live="polite"></p>
+                    </div>
+                    <div class="settings-card">
+                        <h3>Current source</h3>
+                        <dl class="settings-source-list">
+                            <div>
+                                <dt>API</dt>
+                                <dd id="settingsCurrentApi">Checking</dd>
+                            </div>
+                            <div>
+                                <dt>Site settings</dt>
+                                <dd id="settingsCurrentSiteSource">Not loaded</dd>
+                            </div>
+                            <div>
+                                <dt>Mode</dt>
+                                <dd id="settingsCurrentMode">Studio admin</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
             </section>
         </div>
     </div>
 
-    <script src="admin.js?v=20260106c"></script>
+    <script src="instagram-fixtures.js?v=20260622-shared-instagram-fixtures"></script>
+    <script src="admin.js?v=20260624-rose-store-images"></script>
     
     <!-- PWA Install Prompt -->
     <div id="pwa-install-prompt" class="pwa-install-prompt" style="display: none;">
@@ -222,7 +859,7 @@
             <div class="pwa-install-icon">📱</div>
             <div class="pwa-install-text">
                 <h3>Install Admin Portal</h3>
-                <p>Save Maria's Art Admin to your home screen for quick access!</p>
+                <p>Save Maryilu Admin to your home screen for quick access.</p>
             </div>
             <div class="pwa-install-buttons">
                 <button id="pwa-install-btn" class="pwa-install-button">Install</button>

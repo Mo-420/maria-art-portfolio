@@ -1,0 +1,1308 @@
+/* UI/UX Pro Max pass: luxury editorial glass system for Maryilu. */
+:root {
+    --pmx-black: #050203;
+    --pmx-ink: #0a0305;
+    --pmx-wine: #2a0710;
+    --pmx-burgundy: #6f1728;
+    --pmx-red: #b83245;
+    --pmx-gold: #ca8a04;
+    --pmx-gold-soft: #f0c878;
+    --pmx-ivory: #fbf3ea;
+    --pmx-muted: rgba(251, 243, 234, 0.72);
+    --pmx-faint: rgba(251, 243, 234, 0.48);
+    --pmx-line: rgba(251, 243, 234, 0.16);
+    --pmx-line-strong: rgba(240, 200, 120, 0.32);
+    --pmx-glass: rgba(255, 255, 255, 0.07);
+    --pmx-glass-strong: rgba(255, 255, 255, 0.115);
+    --pmx-shadow: 0 32px 90px rgba(0, 0, 0, 0.48);
+    --pmx-radius: 8px;
+    --pmx-heading: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+    --pmx-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.skip-link {
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    z-index: 10000;
+    transform: translateY(-140%);
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--pmx-line-strong);
+    border-radius: var(--pmx-radius);
+    background: var(--pmx-ivory);
+    color: var(--pmx-black);
+    font: 800 0.85rem/1 var(--pmx-body);
+    text-decoration: none;
+    transition: transform 180ms ease;
+}
+
+.skip-link:focus-visible {
+    transform: translateY(0);
+    outline: 3px solid var(--pmx-gold-soft);
+    outline-offset: 3px;
+}
+
+body.sales-site,
+body.portfolio-site,
+body {
+    text-rendering: geometricPrecision;
+}
+
+body.sales-site,
+body.portfolio-site {
+    color: var(--pmx-ivory) !important;
+    background:
+        radial-gradient(900px circle at 72% 4%, rgba(184, 50, 69, 0.2), transparent 62%),
+        radial-gradient(780px circle at 12% 18%, rgba(202, 138, 4, 0.1), transparent 64%),
+        linear-gradient(180deg, #060203 0%, #0b0305 48%, #050203 100%) !important;
+}
+
+body.sales-site::before,
+body.portfolio-site::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        linear-gradient(rgba(251, 243, 234, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(251, 243, 234, 0.028) 1px, transparent 1px);
+    background-size: 88px 88px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.58), transparent 72%);
+}
+
+body.sales-site .aceternity-background-lines,
+body.sales-site .aceternity-meteors,
+body.sales-site .hero-proof-row,
+body.sales-site .hero-commerce-console,
+body.sales-site .hero-proof-dock {
+    display: none !important;
+}
+
+body.sales-site :is(h1, h2, .section-heading h2, .story-copy h2, .kinetic-gallery-head h2, .order-intro h2, .final-cta h2),
+body.portfolio-site :is(h1, h2, h3),
+body :is(.login-box h2, .admin-header h1, .studio-dashboard-hero h2, .site-editor-card legend) {
+    font-family: var(--pmx-heading) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0 !important;
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site :is(p, li, small, label, input, textarea, select, button, a),
+body.portfolio-site :is(p, li, small, label, input, textarea, select, button, a),
+body :is(p, li, small, label, input, textarea, select, button, a) {
+    font-family: var(--pmx-body) !important;
+}
+
+body.sales-site :is(.section-shell, .portfolio-shell),
+body.portfolio-site .portfolio-shell {
+    width: min(1180px, calc(100% - 2rem)) !important;
+}
+
+body.sales-site .sales-header,
+body.portfolio-site .portfolio-header {
+    top: 1rem !important;
+    padding-inline: 1rem !important;
+}
+
+body.sales-site .sales-nav,
+body.portfolio-site .portfolio-nav {
+    width: min(1180px, calc(100vw - 2rem)) !important;
+    border: 1px solid rgba(240, 200, 120, 0.18) !important;
+    border-radius: var(--pmx-radius) !important;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.035)),
+        rgba(7, 2, 4, 0.78) !important;
+    box-shadow: 0 18px 70px rgba(0, 0, 0, 0.42) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(135%) !important;
+    backdrop-filter: blur(16px) saturate(135%) !important;
+}
+
+body.sales-site .brand-sigil,
+body.portfolio-site .brand-emblem {
+    border-color: rgba(240, 200, 120, 0.42) !important;
+    background: radial-gradient(circle at 35% 20%, rgba(240, 200, 120, 0.42), rgba(184, 50, 69, 0.5)) !important;
+    color: #fff8ed !important;
+}
+
+body.sales-site .nav-links a,
+body.portfolio-site .portfolio-links a {
+    color: rgba(251, 243, 234, 0.86) !important;
+    border-radius: var(--pmx-radius) !important;
+    transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease !important;
+}
+
+body.sales-site .nav-links a:hover,
+body.sales-site .nav-links a:focus-visible,
+body.portfolio-site .portfolio-links a:hover,
+body.portfolio-site .portfolio-links a:focus-visible {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.sales-site .language-switcher,
+body.portfolio-site .portfolio-menu-toggle,
+body.sales-site .mobile-menu-toggle {
+    border-color: rgba(240, 200, 120, 0.24) !important;
+    background: rgba(255, 255, 255, 0.075) !important;
+}
+
+body.sales-site .button,
+body.sales-site .btn,
+body.sales-site .filter-btn,
+body.sales-site .text-action,
+body.portfolio-site .portfolio-cta,
+body.portfolio-site .portfolio-secondary-cta,
+body.portfolio-site .portfolio-work-link,
+body :is(.login-btn, .logout-btn, .nav-btn, .site-editor-tab, .editor-lang-tab, .admin-mode-pill) {
+    border-radius: var(--pmx-radius) !important;
+    cursor: pointer !important;
+    transition: background 200ms ease, border-color 200ms ease, color 200ms ease, transform 200ms ease, box-shadow 200ms ease !important;
+}
+
+body.sales-site :is(.button-primary, .btn-primary, .checkout-button),
+body.portfolio-site .portfolio-cta,
+body :is(.login-btn, .nav-btn.active, .site-editor-tab.active, .editor-lang-tab.active) {
+    border: 1px solid rgba(255, 224, 166, 0.48) !important;
+    background:
+        linear-gradient(135deg, #b83245 0%, #ca8a04 100%) !important;
+    color: #fffaf3 !important;
+    box-shadow: 0 16px 44px rgba(184, 50, 69, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
+}
+
+body.sales-site :is(.button-secondary, .btn-secondary),
+body.portfolio-site .portfolio-secondary-cta,
+body :is(.logout-btn, .nav-btn, .admin-mode-pill) {
+    border: 1px solid rgba(251, 243, 234, 0.18) !important;
+    background: rgba(255, 255, 255, 0.055) !important;
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site :is(.button, .btn, .filter-btn):hover,
+body.portfolio-site :is(.portfolio-cta, .portfolio-secondary-cta, .portfolio-work-link):hover,
+body :is(.login-btn, .logout-btn, .nav-btn, .site-editor-tab, .editor-lang-tab):hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 18px 52px rgba(0, 0, 0, 0.32) !important;
+}
+
+body.sales-site .hero-section {
+    min-height: 90svh !important;
+    padding-top: 116px !important;
+    background:
+        radial-gradient(600px circle at 20% 35%, rgba(184, 50, 69, 0.18), transparent 64%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 78%) !important;
+}
+
+body.sales-site .hero-grid {
+    gap: clamp(2rem, 5vw, 5rem) !important;
+    align-items: center !important;
+}
+
+body.sales-site .hero-copy {
+    max-width: 640px !important;
+}
+
+body.sales-site .hero-copy h1 {
+    max-width: 11ch !important;
+    font-size: clamp(4.25rem, 8vw, 8.6rem) !important;
+    line-height: 0.86 !important;
+}
+
+body.sales-site .hero-subtitle {
+    max-width: 42rem !important;
+    color: var(--pmx-muted) !important;
+    font-size: clamp(1rem, 1.35vw, 1.22rem) !important;
+    line-height: 1.7 !important;
+}
+
+body.sales-site .hero-trust-micro {
+    max-width: 580px !important;
+    gap: 0.7rem !important;
+}
+
+body.sales-site .hero-trust-micro li {
+    border: 1px solid rgba(240, 200, 120, 0.18) !important;
+    background: rgba(255, 255, 255, 0.055) !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: none !important;
+}
+
+body.sales-site .hero-art,
+body.sales-site .hero-art-image {
+    border-radius: var(--pmx-radius) !important;
+}
+
+body.sales-site .hero-art-image {
+    border: 1px solid rgba(240, 200, 120, 0.24) !important;
+    box-shadow: 0 34px 110px rgba(0, 0, 0, 0.58) !important;
+    overflow: hidden !important;
+}
+
+body.sales-site .hero-art-image::before {
+    background:
+        linear-gradient(180deg, rgba(5, 2, 3, 0.03), rgba(5, 2, 3, 0.22)),
+        radial-gradient(circle at 20% 10%, rgba(240, 200, 120, 0.2), transparent 34%) !important;
+    opacity: 1 !important;
+}
+
+body.sales-site .hero-art-image img,
+body.sales-site .hero-mobile-product img {
+    filter: saturate(0.95) contrast(1.05) brightness(0.9) !important;
+}
+
+body.sales-site :is(.gallery-proof-card, .shop-item-card, .instagram-card, .custom-order-card, .mallorca-proof-card, .price-card, .addons-panel, .shipping-card, .faq-item, .shop-empty, .order-form, .order-note, .order-steps span, .order-brief-strip),
+body.portfolio-site :is(.portfolio-work-card, .portfolio-social-card, .portfolio-poem-card, .portfolio-stat, .process-card),
+body :is(.login-box, .admin-dashboard, .admin-header, .admin-mode-strip article, .studio-dashboard-card, .site-editor-card, .settings-card, .lead-card, .shop-upload-composer) {
+    border: 1px solid var(--pmx-line) !important;
+    border-radius: var(--pmx-radius) !important;
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.035)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.22), rgba(184, 50, 69, 0.24)) border-box !important;
+    box-shadow: var(--pmx-shadow) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+body.sales-site :is(.gallery-proof-card, .shop-item-card, .instagram-card, .custom-order-card, .mallorca-proof-card, .price-card, .shipping-card, .faq-item, .shop-empty, .order-form) :is(h3, strong, summary),
+body.portfolio-site :is(.portfolio-work-card, .portfolio-social-card, .portfolio-poem-card) :is(h3, strong),
+body :is(.studio-dashboard-card, .site-editor-card, .settings-card) :is(strong, legend, h3) {
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site :is(.gallery-proof-card, .shop-item-card, .instagram-card, .custom-order-card, .mallorca-proof-card, .price-card, .shipping-card, .faq-item, .shop-empty, .order-form) :is(p, small, li),
+body.portfolio-site :is(.portfolio-work-card, .portfolio-social-card, .portfolio-poem-card) :is(p, small),
+body :is(.studio-dashboard-card, .site-editor-card, .settings-card) :is(p, small, label) {
+    color: var(--pmx-muted) !important;
+}
+
+body.sales-site .gallery-media,
+body.portfolio-site .portfolio-work-media {
+    border-radius: var(--pmx-radius) !important;
+    overflow: hidden !important;
+    background: #110508 !important;
+}
+
+body.sales-site .gallery-media img,
+body.portfolio-site .portfolio-work-media img,
+body.portfolio-site .portfolio-social-card img {
+    width: 100% !important;
+    object-fit: cover !important;
+    filter: saturate(0.92) contrast(1.02) !important;
+    transition: transform 500ms ease, filter 300ms ease !important;
+}
+
+body.sales-site .gallery-proof-card:hover .gallery-media img,
+body.portfolio-site .portfolio-work-card:hover .portfolio-work-media img {
+    transform: scale(1.025) !important;
+    filter: saturate(1) contrast(1.06) !important;
+}
+
+body.sales-site .gallery-category,
+body.sales-site .shop-chip,
+body.sales-site .instagram-card-label,
+body.portfolio-site .portfolio-work-type,
+body.portfolio-site .portfolio-social-card-preview::after,
+body :is(.studio-dashboard-card span, .site-editor-card legend, .admin-mode-strip span) {
+    width: fit-content !important;
+    min-height: 28px !important;
+    padding: 0.34rem 0.58rem !important;
+    border: 1px solid rgba(240, 200, 120, 0.28) !important;
+    border-radius: var(--pmx-radius) !important;
+    background: rgba(202, 138, 4, 0.12) !important;
+    color: var(--pmx-gold-soft) !important;
+    font: 800 0.72rem/1.05 var(--pmx-body) !important;
+    letter-spacing: 0 !important;
+    text-transform: uppercase !important;
+}
+
+body.sales-site .shop-card-proof span,
+body.sales-site .shop-price-guide,
+body.sales-site .custom-order-card li,
+body.sales-site .order-brief-strip span {
+    border-color: rgba(240, 200, 120, 0.16) !important;
+    background: rgba(5, 2, 3, 0.36) !important;
+    color: var(--pmx-muted) !important;
+}
+
+body.sales-site .shop-grid {
+    align-items: start !important;
+}
+
+body.sales-site .shop-item-card {
+    overflow: hidden !important;
+}
+
+body.sales-site .shop-card-actions .button {
+    min-height: 46px !important;
+}
+
+body.sales-site .kinetic-gallery-head h2,
+body.sales-site .story-copy h2 {
+    font-size: clamp(3.1rem, 7vw, 7rem) !important;
+}
+
+body.sales-site .kinetic-format-card {
+    border-color: rgba(240, 200, 120, 0.18) !important;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.085), rgba(111, 23, 40, 0.16)) !important;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.46) !important;
+}
+
+body.sales-site .kinetic-format-card h3 {
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .kinetic-format-card p {
+    color: var(--pmx-muted) !important;
+}
+
+body.sales-site .kinetic-gallery-section .kinetic-gallery-viewport {
+    opacity: calc((1 - var(--gallery-progress, 0)) * 4) !important;
+    transition: opacity 180ms ease !important;
+}
+
+body.sales-site .kinetic-gallery-section.is-rail-complete .kinetic-gallery-viewport {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+body.sales-site .order-section {
+    background:
+        radial-gradient(700px circle at 78% 22%, rgba(184, 50, 69, 0.18), transparent 62%),
+        linear-gradient(180deg, transparent, rgba(202, 138, 4, 0.04)) !important;
+}
+
+body.sales-site .order-form input,
+body.sales-site .order-form textarea,
+body.sales-site .order-form select,
+body :is(.site-editor-card input, .site-editor-card textarea, .site-editor-card select, .settings-card input, .settings-card textarea, .login-box input) {
+    min-height: 46px !important;
+    border: 1px solid rgba(251, 243, 234, 0.18) !important;
+    border-radius: var(--pmx-radius) !important;
+    background: rgba(5, 2, 3, 0.38) !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+body.sales-site .order-form input:focus,
+body.sales-site .order-form textarea:focus,
+body.sales-site .order-form select:focus,
+body :is(.site-editor-card input, .site-editor-card textarea, .site-editor-card select, .settings-card input, .settings-card textarea, .login-box input):focus {
+    border-color: rgba(240, 200, 120, 0.58) !important;
+    outline: 3px solid rgba(202, 138, 4, 0.18) !important;
+    outline-offset: 0 !important;
+}
+
+body.sales-site .order-form textarea {
+    min-height: 132px !important;
+}
+
+body.sales-site .order-form::before,
+body.sales-site .order-form::after {
+    display: none !important;
+}
+
+body.sales-site details.form-details summary {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    align-items: center !important;
+    gap: 0.85rem !important;
+    padding: 0.85rem 1rem !important;
+}
+
+body.sales-site .consent-row {
+    display: grid !important;
+    grid-template-columns: 1.15rem minmax(0, 1fr) !important;
+    align-items: start !important;
+    gap: 0.75rem !important;
+    margin: 1.25rem 0 !important;
+}
+
+body.sales-site .consent-row input[type="checkbox"] {
+    appearance: auto !important;
+    -webkit-appearance: checkbox !important;
+    width: 1.15rem !important;
+    height: 1.15rem !important;
+    min-width: 1.15rem !important;
+    min-height: 1.15rem !important;
+    margin: 0.15rem 0 0 !important;
+    padding: 0 !important;
+    accent-color: var(--pmx-red) !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+}
+
+body.sales-site .consent-row > span {
+    line-height: 1.45 !important;
+}
+
+body.sales-site .sales-footer,
+body.portfolio-site .portfolio-footer {
+    border-top: 1px solid rgba(240, 200, 120, 0.16) !important;
+    background: linear-gradient(180deg, rgba(42, 7, 16, 0.36), #050203) !important;
+}
+
+body.portfolio-site .portfolio-nav {
+    color: var(--pmx-ivory) !important;
+}
+
+body.portfolio-site .portfolio-hero {
+    padding-top: 114px !important;
+    background:
+        radial-gradient(780px circle at 74% 12%, rgba(184, 50, 69, 0.18), transparent 64%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 70%) !important;
+}
+
+body.portfolio-site .portfolio-hero-grid {
+    grid-template-columns: minmax(22rem, 0.58fr) minmax(30rem, 1fr) !important;
+    gap: clamp(2rem, 4vw, 4rem) !important;
+}
+
+body.portfolio-site .portfolio-hero-copy {
+    max-width: 31rem !important;
+}
+
+body.portfolio-site .portfolio-hero-copy h1 {
+    max-width: 9.5ch !important;
+    font-size: clamp(4.25rem, 6.2vw, 5.9rem) !important;
+    line-height: 0.92 !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    hyphens: manual !important;
+}
+
+body.portfolio-site .portfolio-hero-copy p {
+    color: var(--pmx-muted) !important;
+    line-height: 1.65 !important;
+}
+
+body.portfolio-site .portfolio-proof-list li {
+    border: 1px solid rgba(240, 200, 120, 0.18) !important;
+    background: rgba(255, 255, 255, 0.055) !important;
+    color: var(--pmx-gold-soft) !important;
+}
+
+body.portfolio-site .portfolio-art-stage,
+body.portfolio-site .about-visual {
+    border: 1px solid rgba(240, 200, 120, 0.22) !important;
+    border-radius: var(--pmx-radius) !important;
+    overflow: hidden !important;
+    box-shadow: 0 34px 110px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.portfolio-site .portfolio-art-stage img,
+body.portfolio-site .about-visual img {
+    filter: saturate(0.94) contrast(1.04) !important;
+}
+
+body.portfolio-site .portfolio-stat-grid {
+    border-color: rgba(240, 200, 120, 0.16) !important;
+}
+
+body.portfolio-site .portfolio-stat strong {
+    color: var(--pmx-ivory) !important;
+}
+
+body:not(.sales-site):not(.portfolio-site) {
+    --admin-black: var(--pmx-black);
+    --admin-panel: rgba(255, 255, 255, 0.07);
+    color: var(--pmx-ivory) !important;
+    background:
+        radial-gradient(860px circle at 78% 6%, rgba(184, 50, 69, 0.18), transparent 62%),
+        radial-gradient(700px circle at 14% 14%, rgba(202, 138, 4, 0.08), transparent 62%),
+        linear-gradient(180deg, #070203, #050203) !important;
+}
+
+body .admin-container {
+    background: transparent !important;
+}
+
+body .admin-dashboard,
+body #admin-dashboard {
+    width: min(1340px, calc(100% - 2rem)) !important;
+    margin: 1.4rem auto !important;
+}
+
+body .admin-header {
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+body .admin-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(620px circle at 82% 0%, rgba(202, 138, 4, 0.12), transparent 62%);
+}
+
+body .admin-header > * {
+    position: relative;
+}
+
+body .admin-nav {
+    gap: 0.75rem !important;
+}
+
+body .admin-mode-strip {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+body .site-editor-card,
+body .studio-dashboard-card {
+    text-align: left !important;
+}
+
+body .site-editor-card textarea {
+    min-height: 132px !important;
+}
+
+body :is(a, button, input, textarea, select, summary):focus-visible,
+body.sales-site :is(a, button, input, textarea, select, summary):focus-visible,
+body.portfolio-site :is(a, button, input, textarea, select, summary):focus-visible {
+    outline: 3px solid rgba(240, 200, 120, 0.58) !important;
+    outline-offset: 3px !important;
+}
+
+@media (max-width: 860px) {
+    body.sales-site .sales-header,
+    body.portfolio-site .portfolio-header {
+        top: 0 !important;
+        padding: 0.75rem 1rem !important;
+    }
+
+    body.sales-site .sales-nav,
+    body.portfolio-site .portfolio-nav {
+        width: 100% !important;
+    }
+
+    body.sales-site .hero-section,
+    body.portfolio-site .portfolio-hero {
+        padding-top: 92px !important;
+    }
+
+    body.sales-site .hero-section {
+        background:
+            linear-gradient(180deg, rgba(5, 2, 3, 0.35), rgba(5, 2, 3, 0.92) 62%, #050203 100%),
+            url("assets/maryilu-luxury-chest-hero.png") center 5.8rem / min(34rem, 112vw) auto no-repeat,
+            radial-gradient(520px circle at 70% 12%, rgba(184, 50, 69, 0.24), transparent 62%) !important;
+    }
+
+    body.sales-site .hero-copy h1,
+    body.portfolio-site .portfolio-hero-copy h1 {
+        font-size: clamp(3.65rem, 15vw, 5.2rem) !important;
+        line-height: 0.9 !important;
+    }
+
+    body.sales-site .hero-trust-micro,
+    body.sales-site .hero-actions {
+        gap: 0.7rem !important;
+    }
+
+    body.sales-site .hero-actions .button,
+    body.sales-site .hero-trust-micro li {
+        width: 100% !important;
+    }
+
+    body.sales-site .nav-cluster.active {
+        background:
+            linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(42, 7, 16, 0.9)),
+            rgba(5, 2, 3, 0.94) !important;
+    }
+
+    body.portfolio-site .portfolio-links.active,
+    body.sales-site .nav-cluster.active .nav-links a {
+        border-color: rgba(240, 200, 120, 0.2) !important;
+        background: rgba(255, 255, 255, 0.07) !important;
+        color: var(--pmx-ivory) !important;
+    }
+
+    body .admin-dashboard,
+    body #admin-dashboard {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* 2026-06-24 palette lock: remove pale/blue leftovers from the public store. */
+body.sales-site {
+    --pmx-panel: rgba(18, 4, 8, 0.82);
+    --pmx-panel-soft: rgba(42, 7, 16, 0.72);
+    --pmx-panel-strong: rgba(5, 2, 3, 0.92);
+    --pmx-wine-border: rgba(251, 243, 234, 0.15);
+    --pmx-gold-border: rgba(240, 200, 120, 0.28);
+}
+
+body.sales-site :is(
+    .story-step,
+    .process-card,
+    .addons-panel,
+    .addon-item,
+    .price-card,
+    .price-tier,
+    .price-summary-action,
+    .order-note,
+    .order-steps span,
+    details.form-details summary
+) {
+    border-color: var(--pmx-wine-border) !important;
+    background:
+        linear-gradient(145deg, rgba(251, 243, 234, 0.075), rgba(111, 23, 40, 0.18)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.18), rgba(184, 50, 69, 0.2)) border-box !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: 0 18px 54px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+body.sales-site .story-step {
+    border-left: 2px solid rgba(240, 200, 120, 0.18) !important;
+    border-radius: 0 var(--pmx-radius) var(--pmx-radius) 0 !important;
+    background:
+        linear-gradient(90deg, rgba(42, 7, 16, 0.74), rgba(15, 3, 6, 0.82)) !important;
+    color: rgba(251, 243, 234, 0.62) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+body.sales-site .story-step.is-active {
+    border-color: rgba(240, 200, 120, 0.62) !important;
+    background:
+        linear-gradient(90deg, rgba(111, 23, 40, 0.78), rgba(42, 7, 16, 0.68) 58%, rgba(5, 2, 3, 0.72)) !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow:
+        0 18px 58px rgba(184, 50, 69, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+body.sales-site .transform-story-section .story-steps .story-step {
+    border-left: 2px solid rgba(240, 200, 120, 0.18) !important;
+    background:
+        linear-gradient(90deg, rgba(42, 7, 16, 0.56), rgba(7, 2, 4, 0.76)) !important;
+    color: rgba(251, 243, 234, 0.58) !important;
+}
+
+body.sales-site .transform-story-section .story-steps .story-step.is-active {
+    border-color: rgba(240, 200, 120, 0.62) !important;
+    background:
+        linear-gradient(90deg, rgba(111, 23, 40, 0.84), rgba(42, 7, 16, 0.7) 58%, rgba(5, 2, 3, 0.78)) !important;
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .story-step :is(span, strong),
+body.sales-site .process-card :is(h3, p),
+body.sales-site .addons-panel :is(h3, span),
+body.sales-site .addon-item :is(span, strong),
+body.sales-site .price-card :is(strong, small, span),
+body.sales-site .price-tier :is(strong, small, span) {
+    color: inherit !important;
+}
+
+body.sales-site .story-step span,
+body.sales-site .addons-panel-heading span,
+body.sales-site .price-from,
+body.sales-site .price-summary-action,
+body.sales-site .steps-list span {
+    color: var(--pmx-gold-soft) !important;
+}
+
+body.sales-site .prices-section {
+    background:
+        radial-gradient(760px circle at 88% 8%, rgba(184, 50, 69, 0.16), transparent 62%),
+        radial-gradient(620px circle at 8% 18%, rgba(202, 138, 4, 0.06), transparent 64%),
+        linear-gradient(180deg, #050203 0%, #120407 56%, #070203 100%) !important;
+}
+
+body.sales-site .pricing-grid {
+    align-items: start !important;
+}
+
+body.sales-site .pricing-side {
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .prices-section .pricing-side .process-card,
+body.sales-site .prices-section .pricing-side .addons-panel {
+    border: 1px solid var(--pmx-wine-border) !important;
+    border-radius: var(--pmx-radius) !important;
+    background:
+        linear-gradient(145deg, rgba(42, 7, 16, 0.82), rgba(8, 2, 4, 0.92)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.22), rgba(184, 50, 69, 0.26)) border-box !important;
+    box-shadow: 0 30px 86px rgba(0, 0, 0, 0.46), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+body.sales-site .prices-section .process-card h3,
+body.sales-site .prices-section .addons-panel h3 {
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .steps-list {
+    display: grid !important;
+    gap: 0.9rem !important;
+}
+
+body.sales-site .prices-section .steps-list li {
+    border: 1px solid rgba(251, 243, 234, 0.1) !important;
+    border-radius: var(--pmx-radius) !important;
+    background: rgba(5, 2, 3, 0.34) !important;
+    color: var(--pmx-muted) !important;
+}
+
+body.sales-site .prices-section .steps-list li span {
+    border: 1px solid rgba(240, 200, 120, 0.24) !important;
+    background: rgba(202, 138, 4, 0.14) !important;
+    color: var(--pmx-gold-soft) !important;
+}
+
+body.sales-site .prices-section .steps-list li p {
+    color: var(--pmx-muted) !important;
+}
+
+body.sales-site .addons-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.55rem !important;
+}
+
+body.sales-site .prices-section .addons-list .addon-item {
+    border: 1px solid rgba(251, 243, 234, 0.11) !important;
+    border-radius: var(--pmx-radius) !important;
+    background: rgba(5, 2, 3, 0.42) !important;
+    color: var(--pmx-muted) !important;
+    box-shadow: none !important;
+}
+
+body.sales-site .prices-section .addons-list .addon-item strong {
+    color: var(--pmx-gold-soft) !important;
+}
+
+body.sales-site .product-tables {
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .prices-section .product-tables .price-card {
+    overflow: hidden !important;
+    border: 1px solid rgba(251, 243, 234, 0.13) !important;
+    background:
+        linear-gradient(145deg, rgba(63, 13, 25, 0.74), rgba(20, 4, 8, 0.9)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.18), rgba(184, 50, 69, 0.22)) border-box !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: 0 22px 64px rgba(0, 0, 0, 0.38) !important;
+}
+
+body.sales-site .prices-section .price-card summary {
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .prices-section .price-card summary small {
+    color: var(--pmx-muted) !important;
+}
+
+body.sales-site .prices-section .price-summary-action {
+    border: 1px solid rgba(240, 200, 120, 0.24) !important;
+    background: rgba(5, 2, 3, 0.48) !important;
+    color: var(--pmx-gold-soft) !important;
+}
+
+body.sales-site .price-details {
+    border-top-color: rgba(251, 243, 234, 0.12) !important;
+    background: rgba(5, 2, 3, 0.24) !important;
+}
+
+body.sales-site .prices-section .price-tier {
+    background: rgba(5, 2, 3, 0.34) !important;
+    color: var(--pmx-muted) !important;
+    box-shadow: none !important;
+}
+
+body.sales-site .price-tier > span {
+    color: var(--pmx-gold-soft) !important;
+}
+
+@media (max-width: 860px) {
+    body.sales-site .addons-list {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* 2026-06-24 premium palette quarantine: final layer over older white/green/cream passes. */
+html {
+    background: var(--pmx-black) !important;
+    scroll-padding-top: 7.6rem;
+}
+
+body.sales-site :is(#home, #story, #formats, #shop, #prices, #order, #socials, #about, #policies),
+body.portfolio-site :is(#home, #gallery, #poetry, #process, #social-proof, #about) {
+    scroll-margin-top: 7.6rem !important;
+}
+
+body.sales-site #order {
+    scroll-margin-top: 8.4rem !important;
+}
+
+body.sales-site .nav-cluster.active {
+    background:
+        linear-gradient(145deg, rgba(251, 243, 234, 0.075), rgba(111, 23, 40, 0.28)),
+        rgba(5, 2, 3, 0.98) !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.58) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(145%) !important;
+    backdrop-filter: blur(24px) saturate(145%) !important;
+}
+
+body.sales-site .nav-cluster.active :is(a, button),
+body.portfolio-site .portfolio-links :is(a, button) {
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .language-switcher {
+    border: 1px solid rgba(240, 200, 120, 0.22) !important;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(111, 23, 40, 0.16)),
+        rgba(5, 2, 3, 0.74) !important;
+}
+
+body.sales-site .lang-btn {
+    border: 1px solid transparent !important;
+    background: rgba(251, 243, 234, 0.08) !important;
+    color: rgba(251, 243, 234, 0.72) !important;
+    box-shadow: none !important;
+}
+
+body.sales-site .lang-btn.active,
+body.sales-site .lang-btn[aria-pressed="true"] {
+    border-color: rgba(240, 200, 120, 0.26) !important;
+    background:
+        linear-gradient(135deg, rgba(184, 50, 69, 0.88), rgba(111, 23, 40, 0.86)) !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+body.sales-site .social-section,
+body.sales-site .about-section,
+body.sales-site .policies-section,
+body.sales-site .final-cta {
+    background:
+        radial-gradient(760px circle at 86% 8%, rgba(184, 50, 69, 0.2), transparent 62%),
+        radial-gradient(620px circle at 12% 24%, rgba(202, 138, 4, 0.06), transparent 64%),
+        linear-gradient(180deg, #070203 0%, #130407 55%, #050203 100%) !important;
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .social-strip,
+body.sales-site .about-grid,
+body.sales-site .final-cta-panel,
+body.sales-site .faq-panel {
+    border: 1px solid rgba(251, 243, 234, 0.12) !important;
+    border-radius: var(--pmx-radius) !important;
+    background:
+        linear-gradient(145deg, rgba(42, 7, 16, 0.72), rgba(5, 2, 3, 0.9)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.18), rgba(184, 50, 69, 0.2)) border-box !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.42) !important;
+}
+
+body.sales-site .social-strip .section-heading p,
+body.sales-site .about-grid p,
+body.sales-site .final-cta-panel p,
+body.sales-site .faq-panel :is(p, summary) {
+    color: rgba(251, 243, 234, 0.82) !important;
+}
+
+body.sales-site .about-grid h2,
+body.sales-site .about-grid :is(a, strong) {
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .social-section .social-strip,
+body.sales-site .about-section .about-grid,
+body.sales-site .final-cta .final-cta-panel,
+body.sales-site .policies-section .faq-panel {
+    border: 1px solid rgba(251, 243, 234, 0.12) !important;
+    background:
+        linear-gradient(145deg, rgba(42, 7, 16, 0.72), rgba(5, 2, 3, 0.92)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.18), rgba(184, 50, 69, 0.2)) border-box !important;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.48) !important;
+}
+
+body.sales-site .instagram-rail {
+    gap: clamp(0.9rem, 1.8vw, 1.25rem) !important;
+}
+
+body.sales-site .instagram-card,
+body.sales-site .instagram-card-preview,
+body.sales-site .instagram-card-fallback,
+body.sales-site .instagram-rail[data-mode="preview"] .instagram-card,
+body.sales-site .instagram-rail[data-mode="fallback"] .instagram-card {
+    position: relative !important;
+    isolation: isolate !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(240, 200, 120, 0.2) !important;
+    border-radius: var(--pmx-radius) !important;
+    background:
+        linear-gradient(145deg, rgba(42, 7, 16, 0.88), rgba(8, 2, 4, 0.94)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.24), rgba(184, 50, 69, 0.24)) border-box !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: 0 26px 78px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.07) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(135%) !important;
+    backdrop-filter: blur(18px) saturate(135%) !important;
+}
+
+body.sales-site .instagram-card::after {
+    background:
+        radial-gradient(360px circle at var(--spot-x, 54%) var(--spot-y, 22%), rgba(184, 50, 69, 0.16), transparent 64%),
+        radial-gradient(260px circle at 12% 6%, rgba(240, 200, 120, 0.08), transparent 62%) !important;
+    opacity: 0.7 !important;
+}
+
+body.sales-site .instagram-media,
+body.sales-site .instagram-card .instagram-media {
+    overflow: hidden !important;
+    border: 1px solid rgba(251, 243, 234, 0.12) !important;
+    border-radius: calc(var(--pmx-radius) - 2px) !important;
+    background: #0b0305 !important;
+}
+
+body.sales-site .instagram-card img {
+    width: 100% !important;
+    filter: brightness(0.78) saturate(0.88) contrast(1.06) !important;
+}
+
+body.sales-site .instagram-card :is(h3, strong, p, small, span, a),
+body.sales-site .instagram-card-preview .instagram-card-label,
+body.sales-site .instagram-card-preview span:last-child {
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .instagram-card p {
+    color: rgba(251, 243, 234, 0.74) !important;
+}
+
+body.sales-site .instagram-card-label,
+body.sales-site .instagram-card a,
+body.sales-site .instagram-card > span:last-child {
+    width: fit-content !important;
+    border: 1px solid rgba(240, 200, 120, 0.26) !important;
+    border-radius: var(--pmx-radius) !important;
+    background: rgba(202, 138, 4, 0.13) !important;
+    color: var(--pmx-gold-soft) !important;
+    box-shadow: none !important;
+}
+
+body.sales-site .instagram-card a,
+body.sales-site .instagram-card > span:last-child {
+    display: inline-flex !important;
+    align-items: center !important;
+    min-height: 2rem !important;
+    margin-top: auto !important;
+    padding: 0.42rem 0.62rem !important;
+    font-weight: 850 !important;
+    text-decoration: none !important;
+}
+
+body.sales-site .social-link-grid {
+    align-items: stretch !important;
+}
+
+body.sales-site .social-link,
+body.sales-site .social-link.is-pending {
+    border: 1px solid rgba(251, 243, 234, 0.13) !important;
+    border-radius: var(--pmx-radius) !important;
+    background: rgba(5, 2, 3, 0.46) !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+body.sales-site .social-link :is(.social-icon, .social-status) {
+    color: var(--pmx-gold-soft) !important;
+}
+
+body.sales-site .about-portrait {
+    position: relative !important;
+    isolation: isolate !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(240, 200, 120, 0.2) !important;
+    border-radius: var(--pmx-radius) !important;
+    background:
+        linear-gradient(145deg, rgba(42, 7, 16, 0.88), rgba(5, 2, 3, 0.94)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.2), rgba(184, 50, 69, 0.24)) border-box !important;
+    box-shadow: 0 32px 95px rgba(0, 0, 0, 0.5) !important;
+}
+
+body.sales-site .about-portrait::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    background:
+        linear-gradient(180deg, rgba(5, 2, 3, 0.16), rgba(5, 2, 3, 0.42)),
+        radial-gradient(520px circle at 20% 5%, rgba(240, 200, 120, 0.1), transparent 56%) !important;
+}
+
+body.sales-site .about-portrait img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    filter: brightness(0.82) saturate(0.88) contrast(1.04) !important;
+}
+
+body.sales-site .order-form,
+body.sales-site .order-brief-strip,
+body.sales-site details.form-details summary,
+body.sales-site details.order-extra-fields summary,
+body.sales-site .form-required {
+    border-color: rgba(251, 243, 234, 0.14) !important;
+    background:
+        linear-gradient(145deg, rgba(42, 7, 16, 0.78), rgba(5, 2, 3, 0.9)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.18), rgba(184, 50, 69, 0.2)) border-box !important;
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .order-section .order-form,
+body.sales-site .order-section .order-brief-strip,
+body.sales-site .order-section details.form-details summary,
+body.sales-site .order-section details.order-extra-fields summary,
+body.sales-site .order-section .form-required {
+    border-color: rgba(251, 243, 234, 0.14) !important;
+    background:
+        linear-gradient(145deg, rgba(42, 7, 16, 0.78), rgba(5, 2, 3, 0.92)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.18), rgba(184, 50, 69, 0.2)) border-box !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.42) !important;
+}
+
+body.sales-site .order-form :is(label, legend, h3, h4, strong, span) {
+    color: var(--pmx-ivory) !important;
+}
+
+body.sales-site .order-form :is(p, small, .privacy-copy, .form-help) {
+    color: rgba(251, 243, 234, 0.7) !important;
+}
+
+body.sales-site details.form-details summary {
+    background:
+        linear-gradient(135deg, rgba(251, 243, 234, 0.09), rgba(111, 23, 40, 0.22)) padding-box,
+        linear-gradient(135deg, rgba(240, 200, 120, 0.2), rgba(184, 50, 69, 0.2)) border-box !important;
+}
+
+body.portfolio-site,
+body.portfolio-site main {
+    background:
+        radial-gradient(820px circle at 82% 0%, rgba(184, 50, 69, 0.18), transparent 62%),
+        linear-gradient(180deg, #050203 0%, #110407 52%, #050203 100%) !important;
+}
+
+body.portfolio-site::after {
+    content: "" !important;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    z-index: 98 !important;
+    height: 7rem !important;
+    pointer-events: none !important;
+    background: linear-gradient(180deg, #050203 0%, rgba(5, 2, 3, 0.94) 58%, rgba(5, 2, 3, 0)) !important;
+}
+
+body.portfolio-site .portfolio-header {
+    z-index: 140 !important;
+}
+
+body.portfolio-site :is(.portfolio-hero, .portfolio-section, .process-section, .portfolio-social-section, .about-portfolio-section, .portfolio-cred-strip) {
+    background:
+        radial-gradient(760px circle at 90% 8%, rgba(184, 50, 69, 0.16), transparent 62%),
+        linear-gradient(180deg, rgba(5, 2, 3, 0.96), rgba(18, 4, 7, 0.88)) !important;
+    color: var(--pmx-ivory) !important;
+}
+
+body.portfolio-site :is(.portfolio-art-stage, .about-visual, .portfolio-work-media, .portfolio-social-card img, .portfolio-social-card .portfolio-work-fallback) {
+    position: relative !important;
+    overflow: hidden !important;
+    background: #090305 !important;
+}
+
+body.portfolio-site :is(.portfolio-art-stage, .about-visual)::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    background:
+        linear-gradient(180deg, rgba(5, 2, 3, 0.08), rgba(5, 2, 3, 0.34)),
+        radial-gradient(620px circle at 18% 0%, rgba(240, 200, 120, 0.08), transparent 58%) !important;
+}
+
+body.portfolio-site :is(.portfolio-art-stage img, .about-visual img, .portfolio-work-media img, .portfolio-social-card img) {
+    filter: brightness(0.84) saturate(0.9) contrast(1.05) !important;
+}
+
+body.portfolio-site :is(.portfolio-cred-grid, .portfolio-cred-grid article, .portfolio-work-card, .portfolio-social-card, .portfolio-poem-card, .portfolio-empty-state, .process-rail article, .studio-note-card) {
+    border: 1px solid rgba(251, 243, 234, 0.13) !important;
+    border-radius: var(--pmx-radius) !important;
+    background:
+        linear-gradient(145deg, rgba(42, 7, 16, 0.78), rgba(5, 2, 3, 0.9)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.2), rgba(184, 50, 69, 0.22)) border-box !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: 0 26px 78px rgba(0, 0, 0, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+body.portfolio-site .portfolio-cred-grid {
+    gap: 0.75rem !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+body.portfolio-site :is(.portfolio-cred-grid span, .portfolio-work-card small, .portfolio-social-card small, .portfolio-social-card-preview::after, .process-rail span) {
+    color: var(--pmx-gold-soft) !important;
+}
+
+body.portfolio-site :is(.portfolio-cred-grid p, .portfolio-work-card p, .portfolio-social-card p, .portfolio-poem-card p, .process-rail p, .about-portfolio-section p) {
+    color: rgba(251, 243, 234, 0.72) !important;
+}
+
+body.portfolio-site :is(.portfolio-work-link, .portfolio-social-card a, .portfolio-empty-state a) {
+    display: inline-flex !important;
+    width: fit-content !important;
+    min-height: 2rem !important;
+    align-items: center !important;
+    border: 1px solid rgba(240, 200, 120, 0.26) !important;
+    border-radius: var(--pmx-radius) !important;
+    padding: 0.42rem 0.62rem !important;
+    background: rgba(202, 138, 4, 0.13) !important;
+    color: var(--pmx-gold-soft) !important;
+    font-weight: 850 !important;
+    text-decoration: none !important;
+}
+
+body.portfolio-site .portfolio-work-link-muted {
+    color: rgba(251, 243, 234, 0.72) !important;
+    background: rgba(5, 2, 3, 0.42) !important;
+}
+
+body:not(.sales-site):not(.portfolio-site),
+body:not(.sales-site):not(.portfolio-site) .admin-container {
+    background:
+        radial-gradient(760px circle at 82% 0%, rgba(184, 50, 69, 0.18), transparent 62%),
+        linear-gradient(180deg, #050203 0%, #100407 54%, #050203 100%) !important;
+    color: var(--pmx-ivory) !important;
+}
+
+body:not(.sales-site):not(.portfolio-site) :is(
+    .admin-dashboard,
+    .admin-header,
+    .management-section,
+    .lead-toolbar,
+    .agent-brief-panel,
+    .automation-status-panel,
+    .caption-agent-panel,
+    .caption-agent-result-card,
+    .automation-launch-console,
+    .automation-launch-card,
+    .admin-mode-strip article,
+    .studio-dashboard-card,
+    .site-editor-card,
+    .settings-card,
+    .lead-card,
+    .shop-admin-card,
+    .artwork-card,
+    .poetry-card,
+    .agent-signal-card
+) {
+    border: 1px solid rgba(251, 243, 234, 0.13) !important;
+    border-radius: var(--pmx-radius) !important;
+    background:
+        linear-gradient(145deg, rgba(42, 7, 16, 0.74), rgba(5, 2, 3, 0.9)) padding-box,
+        linear-gradient(145deg, rgba(240, 200, 120, 0.18), rgba(184, 50, 69, 0.2)) border-box !important;
+    color: var(--pmx-ivory) !important;
+    box-shadow: 0 24px 76px rgba(0, 0, 0, 0.4) !important;
+}
+
+body:not(.sales-site):not(.portfolio-site) :is(.admin-header h1, .section-header h2, .management-section h2, .studio-dashboard-card strong, .agent-signal-card strong) {
+    color: var(--pmx-ivory) !important;
+}
+
+body:not(.sales-site):not(.portfolio-site) :is(.section-subtitle, .studio-dashboard-card small, .agent-signal-card small, .admin-mode-strip strong, .management-section p) {
+    color: rgba(251, 243, 234, 0.72) !important;
+}
+
+body:not(.sales-site):not(.portfolio-site) :is(.studio-dashboard-card strong, #dashboardArtworkCount, #dashboardOrderCount, #dashboardShopCount) {
+    font-family: var(--pmx-body) !important;
+    font-variant-numeric: tabular-nums !important;
+    letter-spacing: 0 !important;
+}
+
+body:not(.sales-site):not(.portfolio-site) :is(.nav-btn, .logout-btn, .login-btn, .submit-btn, .cancel-btn, .local-qa-btn) {
+    border: 1px solid rgba(251, 243, 234, 0.16) !important;
+    background: rgba(5, 2, 3, 0.5) !important;
+    color: var(--pmx-ivory) !important;
+}
+
+body:not(.sales-site):not(.portfolio-site) :is(.nav-btn.active, .submit-btn, .login-btn) {
+    border-color: rgba(255, 224, 166, 0.48) !important;
+    background: linear-gradient(135deg, #b83245 0%, #ca8a04 100%) !important;
+    color: #fffaf3 !important;
+}
+
+@media (max-width: 860px) {
+    html {
+        scroll-padding-top: 5.9rem;
+    }
+
+    body.sales-site :is(#home, #story, #formats, #shop, #prices, #order, #socials, #about, #policies),
+    body.portfolio-site :is(#home, #gallery, #poetry, #process, #social-proof, #about) {
+        scroll-margin-top: 5.9rem !important;
+    }
+
+    body.sales-site #order {
+        scroll-margin-top: 6.6rem !important;
+    }
+
+    body.sales-site .nav-cluster.active {
+        background:
+            linear-gradient(145deg, rgba(251, 243, 234, 0.055), rgba(111, 23, 40, 0.22)),
+            rgba(5, 2, 3, 0.985) !important;
+    }
+
+    body.portfolio-site .portfolio-links {
+        border: 1px solid rgba(240, 200, 120, 0.2) !important;
+        background:
+            linear-gradient(145deg, rgba(251, 243, 234, 0.055), rgba(111, 23, 40, 0.22)),
+            rgba(5, 2, 3, 0.985) !important;
+        color: var(--pmx-ivory) !important;
+        -webkit-backdrop-filter: blur(22px) saturate(145%) !important;
+        backdrop-filter: blur(22px) saturate(145%) !important;
+    }
+
+    body.portfolio-site .portfolio-nav .portfolio-links.active {
+        border: 1px solid rgba(240, 200, 120, 0.2) !important;
+        background:
+            linear-gradient(145deg, rgba(251, 243, 234, 0.055), rgba(111, 23, 40, 0.22)),
+            rgba(5, 2, 3, 0.985) !important;
+        color: var(--pmx-ivory) !important;
+    }
+
+    body.sales-site .social-strip,
+    body.sales-site .about-grid,
+    body.sales-site .final-cta-panel {
+        border-right: 0 !important;
+        border-left: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    body.portfolio-site::after {
+        height: 6rem !important;
+    }
+}

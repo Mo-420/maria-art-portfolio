@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Received | Maryilu</title>
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://maryilu.com/checkout-success.html">
+    <link rel="icon" type="image/png" href="heart-icon.png">
+    <link rel="preload" as="image" href="assets/maryilu-luxury-chest-hero.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            letter-spacing: 0;
+        }
+
+        :root {
+            --ink: #071113;
+            --muted: #5b6462;
+            --line: rgba(7, 17, 19, 0.14);
+            --teal: #17b8a6;
+            --soft: #f7faf8;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--ink);
+            background:
+                linear-gradient(90deg, #ffffff 0%, #ffffff 42%, #f8fbf9 42%, #ffffff 100%);
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: minmax(0, 0.82fr) minmax(420px, 1fr);
+        }
+
+        .copy-panel {
+            display: grid;
+            align-content: center;
+            gap: 1.4rem;
+            padding: clamp(2rem, 6vw, 5rem);
+        }
+
+        .brand {
+            position: fixed;
+            top: 1.2rem;
+            left: clamp(1.25rem, 4vw, 3rem);
+            z-index: 4;
+            color: var(--ink);
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: clamp(1.7rem, 2.4vw, 2.35rem);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .status-mark {
+            width: fit-content;
+            border: 1px solid rgba(23, 184, 166, 0.28);
+            border-radius: 999px;
+            padding: 0.45rem 0.75rem;
+            color: #0d766b;
+            background: rgba(23, 184, 166, 0.09);
+            font-size: 0.78rem;
+            font-weight: 900;
+        }
+
+        h1 {
+            max-width: 8ch;
+            margin: 0;
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-size: clamp(4rem, 8vw, 7rem);
+            line-height: 0.9;
+        }
+
+        .lede {
+            max-width: 36rem;
+            margin: 0;
+            color: var(--muted);
+            font-size: clamp(1rem, 1.6vw, 1.2rem);
+            line-height: 1.62;
+        }
+
+        .session-note {
+            max-width: 34rem;
+            margin: 0;
+            color: #71807c;
+            font-size: 0.86rem;
+            line-height: 1.5;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .button {
+            display: inline-flex;
+            min-height: 2.9rem;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            padding: 0.78rem 1rem;
+            color: var(--ink);
+            background: #ffffff;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 850;
+        }
+
+        .button-primary {
+            border-color: transparent;
+            color: #ffffff;
+            background:
+                linear-gradient(var(--ink), var(--ink)) padding-box,
+                linear-gradient(110deg, var(--teal), #ffffff, #c77c73, var(--teal)) border-box;
+            box-shadow: 0 16px 34px rgba(7, 17, 19, 0.13);
+        }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.55rem;
+            max-width: 36rem;
+            margin-top: 0.4rem;
+        }
+
+        .proof-grid article {
+            min-height: 5.25rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.84);
+        }
+
+        .proof-grid span {
+            display: block;
+            margin-bottom: 0.35rem;
+            color: var(--teal);
+            font-size: 0.72rem;
+            font-weight: 950;
+        }
+
+        .proof-grid strong {
+            display: block;
+            font-size: 0.88rem;
+            line-height: 1.25;
+        }
+
+        .image-panel {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            background: #071113;
+        }
+
+        .image-panel img {
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            object-fit: cover;
+            opacity: 0.88;
+        }
+
+        .image-panel::before,
+        .image-panel::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .image-panel::before {
+            background:
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 42px),
+                linear-gradient(90deg, rgba(7, 17, 19, 0.4), transparent 30%, rgba(7, 17, 19, 0.18));
+        }
+
+        .image-panel::after {
+            background: radial-gradient(520px circle at 22% 18%, rgba(23, 184, 166, 0.22), transparent 48%);
+        }
+
+        .receipt-card {
+            position: absolute;
+            right: clamp(1rem, 4vw, 3rem);
+            bottom: clamp(1rem, 4vw, 3rem);
+            z-index: 2;
+            width: min(25rem, calc(100% - 2rem));
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 10px;
+            padding: 1rem;
+            color: #ffffff;
+            background: rgba(7, 17, 19, 0.58);
+            backdrop-filter: blur(20px) saturate(130%);
+            box-shadow: 0 24px 70px rgba(7, 17, 19, 0.32);
+        }
+
+        .receipt-card small,
+        .receipt-card span {
+            display: block;
+            color: rgba(255, 255, 255, 0.68);
+            font-size: 0.76rem;
+            font-weight: 800;
+        }
+
+        .receipt-card strong {
+            display: block;
+            margin: 0.22rem 0 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        .receipt-card ul {
+            display: grid;
+            gap: 0.45rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .receipt-card li {
+            display: flex;
+            gap: 0.5rem;
+            align-items: baseline;
+            color: rgba(255, 255, 255, 0.86);
+            font-size: 0.86rem;
+            line-height: 1.35;
+        }
+
+        .receipt-card li::before {
+            content: "";
+            flex: 0 0 0.46rem;
+            width: 0.46rem;
+            height: 0.46rem;
+            border-radius: 50%;
+            background: var(--teal);
+            box-shadow: 0 0 0 6px rgba(23, 184, 166, 0.09);
+        }
+
+        @media (max-width: 900px) {
+            body {
+                background: #ffffff;
+            }
+
+            .page {
+                grid-template-columns: 1fr;
+            }
+
+            .copy-panel {
+                min-height: auto;
+                padding-top: 6rem;
+            }
+
+            .image-panel {
+                min-height: 34rem;
+            }
+
+            .image-panel img {
+                min-height: 34rem;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .copy-panel {
+                padding: 5.5rem 1rem 2rem;
+            }
+
+            h1 {
+                font-size: clamp(3.25rem, 15vw, 4.6rem);
+            }
+
+            .proof-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                display: grid;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="brand" href="/">Maryilu</a>
+    <main class="page">
+        <section class="copy-panel" aria-labelledby="success-title">
+            <span class="status-mark" data-copy="status">Payment confirmed by Stripe</span>
+            <h1 id="success-title" data-copy="title">Payment received.</h1>
+            <p class="lede" data-copy="lede">Thank you. Your payment was accepted through hosted checkout. Maryilu will follow up with the next step for your artwork or custom order.</p>
+            <p class="session-note" data-copy="session">Stripe has sent the receipt details. The website will update the order status through the secure webhook.</p>
+            <div class="actions">
+                <a class="button button-primary" href="/" data-copy="back">Back to Maryilu</a>
+                <a class="button" href="https://www.instagram.com/marialuisas_arttt/" target="_blank" rel="noopener" data-copy="instagram">Message on Instagram</a>
+            </div>
+            <div class="proof-grid" aria-label="What happens next">
+                <article>
+                    <span>01</span>
+                    <strong data-copy="proofOne">Payment is recorded through Stripe Checkout.</strong>
+                </article>
+                <article>
+                    <span>02</span>
+                    <strong data-copy="proofTwo">Maryilu reviews the order and confirms the next step.</strong>
+                </article>
+                <article>
+                    <span>03</span>
+                    <strong data-copy="proofThree">The artwork or custom piece moves forward safely.</strong>
+                </article>
+            </div>
+        </section>
+        <section class="image-panel" aria-label="Maryilu studio artwork">
+            <img src="assets/maryilu-luxury-chest-hero.png" alt="Hand-painted floral keepsake chest in Maryilu's studio">
+            <div class="receipt-card">
+                <small data-copy="receiptLabel">Checkout path</small>
+                <strong data-copy="receiptTitle">Secure payment -> artist follow-up</strong>
+                <ul>
+                    <li data-copy="receiptOne">No card details are stored on this site.</li>
+                    <li data-copy="receiptTwo">One-of-one pieces are protected from double purchase.</li>
+                    <li data-copy="receiptThree">Custom orders keep quote, deposit, and final payment separate.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            var params = new URLSearchParams(window.location.search);
+            var type = params.get("type") || "payment";
+            var payment = params.get("payment") || "";
+            var lang = params.get("lang") || localStorage.getItem("maryiluLanguage") || "en";
+            var isSpanish = lang === "es";
+
+            var copy = {
+                en: {
+                    status: "Payment confirmed by Stripe",
+                    title: type === "artwork" ? "Artwork payment received." : "Payment received.",
+                    lede: type === "artwork"
+                        ? "Thank you. Stripe accepted the payment and the one-of-one piece is now protected from another checkout."
+                        : payment === "final"
+                            ? "Thank you. Stripe accepted the final payment. Maryilu will confirm pickup, delivery, or shipping next."
+                            : "Thank you. Stripe accepted the custom order payment. Maryilu will follow up with the next step.",
+                    session: "Stripe has sent the receipt details. The website updates order status through the secure webhook.",
+                    back: "Back to Maryilu",
+                    instagram: "Message on Instagram",
+                    proofOne: "Payment is recorded through Stripe Checkout.",
+                    proofTwo: "Maryilu reviews the order and confirms the next step.",
+                    proofThree: "The artwork or custom piece moves forward safely.",
+                    receiptLabel: type === "artwork" ? "Original artwork path" : "Custom order path",
+                    receiptTitle: type === "artwork" ? "Paid -> reserved -> sold" : "Quote -> deposit -> final",
+                    receiptOne: "No card details are stored on this site.",
+                    receiptTwo: "One-of-one pieces are protected from double purchase.",
+                    receiptThree: "Custom orders keep quote, deposit, and final payment separate."
+                },
+                es: {
+                    status: "Pago confirmado por Stripe",
+                    title: type === "artwork" ? "Pago de obra recibido." : "Pago recibido.",
+                    lede: type === "artwork"
+                        ? "Gracias. Stripe acepto el pago y la pieza unica queda protegida de otro checkout."
+                        : payment === "final"
+                            ? "Gracias. Stripe acepto el pago final. Maryilu confirmara recogida, entrega o envio."
+                            : "Gracias. Stripe acepto el pago del pedido personalizado. Maryilu respondera con el siguiente paso.",
+                    session: "Stripe ha enviado los detalles del recibo. La web actualiza el estado del pedido con el webhook seguro.",
+                    back: "Volver a Maryilu",
+                    instagram: "Escribir por Instagram",
+                    proofOne: "El pago queda registrado por Stripe Checkout.",
+                    proofTwo: "Maryilu revisa el pedido y confirma el siguiente paso.",
+                    proofThree: "La obra o pieza personalizada avanza de forma segura.",
+                    receiptLabel: type === "artwork" ? "Camino de obra original" : "Camino de pedido personalizado",
+                    receiptTitle: type === "artwork" ? "Pagado -> reservado -> vendido" : "Presupuesto -> deposito -> final",
+                    receiptOne: "Esta web no guarda datos de tarjeta.",
+                    receiptTwo: "Las piezas unicas estan protegidas contra doble compra.",
+                    receiptThree: "Los pedidos personalizados separan presupuesto, deposito y pago final."
+                }
+            };
+
+            var active = isSpanish ? copy.es : copy.en;
+            document.documentElement.lang = isSpanish ? "es" : "en";
+            document.querySelectorAll("[data-copy]").forEach(function (node) {
+                var key = node.getAttribute("data-copy");
+                if (active[key]) node.textContent = active[key];
+            });
+        })();
+    </script>
+</body>
+</html>

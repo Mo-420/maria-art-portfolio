@@ -3,27 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0, minimum-scale=0.5">
-    <title>Maria Luisa Matees | Maria Luisa’s Art Portfolio</title>
-    <meta name="description" content="Maria Luisa Matees (Maria Luisa) — contemporary artist portfolio. Explore artworks, poetry, and updates from Maria Luisa’s art (maryilu).">
-    <meta name="author" content="Maria Luisa Matees">
+    <title>Maryilu | Custom Handmade Gifts & Art</title>
+    <meta name="description" content="Custom handmade gifts and art made around your story. Order custom gift boxes, chests, bouquets, canvases, and baby shower gifts from Maryilu in Mallorca.">
+    <meta name="author" content="Maryilu">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <link rel="canonical" href="https://maryilu.com/">
     <link rel="me" href="https://www.instagram.com/marialuisas_arttt/">
 
-    <!-- Open Graph / Social -->
-    <meta property="og:site_name" content="Maria Luisa’s Art">
+    <meta property="og:site_name" content="Maryilu">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://maryilu.com/">
-    <meta property="og:title" content="Maria Luisa Matees | Maria Luisa’s Art Portfolio">
-    <meta property="og:description" content="Contemporary artist portfolio by Maria Luisa Matees. View artworks, poetry, and contact Maria on Instagram.">
+    <meta property="og:title" content="Maryilu | Custom Handmade Gifts & Art">
+    <meta property="og:description" content="Custom handmade gifts and art made around your story. Handmade in Mallorca, Spain.">
     <meta property="og:image" content="https://maryilu.com/heart-icon.png">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Maria Luisa Matees | Maria Luisa’s Art Portfolio">
-    <meta name="twitter:description" content="Contemporary artist portfolio by Maria Luisa Matees. View artworks, poetry, and contact Maria on Instagram.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Maryilu | Custom Handmade Gifts & Art">
+    <meta name="twitter:description" content="Custom handmade gifts and art made around your story. Handmade in Mallorca, Spain.">
     <meta name="twitter:image" content="https://maryilu.com/heart-icon.png">
+    <meta name="theme-color" content="#fff8f1">
+    <link rel="icon" type="image/png" href="heart-icon.png">
+    <link rel="manifest" href="/manifest.json">
 
-    <!-- Structured data for Google -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -31,8 +32,8 @@
         {
           "@type": "Person",
           "@id": "https://maryilu.com/#person",
-          "name": "Maria Luisa Matees",
-          "alternateName": ["Maria Luisa", "Maria Luisas Art", "Maryilu Art"],
+          "name": "Maryilu",
+          "alternateName": ["Maria Luisa", "Maria Luisa Matees", "Maria Luisas Art"],
           "url": "https://maryilu.com/",
           "sameAs": ["https://www.instagram.com/marialuisas_arttt/"],
           "jobTitle": "Artist"
@@ -40,203 +41,409 @@
         {
           "@type": "WebSite",
           "@id": "https://maryilu.com/#website",
-          "name": "Maria Luisa’s Art Portfolio",
+          "name": "Maryilu",
           "url": "https://maryilu.com/",
           "publisher": { "@id": "https://maryilu.com/#person" },
-          "inLanguage": "en"
+          "inLanguage": ["en", "es"]
         }
       ]
     }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260106-seo2">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="store-warm.css?v=20260624-rose-studio">
 </head>
-<body>
-    <header role="banner">
-        <nav role="navigation" aria-label="Main navigation">
-            <div class="logo">
-                <h1>Maria Luisa’s Art</h1>
-            </div>
+<body class="sales-site">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="sales-header" role="banner">
+        <nav class="sales-nav" role="navigation" aria-label="Main navigation">
+            <a class="brand-mark" href="#home" aria-label="Maryilu home">
+                <span class="brand-sigil" aria-hidden="true">ML</span>
+                <span data-i18n="brand">Maryilu</span>
+            </a>
             <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </button>
-            <ul class="nav-links" id="navLinks" role="menubar">
-                <li role="none"><a href="#home" role="menuitem">Home</a></li>
-                <li role="none"><a href="#gallery" role="menuitem">Gallery</a></li>
-                <li role="none"><a href="#poetry" role="menuitem">Poetry</a></li>
-                <li role="none"><a href="#about" role="menuitem">About</a></li>
-                <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
-            </ul>
+            <div class="nav-cluster" id="navLinks">
+                <ul class="nav-links" role="menubar">
+                    <li role="none"><a href="#products" role="menuitem" data-i18n="navProducts">Shop</a></li>
+                    <li role="none"><a href="#order" role="menuitem" data-i18n="navOrder">Custom Orders</a></li>
+                    <li role="none"><a href="/portfolio.html" data-portfolio-link role="menuitem" data-i18n="navPortfolio">Portfolio</a></li>
+                    <li role="none"><a href="#socials" role="menuitem" data-i18n="navSocials">Social</a></li>
+                    <li role="none"><a href="#about" role="menuitem" data-i18n="navAbout">About</a></li>
+                </ul>
+                <div class="language-switcher" aria-label="Language switcher">
+                    <button type="button" class="lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+                    <span aria-hidden="true">/</span>
+                    <button type="button" class="lang-btn" data-lang="es" aria-pressed="false">ES</button>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <main role="main" id="main-content">
-        <section id="home" class="hero section-light" aria-labelledby="hero-heading">
-            <div class="hero-content">
-                <h2 id="hero-heading">Welcome to Maria's Art World</h2>
-                <p>Discover the beauty of contemporary art through Maria's unique perspective</p>
-                <a href="#gallery" class="cta-button" aria-label="View Maria's art gallery">View Gallery</a>
+    <main id="main-content">
+        <section id="home" class="sales-section hero-section" aria-labelledby="hero-heading">
+            <div class="section-shell hero-grid">
+                <div class="hero-copy">
+                    <p class="eyebrow" data-i18n="heroNote">Handmade gift workshop in Mallorca</p>
+                    <h1 id="hero-heading" data-i18n="heroTitle">Custom Art Gifts Worth Keeping</h1>
+                    <p class="hero-subtitle" data-i18n="heroSubtitle">One-of-one art, hand-painted chests, ribbon bouquets, canvases, and baby shower gifts made with heart in Mallorca.</p>
+                    <ul class="hero-trust-micro" aria-label="Shop safeguards">
+                        <li><span aria-hidden="true"></span><strong data-i18n="heroMicroArtist">Handmade in Mallorca</strong></li>
+                        <li><span aria-hidden="true"></span><strong data-i18n="heroMicroStripe">Custom or available</strong></li>
+                        <li><span aria-hidden="true"></span><strong data-i18n="heroMicroOne">Studio examples</strong></li>
+                    </ul>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#products" data-commerce-primary data-i18n="heroPrimaryShopPreview">Explore Gift Ideas</a>
+                        <a class="button button-secondary" href="#order" data-commerce-secondary data-i18n="heroSecondary">Start a Custom Gift</a>
+                    </div>
+                    <div class="hero-proof-strip" id="heroTrustStrip" aria-label="Maryilu ordering safeguards"></div>
+                </div>
+                <aside class="hero-studio-card" aria-label="Maryilu product image slot">
+                    <div class="slot-image hero-slot" id="heroVisualSlot">
+                        <div class="warm-placeholder">Photo placeholder: Hero product</div>
+                    </div>
+                    <div class="hero-card-note">
+                        <strong data-i18n="heroProofTitle">Made for one person, not everyone.</strong>
+                        <p data-i18n="heroProofText">Every piece is personal from start to finish.</p>
+                    </div>
+                </aside>
             </div>
         </section>
 
-        <section id="gallery" class="gallery section-light" aria-labelledby="gallery-heading">
-            <h2 id="gallery-heading">Art Gallery</h2>
-            <div class="gallery-filters" role="group" aria-label="Filter artworks">
-                <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
-                <button class="filter-btn" data-filter="2024" aria-pressed="false">2024</button>
-                <button class="filter-btn" data-filter="2023" aria-pressed="false">2023</button>
-                <button class="filter-btn" data-filter="available" aria-pressed="false">Available</button>
-            </div>
-            <div class="gallery-grid" id="galleryGrid" role="grid" aria-label="Artwork gallery">
-                <!-- Artworks will be loaded dynamically -->
-            </div>
-        </section>
-
-        <section id="poetry" class="poetry section-dark" aria-labelledby="poetry-heading">
-            <h2 id="poetry-heading">Poetry</h2>
-            <p class="section-subtitle">Words that dance with colors and emotions</p>
-            <div class="poetry-grid" role="list" aria-label="Poetry collection">
-                <article class="poem-card" role="listitem">
-                    <h3>Urban Dreams</h3>
-                    <div class="poem-content">
-                        <p>In the city's heartbeat,<br>
-                        Where shadows meet light,<br>
-                        I paint my dreams<br>
-                        In colors bold and bright.</p>
+        <section id="products" class="sales-section category-section" aria-labelledby="products-heading">
+            <div class="section-shell">
+                <div class="section-heading section-heading-split">
+                    <div>
+                        <p class="section-kicker">Gift categories</p>
+                        <h2 id="products-heading">Choose the kind of gift</h2>
+                        <p>Start with the closest format. Maryilu shapes the details after she reads the request.</p>
                     </div>
-                    <div class="poem-meta">
-                        <time class="poem-date" datetime="2024-03">March 2024</time>
-                        <span class="poem-theme" aria-label="Theme: Urban Life">Urban Life</span>
-                    </div>
-                </article>
-                
-                <article class="poem-card" role="listitem">
-                    <h3>Nature's Whisper</h3>
-                    <div class="poem-content">
-                        <p>Through the trees,<br>
-                        A gentle breeze,<br>
-                        Nature speaks<br>
-                        In silent ease.</p>
-                    </div>
-                    <div class="poem-meta">
-                        <time class="poem-date" datetime="2024-02">February 2024</time>
-                        <span class="poem-theme" aria-label="Theme: Nature">Nature</span>
-                    </div>
-                </article>
-                
-                <article class="poem-card" role="listitem">
-                    <h3>Creative Fire</h3>
-                    <div class="poem-content">
-                        <p>In my studio,<br>
-                        Where magic flows,<br>
-                        Every brushstroke<br>
-                        A story grows.</p>
-                    </div>
-                    <div class="poem-meta">
-                        <time class="poem-date" datetime="2024-01">January 2024</time>
-                        <span class="poem-theme" aria-label="Theme: Art & Creation">Art & Creation</span>
-                    </div>
-                </article>
-                
-                <article class="poem-card" role="listitem">
-                    <h3>Evening Light</h3>
-                    <div class="poem-content">
-                        <p>As day turns to night,<br>
-                        Golden hour's glow,<br>
-                        Captures the soul<br>
-                        Of all we know.</p>
-                    </div>
-                    <div class="poem-meta">
-                        <time class="poem-date" datetime="2023-12">December 2023</time>
-                        <span class="poem-theme" aria-label="Theme: Time & Light">Time & Light</span>
-                    </div>
-                </article>
+                    <a class="button button-secondary" href="#order" data-i18n="heroSecondary">Start a Custom Gift</a>
+                </div>
+                <div class="category-grid" id="categoryCards" aria-live="polite"></div>
             </div>
         </section>
 
-        <section id="about" class="about section-dark" aria-labelledby="about-heading">
-            <div class="about-content">
-                <h2 id="about-heading">About Maria Luisa</h2>
-                <p>Maria is a passionate artist who explores the intersection of color, emotion, and form. Her work reflects a deep connection to nature and urban life, creating pieces that speak to the soul.</p>
-                <p>With over 10 years of experience in various mediums, Maria continues to push the boundaries of contemporary art.</p>
+        <section id="how" class="sales-section process-section" aria-labelledby="how-heading">
+            <div class="section-shell process-grid">
+                <div class="section-heading">
+                    <p class="section-kicker">How ordering works</p>
+                    <h2 id="how-heading" data-i18n="howTitle">The build plan</h2>
+                    <p data-i18n="orderIntro">Send the essentials first. Maryilu can help shape the rest.</p>
+                    <div class="process-note">
+                        <strong aria-hidden="true">i</strong>
+                        <p data-i18n="responseExpectation">You’ll get an idea, timeline, and final price.</p>
+                    </div>
+                </div>
+                <ol class="steps-list" id="howSteps"></ol>
             </div>
         </section>
 
-        <section id="contact" class="contact section-dark" aria-labelledby="contact-heading">
-            <h2 id="contact-heading">Get In Touch</h2>
-            
-            <div class="contact-grid" role="list" aria-label="Contact methods">
-                <div class="contact-card" role="listitem">
-                    <div class="contact-icon" aria-hidden="true">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="currentColor"/>
-                        </svg>
+        <section id="shop" class="sales-section shop-section gallery-section" aria-labelledby="shop-heading">
+            <div class="section-shell">
+                <div class="section-heading section-heading-split">
+                    <div>
+                        <p class="section-kicker">Shop and gift ideas</p>
+                        <h2 id="shop-heading" data-commerce-shop-title data-i18n="shopTitleCustom">Gift Ideas & Custom Art</h2>
+                        <p data-commerce-shop-text data-i18n="shopTextCustom">Choose a starting point, then Maryilu replies with a quote before payment.</p>
                     </div>
-                    <h3>Instagram</h3>
-                    <p>Follow my latest artwork and behind-the-scenes content</p>
-                    <a href="https://www.instagram.com/marialuisas_arttt" target="_blank" rel="noopener" class="contact-link" aria-label="Follow Maria on Instagram">
-                        @marialuisas_arttt
-                    </a>
+                    <div class="gallery-filters shop-filters" id="shopFilters" role="group" aria-label="Filter shop"></div>
+                </div>
+                <div class="shop-layout">
+                    <div>
+                        <div class="shop-status" id="shopStatus" aria-live="polite"></div>
+                        <div class="sales-gallery-grid shop-grid" id="shopGrid" aria-live="polite"></div>
+                    </div>
+                    <div class="shop-sidebar">
+                        <aside class="custom-order-card" aria-labelledby="custom-order-card-title">
+                            <h3 id="custom-order-card-title" data-i18n="customOrderCardTitle">Start a Custom Gift</h3>
+                            <p data-i18n="customOrderCardText">Hand-painted just for you. Each piece is one of one.</p>
+                            <ol>
+                                <li data-i18n="customStepQuote">Quote approved</li>
+                                <li data-i18n="customStepDeposit">Deposit</li>
+                                <li data-i18n="customStepFinal">Final payment</li>
+                            </ol>
+                            <a class="button button-primary" href="#order" data-i18n="customOrderCardCta">Start a Custom Gift</a>
+                        </aside>
+                        <aside class="mallorca-proof-card" aria-label="Maryilu studio location">
+                            <div class="mallorca-map" aria-hidden="true"></div>
+                            <h3 data-i18n="mallorcaProofTitle">Handmade in Mallorca</h3>
+                            <p data-i18n="mallorcaProofText">Designed, painted, and finished in Maria Luisa's studio.</p>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="prices" class="sales-section prices-section" aria-labelledby="prices-heading">
+            <div class="section-shell">
+                <div class="section-heading section-heading-split">
+                    <div>
+                        <p class="section-kicker">Starting prices</p>
+                        <h2 id="prices-heading" data-i18n="pricesTitle">Starting prices</h2>
+                        <p data-i18n="pricesText">Simple starting points. Open a category for the full range.</p>
+                    </div>
+                    <a class="button button-secondary" href="#order" data-i18n="heroSecondary">Start a Custom Gift</a>
+                </div>
+                <div class="pricing-grid">
+                    <div class="pricing-main">
+                        <div class="product-tables" id="productTables"></div>
+                    </div>
+                    <aside class="pricing-side" aria-label="Order guidance">
+                        <div class="process-card">
+                            <h3 data-i18n="howTitle">The build plan</h3>
+                            <p data-i18n="depositNotice">50% deposit to begin. The final 50% is paid before pickup or shipping.</p>
+                        </div>
+                        <div class="addons-panel">
+                            <div class="addons-panel-heading">
+                                <h3 data-i18n="addOnsTitle">Add-ons</h3>
+                                <span data-i18n="optionalDetails">Optional details</span>
+                            </div>
+                            <div class="addons-list" id="addonsList"></div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <section id="order" class="sales-section order-section" aria-labelledby="order-heading">
+            <div class="section-shell order-grid">
+                <div class="order-intro">
+                    <p class="section-kicker">Custom order request</p>
+                    <h2 id="order-heading" data-i18n="orderTitle">Start a custom gift</h2>
+                    <p data-i18n="orderIntro">Send the essentials first. Maryilu can help shape the rest.</p>
+                    <div class="order-note">
+                        <p data-i18n="depositNotice">50% deposit to begin. The final 50% is paid before pickup or shipping.</p>
+                        <p data-i18n="responseExpectation">You’ll get an idea, timeline, and final price.</p>
+                    </div>
+                    <div class="order-steps" aria-label="Order process">
+                        <span><strong>1</strong> Tell us the idea</span>
+                        <span><strong>2</strong> Receive quote</span>
+                        <span><strong>3</strong> Secure deposit</span>
+                    </div>
+                    <div class="order-actions">
+                        <a class="button button-secondary" href="https://www.instagram.com/marialuisas_arttt/" target="_blank" rel="noopener" data-i18n="instagramCta">Message on Instagram</a>
+                    </div>
+                </div>
+
+                <form class="order-form" id="orderForm" novalidate>
+                    <p class="form-required" data-i18n="requiredNote">Start with the basics. Extra creative notes are optional.</p>
+                    <div class="order-brief-strip" aria-label="Quick order brief">
+                        <span><strong data-i18n="quickBriefTime">2 minute</strong><small data-i18n="quickBriefTimeText">quick brief</small></span>
+                        <span><strong data-i18n="quickBriefQuote">Quote first</strong><small data-i18n="quickBriefQuoteText">no payment now</small></span>
+                        <span><strong data-i18n="quickBriefOptional">Details later</strong><small data-i18n="quickBriefOptionalText">photos by Instagram</small></span>
+                    </div>
+                    <label class="spam-guard" aria-hidden="true">
+                        <span>Company</span>
+                        <input type="text" name="company" tabindex="-1" autocomplete="off">
+                    </label>
+
+                    <div class="form-section">
+                        <div class="form-section-heading">
+                            <h3 data-i18n="formContactTitle">Your details</h3>
+                            <p data-i18n="formContactHint">So Maryilu can reply with an idea and quote.</p>
+                        </div>
+                        <div class="form-grid">
+                            <label>
+                                <span><span data-i18n="name">Name</span> *</span>
+                                <input type="text" name="name" autocomplete="name" required>
+                            </label>
+                            <label>
+                                <span><span data-i18n="phone">Best contact</span> *</span>
+                                <input type="text" name="phone" autocomplete="tel" required>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-section-heading">
+                            <h3 data-i18n="formGiftTitle">Gift basics</h3>
+                            <p data-i18n="formGiftHint">Enough to shape the first direction.</p>
+                        </div>
+                        <div class="form-grid">
+                            <label>
+                                <span><span data-i18n="productCategory">Product category</span> *</span>
+                                <select name="productCategory" id="productCategory" required></select>
+                            </label>
+                            <label>
+                                <span><span data-i18n="deadline">Deadline/date needed</span> *</span>
+                                <select name="deadline" id="deadline" required></select>
+                            </label>
+                            <label>
+                                <span><span data-i18n="budget">Budget range</span> *</span>
+                                <select name="budget" id="budget" required></select>
+                            </label>
+                            <label class="form-wide">
+                                <span><span data-i18n="recipient">Short idea / who is it for?</span> *</span>
+                                <textarea name="recipient" rows="3" required></textarea>
+                            </label>
+                        </div>
+                    </div>
+
+                    <details class="form-section form-details">
+                        <summary>
+                            <span data-i18n="formCreativeTitle">Creative notes</span>
+                            <small data-i18n="formCreativeHint">Optional details, references, and style notes</small>
+                        </summary>
+                        <div class="form-grid form-grid-wide">
+                            <label>
+                                <span data-i18n="email">Email (optional)</span>
+                                <input type="email" name="email" autocomplete="email">
+                            </label>
+                            <label>
+                                <span data-i18n="instagram">Instagram username (optional)</span>
+                                <input type="text" name="instagram" autocomplete="off">
+                            </label>
+                            <label>
+                                <span data-i18n="preferredLanguage">Preferred language</span>
+                                <select name="preferredLanguage" id="preferredLanguage">
+                                    <option value="English">English</option>
+                                    <option value="Spanish">Spanish</option>
+                                </select>
+                            </label>
+                            <label>
+                                <span data-i18n="countryCity">Country / city (optional)</span>
+                                <input type="text" name="countryCity" autocomplete="address-level2">
+                            </label>
+                            <label>
+                                <span data-i18n="productTier">Specific product/tier if known</span>
+                                <select name="productTier" id="productTier"></select>
+                            </label>
+                            <label>
+                                <span data-i18n="occasion">Occasion (optional)</span>
+                                <input type="text" name="occasion">
+                            </label>
+                            <label>
+                                <span data-i18n="pickupShipping">Pickup/shipping preference</span>
+                                <select name="pickupShipping" id="pickupShipping"></select>
+                            </label>
+                            <label>
+                                <span data-i18n="interests">Recipient interests/hobbies</span>
+                                <textarea name="interests" rows="3"></textarea>
+                            </label>
+                            <label>
+                                <span data-i18n="colors">Favorite colors/style</span>
+                                <textarea name="colors" rows="3"></textarea>
+                            </label>
+                            <label>
+                                <span data-i18n="includeThemes">Themes to include</span>
+                                <textarea name="includeThemes" rows="3"></textarea>
+                            </label>
+                            <label>
+                                <span data-i18n="avoidThemes">Themes to avoid</span>
+                                <textarea name="avoidThemes" rows="3"></textarea>
+                            </label>
+                            <label>
+                                <span data-i18n="memories">Personal memories/inside jokes</span>
+                                <textarea name="memories" rows="3"></textarea>
+                            </label>
+                            <label>
+                                <span data-i18n="songQuote">Song/quote/text to include</span>
+                                <textarea name="songQuote" rows="3"></textarea>
+                            </label>
+                            <label>
+                                <span data-i18n="involvement">Creative involvement</span>
+                                <select name="involvement" id="involvement"></select>
+                            </label>
+                            <label>
+                                <span data-i18n="referenceLinks">Reference links (optional)</span>
+                                <textarea name="referenceLinks" rows="3"></textarea>
+                            </label>
+                            <label>
+                                <span data-i18n="notes">Anything else Maryilu should know? (optional)</span>
+                                <textarea name="notes" rows="3"></textarea>
+                            </label>
+                        </div>
+                    </details>
+
+                    <label class="consent-row">
+                        <input type="checkbox" name="consent" required>
+                        <span><span data-i18n="consent">I consent to be contacted about this custom order request.</span> *</span>
+                    </label>
+
+                    <p class="privacy-copy" data-i18n="privacyNote">Your details are used only to reply about this request. Share photo references as links or by Instagram after Maryilu replies.</p>
+                    <button class="button button-primary form-submit" type="submit"><span data-i18n="submit">Send Custom Order Request</span></button>
+                    <div class="form-status" id="formStatus" aria-live="polite"></div>
+                </form>
+            </div>
+        </section>
+
+        <section id="socials" class="sales-section social-section" aria-labelledby="social-heading">
+            <div class="section-shell social-strip">
+                <div class="section-heading">
+                    <p class="section-kicker">Studio notes</p>
+                    <h2 id="social-heading" data-social-title data-i18n="socialTitle">Studio preview</h2>
+                    <p data-social-text data-i18n="socialText">Recent studio pieces and process moments from Maria's public posts.</p>
+                </div>
+                <div class="social-link-grid" data-social-links aria-label="Social media links"></div>
+                <div class="instagram-rail" id="instagramRail" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section id="about" class="sales-section about-section" aria-labelledby="about-heading">
+            <div class="section-shell about-grid">
+                <div class="slot-image about-slot" id="aboutVisualSlot">
+                    <div class="warm-placeholder">Photo placeholder: Maria in the studio</div>
+                </div>
+                <div class="about-copy">
+                    <p class="section-kicker">About the maker</p>
+                    <h2 id="about-heading" data-i18n="aboutTitle">About Maryilu</h2>
+                    <p data-i18n="aboutText1">Maryilu makes personal handmade gifts and art for people who want a present to feel specific, emotional, and remembered.</p>
+                    <p data-i18n="aboutText2">Her process mixes careful client direction with playful handmade detail: colors, memories, music, inside jokes, favorite styles, and the little things that make someone feel known.</p>
+                    <div class="about-actions">
+                        <a class="button button-secondary" href="#order" data-i18n="heroSecondary">Start a Custom Gift</a>
+                        <a class="button button-quiet" href="/portfolio.html" data-portfolio-link data-i18n="portfolioCta">View Art Portfolio</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="policies" class="sales-section policies-section" aria-labelledby="policies-heading">
+            <div class="section-shell">
+                <div class="section-heading">
+                    <p class="section-kicker">Policies</p>
+                    <h2 id="policies-heading" data-i18n="policiesTitle">Shipping & Policies</h2>
+                    <p data-i18n="policiesIntro">Handmade pieces have natural variation. Colors, small details, and materials may vary slightly while keeping the approved direction and spirit of the piece.</p>
+                </div>
+                <div class="shipping-grid" id="shippingCards"></div>
+                <div class="faq-panel">
+                    <h3 data-i18n="faqTitle">Questions before ordering</h3>
+                    <div class="faq-list" id="faqList"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="sales-section final-cta" aria-labelledby="final-cta-heading">
+            <div class="section-shell final-cta-panel">
+                <p class="section-kicker">Ready</p>
+                <h2 id="final-cta-heading" data-i18n="finalCtaTitle">Let’s create something unforgettable.</h2>
+                <p data-i18n="finalCtaText">Tell Maryilu who it’s for and she’ll build the gift around their story.</p>
+                <div class="final-actions">
+                    <a class="button button-primary" href="#order" data-i18n="heroSecondary">Start a Custom Gift</a>
+                    <a class="button button-secondary" href="https://www.instagram.com/marialuisas_arttt/" target="_blank" rel="noopener" data-i18n="instagramCta">Message on Instagram</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="section-dark">
-        <p>&copy; 2024 Maria's Art Portfolio. All rights reserved.</p>
+    <footer class="sales-footer">
+        <div class="sales-footer-inner">
+            <p>&copy; 2026 Maryilu. <span data-i18n="footerText">Custom handmade gifts and art made around your story.</span></p>
+            <nav class="sales-footer-links" aria-label="Footer navigation">
+                <a href="#order" data-i18n="heroSecondary">Start a Custom Gift</a>
+                <a href="/portfolio.html" data-portfolio-link data-i18n="portfolioCta">View Art Portfolio</a>
+                <a href="https://www.instagram.com/marialuisas_arttt/" target="_blank" rel="noopener" data-i18n="instagramCta">Message on Instagram</a>
+                <a href="#policies" data-i18n="policiesTitle">Shipping & Policies</a>
+            </nav>
+        </div>
     </footer>
 
-    <script>
-        // Load site content from API
-        async function loadSiteContent() {
-            try {
-                const dataAPI = new DataAPI();
-                const content = await dataAPI.getSiteContent();
-                
-                if (content.heroHeading) {
-                    const heroHeading = document.getElementById('hero-heading');
-                    if (heroHeading) heroHeading.textContent = content.heroHeading;
-                }
-                
-                if (content.heroParagraph) {
-                    const heroParagraph = document.querySelector('#home .hero-content p');
-                    if (heroParagraph) heroParagraph.textContent = content.heroParagraph;
-                }
-                
-                if (content.aboutParagraph1 || content.aboutParagraph2) {
-                    const aboutParagraphs = document.querySelectorAll('#about .about-content p');
-                    if (aboutParagraphs.length > 0 && content.aboutParagraph1) {
-                        aboutParagraphs[0].textContent = content.aboutParagraph1;
-                    }
-                    if (aboutParagraphs.length > 1 && content.aboutParagraph2) {
-                        aboutParagraphs[1].textContent = content.aboutParagraph2;
-                    }
-                }
-            } catch (e) {
-                console.error('Error loading site content:', e);
-            }
-        }
-        
-        // Load on DOM ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadSiteContent);
-        } else {
-            loadSiteContent();
-        }
-        
-        // Also listen for storage events to update when admin makes changes
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'siteContent') {
-                loadSiteContent();
-            }
-        });
-    </script>
-    <script src="data-api.js?v=20260106-seo2"></script>
-    <script src="sample-data.js?v=20260106-seo2"></script>
-    <script src="script.js?v=20260106-seo2"></script>
+    <script src="data-api.js?v=20260624-warm-studio"></script>
+    <script src="site-data.js?v=20260624-transforming-store"></script>
+    <script src="script.js?v=20260624-rose-studio"></script>
 </body>
 </html>

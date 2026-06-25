@@ -1,0 +1,469 @@
+/* Review panel fixes: one final layer for the burgundy storefront. */
+body.sales-site {
+    --review-black: #050203;
+    --review-wine: #180408;
+    --review-panel: rgba(255, 255, 255, 0.075);
+    --review-panel-strong: rgba(255, 255, 255, 0.12);
+    --review-line: rgba(245, 236, 230, 0.18);
+    --review-ivory: #f7eee6;
+    --review-muted: rgba(247, 238, 230, 0.72);
+    --review-rose: #df7b89;
+    --review-red: #b83245;
+    overflow-x: hidden;
+}
+
+body.sales-site .hero-section {
+    min-height: 88svh !important;
+    padding-top: 118px !important;
+    padding-bottom: 42px !important;
+}
+
+body.sales-site .hero-grid {
+    min-height: min(650px, calc(88svh - 160px)) !important;
+}
+
+body.sales-site .hero-trust-micro {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+body.sales-site .hero-live-hud {
+    display: none !important;
+}
+
+body.sales-site .kinetic-gallery-section {
+    min-height: 240svh !important;
+    padding: 0 !important;
+    overflow: visible !important;
+}
+
+body.sales-site .kinetic-gallery-viewport {
+    position: sticky !important;
+    top: 0 !important;
+    height: 100svh !important;
+    min-height: 100svh !important;
+    overflow: hidden !important;
+}
+
+body.sales-site .kinetic-gallery-track {
+    transform: translate3d(0, 0, 0);
+}
+
+body.sales-site .gallery-proof-card,
+body.sales-site .shop-item-card,
+body.sales-site .instagram-card,
+body.sales-site .custom-order-card,
+body.sales-site .mallorca-proof-card,
+body.sales-site .price-card,
+body.sales-site .addons-panel,
+body.sales-site .shipping-card,
+body.sales-site .faq-item,
+body.sales-site .shop-empty,
+body.sales-site .order-form,
+body.sales-site .order-note,
+body.sales-site .order-steps span,
+body.sales-site .form-required,
+body.sales-site details.form-details summary,
+body.sales-site details.order-extra-fields summary,
+body.sales-site .order-brief-strip {
+    border: 1px solid var(--review-line) !important;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.035)) padding-box,
+        linear-gradient(135deg, rgba(247, 238, 230, 0.24), rgba(184, 50, 69, 0.26)) border-box !important;
+    color: var(--review-ivory) !important;
+    box-shadow: 0 24px 72px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(140%) !important;
+    backdrop-filter: blur(18px) saturate(140%) !important;
+}
+
+body.sales-site :is(.gallery-proof-card, .shop-item-card, .instagram-card, .custom-order-card, .mallorca-proof-card, .price-card, .shipping-card, .faq-item) :is(h3, strong, summary) {
+    color: var(--review-ivory) !important;
+}
+
+body.sales-site :is(.gallery-proof-card, .shop-item-card, .instagram-card, .custom-order-card, .mallorca-proof-card, .price-card, .shipping-card, .faq-item) :is(p, small, li, span) {
+    color: var(--review-muted) !important;
+}
+
+body.sales-site .gallery-category,
+body.sales-site .instagram-card-label,
+body.sales-site .shop-chip,
+body.sales-site .shop-card-proof span:first-child {
+    color: var(--review-rose) !important;
+}
+
+body.sales-site .gallery-category,
+body.sales-site .shop-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    min-height: 28px !important;
+    margin: 0 0 0.75rem !important;
+    padding: 0.35rem 0.6rem !important;
+    border: 1px solid rgba(255, 215, 221, 0.22) !important;
+    border-radius: 8px !important;
+    background: rgba(184, 50, 69, 0.18) !important;
+    color: #ffd7dd !important;
+    line-height: 1.05 !important;
+    letter-spacing: 0 !important;
+}
+
+body.sales-site .gallery-media .shop-chip {
+    position: absolute !important;
+    left: 0.9rem !important;
+    right: auto !important;
+    bottom: 0.9rem !important;
+    margin: 0 !important;
+}
+
+body.sales-site .gallery-proof-card .gallery-proof-content .gallery-category,
+body.sales-site .gallery-proof-card .gallery-media .shop-chip {
+    color: #ffd7dd !important;
+}
+
+body.sales-site .shop-card-proof {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.45rem !important;
+}
+
+body.sales-site .shop-card-proof span,
+body.sales-site .shop-price-guide,
+body.sales-site .custom-order-card li {
+    border: 1px solid rgba(247, 238, 230, 0.14) !important;
+    border-radius: 8px !important;
+    background: rgba(5, 2, 3, 0.24) !important;
+    color: var(--review-muted) !important;
+}
+
+body.sales-site .shop-price,
+body.sales-site .shop-price-guide {
+    display: inline-flex !important;
+    width: fit-content !important;
+    gap: 0.35rem !important;
+    margin-top: 0.75rem !important;
+    padding: 0.45rem 0.65rem !important;
+}
+
+body.sales-site .instagram-card a,
+body.sales-site .portfolio-work-link,
+body.sales-site .sales-footer a {
+    color: #ffd7dd !important;
+    text-decoration-color: rgba(255, 215, 221, 0.42) !important;
+    text-underline-offset: 0.22em !important;
+}
+
+body.sales-site .order-brief-strip {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.7rem !important;
+    padding: 0.8rem !important;
+}
+
+body.sales-site .order-brief-strip span {
+    min-width: 0 !important;
+    display: grid !important;
+    gap: 0.1rem !important;
+    padding: 0.72rem 0.8rem !important;
+    border: 1px solid rgba(247, 238, 230, 0.12) !important;
+    border-radius: 8px !important;
+    background: rgba(5, 2, 3, 0.22) !important;
+}
+
+body.sales-site .order-brief-strip strong {
+    color: var(--review-ivory) !important;
+    line-height: 1.12 !important;
+}
+
+body.sales-site .order-brief-strip small {
+    color: var(--review-muted) !important;
+    line-height: 1.2 !important;
+}
+
+body.sales-site .mallorca-map {
+    min-height: 138px !important;
+    border: 1px solid rgba(247, 238, 230, 0.14) !important;
+    border-radius: 8px !important;
+    background:
+        linear-gradient(180deg, rgba(5, 2, 3, 0.04), rgba(5, 2, 3, 0.36)),
+        url("assets/maria-luisa-portfolio-studio.png") center / cover no-repeat !important;
+}
+
+body.sales-site .mallorca-map::before,
+body.sales-site .mallorca-map span {
+    display: none !important;
+}
+
+body.sales-site .mobile-menu-toggle,
+body.sales-site .lang-btn {
+    min-width: 44px !important;
+    min-height: 44px !important;
+}
+
+body.sales-site .mobile-menu-toggle span {
+    display: block !important;
+    width: 1.35rem !important;
+    height: 2px !important;
+    margin: 0 !important;
+    border-radius: 99px !important;
+    background: var(--review-ivory) !important;
+    transform-origin: center !important;
+    transition: transform 180ms ease, opacity 180ms ease !important;
+}
+
+body.sales-site .mobile-menu-toggle.active span:nth-child(1) {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) rotate(45deg) !important;
+}
+
+body.sales-site .mobile-menu-toggle.active span:nth-child(2) {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    opacity: 0 !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+body.sales-site .mobile-menu-toggle.active span:nth-child(3) {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) rotate(-45deg) !important;
+}
+
+body.sales-site .sales-nav .brand-mark,
+body.sales-site .sales-nav .nav-links a,
+body.sales-site .sales-nav .language-option {
+    display: inline-flex !important;
+    align-items: center !important;
+    min-height: 44px !important;
+}
+
+body.sales-site details.form-details summary,
+body.sales-site details.order-extra-fields summary,
+body.sales-site .portfolio-menu-toggle {
+    min-height: 44px !important;
+}
+
+body.sales-site .spam-guard {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+    opacity: 0 !important;
+}
+
+body.sales-site .spam-guard input,
+body.sales-site .spam-guard textarea,
+body.sales-site .spam-guard select {
+    width: 1px !important;
+    height: 1px !important;
+}
+
+body.sales-site .sales-footer {
+    padding: 2.4rem 1rem !important;
+    border-top: 1px solid rgba(247, 238, 230, 0.12) !important;
+    background: linear-gradient(180deg, #090204, #050203) !important;
+}
+
+body.sales-site .sales-footer-inner {
+    width: min(1180px, calc(100% - 2rem));
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+}
+
+body.sales-site .sales-footer p {
+    margin: 0;
+    color: var(--review-muted) !important;
+}
+
+body.sales-site .sales-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.7rem 1rem;
+}
+
+body.sales-site .sales-footer-links a {
+    font-weight: 800;
+}
+
+@media (max-width: 1100px) {
+    body.sales-site .hero-section {
+        min-height: auto !important;
+    }
+
+    body.sales-site .hero-grid {
+        min-height: 0 !important;
+    }
+}
+
+@media (max-width: 860px), (prefers-reduced-motion: reduce) {
+    body.sales-site .transform-story-section,
+    body.sales-site .kinetic-gallery-section {
+        min-height: auto !important;
+        overflow: hidden !important;
+        padding: 5rem 0 !important;
+    }
+
+    body.sales-site .story-stage {
+        width: min(42rem, calc(100% - 1.25rem)) !important;
+        min-height: 0 !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 1.75rem !important;
+    }
+
+    body.sales-site .story-media,
+    body.sales-site .story-copy,
+    body.sales-site .story-step {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    body.sales-site .story-media {
+        min-height: 320px !important;
+    }
+
+    body.sales-site .story-copy h2,
+    body.sales-site .kinetic-gallery-head h2 {
+        font-size: 2.85rem !important;
+        line-height: 0.98 !important;
+    }
+
+    body.sales-site .kinetic-gallery-head {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        width: min(42rem, calc(100% - 1.25rem)) !important;
+        margin: 0 auto 1.35rem !important;
+        transform: none !important;
+        pointer-events: auto !important;
+    }
+
+    body.sales-site .kinetic-gallery-viewport {
+        position: relative !important;
+        top: auto !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        padding: 0 !important;
+    }
+
+    body.sales-site .kinetic-gallery-track {
+        width: min(42rem, calc(100% - 1.25rem)) !important;
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 1rem !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        transform: none !important;
+    }
+
+    body.sales-site .kinetic-format-card {
+        width: 100% !important;
+        flex: none !important;
+        grid-template-columns: 1fr !important;
+        grid-template-rows: auto auto !important;
+        min-height: 0 !important;
+    }
+
+    body.sales-site .kinetic-format-card img {
+        height: 245px !important;
+        min-height: 245px !important;
+    }
+
+    body.sales-site .kinetic-format-card div {
+        padding: 1.4rem !important;
+    }
+}
+
+@media (max-width: 860px) {
+    body.sales-site .nav-cluster.active {
+        border: 1px solid rgba(255, 215, 221, 0.18) !important;
+        border-radius: 8px !important;
+        background:
+            linear-gradient(145deg, rgba(40, 9, 15, 0.96), rgba(8, 2, 4, 0.94)) !important;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5) !important;
+        -webkit-backdrop-filter: blur(20px) saturate(150%) !important;
+        backdrop-filter: blur(20px) saturate(150%) !important;
+    }
+
+    body.sales-site .nav-cluster.active::before {
+        background: transparent !important;
+    }
+
+    body.sales-site .nav-cluster.active .nav-links {
+        border: 0 !important;
+        border-radius: 8px !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    body.sales-site .nav-cluster.active .nav-links a {
+        justify-content: flex-start !important;
+        border: 1px solid rgba(255, 215, 221, 0.16) !important;
+        border-radius: 8px !important;
+        background: rgba(255, 255, 255, 0.075) !important;
+        color: var(--review-ivory) !important;
+    }
+
+    body.sales-site .nav-cluster.active .nav-links a:hover,
+    body.sales-site .nav-cluster.active .nav-links a:focus-visible {
+        border-color: rgba(255, 215, 221, 0.34) !important;
+        background: rgba(184, 50, 69, 0.22) !important;
+        color: #ffffff !important;
+    }
+
+    body.sales-site .nav-cluster.active .language-switcher {
+        width: fit-content !important;
+        border: 1px solid rgba(255, 215, 221, 0.18) !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        color: var(--review-muted) !important;
+    }
+
+    body.sales-site .nav-cluster.active .lang-btn {
+        color: var(--review-ivory) !important;
+        background: transparent !important;
+    }
+
+    body.sales-site .nav-cluster.active .lang-btn.active {
+        color: #ffffff !important;
+        background: rgba(184, 50, 69, 0.48) !important;
+    }
+}
+
+@media (max-width: 760px) {
+    body.sales-site .hero-section {
+        padding-top: 92px !important;
+        padding-bottom: 3.5rem !important;
+    }
+
+    body.sales-site .hero-trust-micro,
+    body.sales-site .order-brief-strip {
+        grid-template-columns: 1fr !important;
+    }
+
+    body.sales-site .hero-copy h1 {
+        font-size: 3.05rem !important;
+    }
+
+    body.sales-site .sales-footer-inner {
+        width: min(42rem, calc(100% - 1.25rem));
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    body.sales-site .sales-footer-links {
+        justify-content: flex-start;
+    }
+}

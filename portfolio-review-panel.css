@@ -1,0 +1,42 @@
+/* Review panel fixes for portfolio editability and dark credibility. */
+body.portfolio-site .portfolio-menu-toggle {
+    min-width: 44px !important;
+    min-height: 44px !important;
+}
+
+body.portfolio-site .portfolio-brand,
+body.portfolio-site .portfolio-nav-links a,
+body.portfolio-site .portfolio-cta,
+body.portfolio-site .portfolio-secondary-cta {
+    display: inline-flex !important;
+    align-items: center !important;
+    min-height: 44px !important;
+}
+
+body.portfolio-site .portfolio-poetry-section {
+    background:
+        radial-gradient(680px circle at 10% 0%, rgba(184, 50, 69, 0.16), transparent 62%),
+        linear-gradient(180deg, #080204, #140408) !important;
+}
+
+body.portfolio-site .portfolio-poetry-section .portfolio-shell {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.55fr) minmax(0, 1fr);
+    gap: 1.2rem;
+    align-items: start;
+}
+
+body.portfolio-site .portfolio-poem-card p,
+body.portfolio-site .portfolio-poem-card small {
+    color: var(--portfolio-muted) !important;
+}
+
+@media (max-width: 760px) {
+    body.portfolio-site .portfolio-poetry-section .portfolio-shell {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    body.portfolio-site .sticky-copy {
+        position: static;
+    }
+}

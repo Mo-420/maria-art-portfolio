@@ -4,8 +4,35 @@
   "description": "Maria's Art Portfolio with Poetry Management",
   "main": "index.html",
   "scripts": {
-    "build": "echo 'Static site - no build needed'",
-    "deploy": "echo 'Static site deployment'"
+    "build": "bash build-public.sh",
+    "check:syntax": "node --check script.js && node --check admin.js && node --check data-api.js && node --check portfolio.js && node --check instagram-fixtures.js && node --input-type=module --check < cloudflare-worker.js && node --input-type=module --check < _worker.js && node --check scripts/readiness-check.mjs && node --check scripts/launch-report.mjs && node --check scripts/cloudflare-status-check.mjs && node --check scripts/deploy-preflight.mjs && node --check scripts/local-runtime-smoke.mjs && node --check scripts/morning-status.mjs && node --check scripts/morning-handoff.mjs && node --check scripts/morning-proof.mjs && node --check scripts/instagram-agent.mjs && node --check scripts/capture-visuals.mjs && node --check scripts/seed-local-shop.mjs && node --check scripts/simulate-instagram-sync.mjs && node --check scripts/worker-behavior.test.mjs",
+    "test:worker": "node scripts/worker-behavior.test.mjs",
+    "dev": "bash start-local.sh",
+    "dev:site": "python3 -m http.server 4173 --bind 127.0.0.1",
+    "dev:worker": "wrangler dev --local --port 8788",
+    "mobile:sync": "npx cap sync android",
+    "mobile:android:prepare": "npm run mobile:sync",
+    "mobile:android:debug": "npm run mobile:sync && cd android && ./gradlew assembleDebug",
+    "mobile:android:verify": "cd android && ./gradlew tasks --all",
+    "mobile:android:verify:fresh": "npm run mobile:sync && cd android && ./gradlew tasks --all",
+    "verify:runtime-local": "node scripts/local-runtime-smoke.mjs",
+    "verify:launch-local": "npm run check:syntax && npm run test:worker && npm run build && npm run deploy:preflight -- --target all --package-only && npm run verify:runtime-local && npm run launch:report",
+    "verify:local": "npm run check:syntax && npm run test:worker && npm run build && npx wrangler deploy --dry-run && npm run mobile:android:verify",
+    "check:readiness": "npm run build && node scripts/readiness-check.mjs",
+    "launch:report": "node scripts/launch-report.mjs",
+    "status:morning": "node scripts/morning-status.mjs",
+    "status:cloudflare": "node scripts/cloudflare-status-check.mjs",
+    "morning:handoff": "node scripts/morning-handoff.mjs",
+    "morning:proof": "node scripts/morning-proof.mjs",
+    "agent:instagram": "node scripts/instagram-agent.mjs --no-sync",
+    "agent:instagram:sync": "node scripts/instagram-agent.mjs",
+    "capture:visuals": "node scripts/capture-visuals.mjs",
+    "seed:local-shop": "node scripts/seed-local-shop.mjs",
+    "simulate:instagram": "node scripts/simulate-instagram-sync.mjs",
+    "deploy:preflight": "node scripts/deploy-preflight.mjs",
+    "deploy:worker": "npm run deploy:preflight -- --target worker && npx wrangler deploy",
+    "deploy:pages": "npm run build && npm run deploy:preflight -- --target pages && npx wrangler pages deploy dist --project-name \"$CLOUDFLARE_PAGES_PROJECT\"",
+    "deploy": "npm run verify:local && npm run deploy:preflight -- --target all && npm run deploy:worker && npm run deploy:pages"
   },
   "keywords": [
     "portfolio",
@@ -27,6 +54,10 @@
   "dependencies": {
     "@capacitor/android": "^7.4.4",
     "@capacitor/cli": "^7.4.4",
-    "@capacitor/core": "^7.4.4"
+    "@capacitor/core": "^7.4.4",
+    "gsap": "^3.13.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.103.0"
   }
 }

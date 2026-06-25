@@ -1,7 +1,18 @@
 name = "maria-art-data-api"
 main = "cloudflare-worker.js"
-compatibility_date = "2024-01-01"
+compatibility_date = "2026-06-23"
+compatibility_flags = ["nodejs_compat"]
+
+triggers = { crons = ["*/30 * * * *"] }
+
+[observability]
+enabled = true
+head_sampling_rate = 1
 
 [[kv_namespaces]]
 binding = "ART_DATA"
 id = "a4b2ecc13ea74e13b4aa14e329d6892f"
+
+[[r2_buckets]]
+binding = "ART_IMAGES"
+bucket_name = "maryilu-art-images"
