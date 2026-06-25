@@ -173,8 +173,12 @@ async function run() {
 
     const portfolioRoot = await pagesWorker.fetch(new Request("https://portfolio.maryilu.com/"), pagesEnv);
     assert.equal(portfolioRoot.status, 200);
-    assert.equal(await portfolioRoot.text(), "asset:/portfolio.html", "portfolio subdomain root should serve portfolio.html");
-    assert.equal(seenAssetPaths.at(-1), "/portfolio.html");
+    assert.equal(await portfolioRoot.text(), "asset:/portfolio", "portfolio subdomain root should serve the clean portfolio route");
+    assert.equal(seenAssetPaths.at(-1), "/portfolio");
+
+    const portfolioCleanRoute = await pagesWorker.fetch(new Request("https://portfolio.maryilu.com/portfolio"), pagesEnv);
+    assert.equal(portfolioCleanRoute.status, 200);
+    assert.equal(await portfolioCleanRoute.text(), "asset:/portfolio");
 
     const mainPortfolioCompat = await pagesWorker.fetch(new Request("https://maryilu.com/portfolio.html"), pagesEnv);
     assert.equal(mainPortfolioCompat.status, 200, "main /portfolio.html should remain compatible until DNS is ready");
