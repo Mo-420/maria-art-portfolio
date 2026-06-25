@@ -7,7 +7,7 @@
     <meta name="robots" content="noindex, follow">
     <link rel="canonical" href="https://maryilu.com/checkout-success.html">
     <link rel="icon" type="image/png" href="heart-icon.png">
-    <link rel="preload" as="image" href="assets/maryilu-luxury-chest-hero.png">
+    <link rel="preload" as="image" href="assets/maryilu-luxury-chest-hero.avif" type="image/avif">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -318,7 +318,11 @@
             </div>
         </section>
         <section class="image-panel" aria-label="Maryilu studio artwork">
-            <img src="assets/maryilu-luxury-chest-hero.png" alt="Hand-painted floral keepsake chest in Maryilu's studio">
+            <picture>
+                <source type="image/avif" srcset="assets/maryilu-luxury-chest-hero.avif">
+                <source type="image/webp" srcset="assets/maryilu-luxury-chest-hero.webp">
+                <img src="assets/maryilu-luxury-chest-hero.png" alt="Hand-painted floral keepsake chest in Maryilu's studio" fetchpriority="high" decoding="async">
+            </picture>
             <div class="receipt-card">
                 <small data-copy="receiptLabel">Checkout path</small>
                 <strong data-copy="receiptTitle">Secure payment -> artist follow-up</strong>

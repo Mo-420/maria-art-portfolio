@@ -18,11 +18,13 @@ public_files=(
   maryilu-pro-max.css
   portfolio.css
   portfolio-review-panel.css
+  portfolio-motion.css
   admin.css
   admin-store-images.css
   admin-review-panel.css
   script.js
   portfolio.js
+  portfolio-motion.js
   admin.js
   instagram-fixtures.js
   data-api.js

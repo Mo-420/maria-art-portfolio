@@ -522,6 +522,11 @@ window.MARYILU_DATA = (() => {
         }
     ];
 
+    // Portfolio gallery source. To add real artworks, append objects with the same
+    // shape (id, title, year, medium, size, description, imageUrl). The portfolio
+    // gallery, lightbox, bento layout, and scroll-reveal all scale automatically —
+    // no JS changes needed. Drop optimized images in /assets and reference the .png
+    // (matching .webp/.avif are picked up via <picture> when present).
     const portfolioWorks = [
         {
             id: "portfolio-painted-chest",

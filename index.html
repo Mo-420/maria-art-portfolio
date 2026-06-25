@@ -52,7 +52,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="store-warm.css?v=20260624-rose-studio">
+    <link rel="stylesheet" href="store-warm.css?v=20260625-premium-motion">
+    <script>
+      /* Mark reveal capability before first paint so reveal targets hide without a flash.
+         Skipped for reduced-motion / data-saver; auto-cleared if the app JS never boots. */
+      (function () {
+        var d = document.documentElement;
+        try {
+          if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          if (navigator.connection && navigator.connection.saveData) return;
+          d.classList.add('reveal-on');
+          window.addEventListener('load', function () {
+            setTimeout(function () {
+              if (!d.classList.contains('reveal-ready')) d.classList.remove('reveal-on');
+            }, 1800);
+          });
+        } catch (e) { d.classList.remove('reveal-on'); }
+      })();
+    </script>
 </head>
 <body class="sales-site">
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -442,8 +459,8 @@
         </div>
     </footer>
 
-    <script src="data-api.js?v=20260624-warm-studio"></script>
-    <script src="site-data.js?v=20260624-transforming-store"></script>
-    <script src="script.js?v=20260624-rose-studio"></script>
+    <script src="data-api.js?v=20260625-premium-motion-3"></script>
+    <script src="site-data.js?v=20260625-premium-motion-3"></script>
+    <script src="script.js?v=20260625-premium-motion-3"></script>
 </body>
 </html>

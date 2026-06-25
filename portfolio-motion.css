@@ -1,0 +1,487 @@
+/* ============================================================
+   Maryilu Portfolio — premium motion & detail layer (2026-06)
+   Loaded AFTER maryilu-pro-max.css. Adds NEW properties only
+   (transform / opacity / clip-path / overlays) so it does not
+   fight the !important-heavy dark theme. All hiding is gated on
+   <html>.mo-ready, which JS sets pre-paint only when motion is
+   allowed — content stays visible otherwise.
+   ============================================================ */
+
+/* ---------- Motion tokens ---------- */
+:root {
+    --mo-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --mo-ease-cine: cubic-bezier(0.16, 1, 0.3, 1);
+    --mo-rise: 22px;
+    --mo-reveal: 660ms;
+    --mo-stagger: 90ms;
+}
+
+/* ---------- Scroll reveal ---------- */
+html.mo-ready .is-reveal {
+    opacity: 0;
+    transform: translate3d(0, var(--mo-rise), 0);
+    transition: opacity var(--mo-reveal) var(--mo-ease-out),
+                transform var(--mo-reveal) var(--mo-ease-out);
+    transition-delay: calc(var(--i, 0) * var(--mo-stagger));
+    will-change: transform, opacity;
+}
+html.mo-ready .is-reveal.is-in {
+    opacity: 1;
+    transform: none;
+}
+
+/* ---------- Hero entrance ---------- */
+html.mo-ready body.portfolio-site .portfolio-hero-copy > * {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 660ms var(--mo-ease-out), transform 660ms var(--mo-ease-out);
+}
+html.mo-ready body.portfolio-site .portfolio-hero-copy > h1 { transition-delay: 120ms; }
+html.mo-ready body.portfolio-site .portfolio-hero-copy > p { transition-delay: 260ms; }
+html.mo-ready body.portfolio-site .portfolio-hero-copy > .portfolio-proof-list { transition-delay: 360ms; }
+html.mo-ready body.portfolio-site .portfolio-hero-copy > .portfolio-actions { transition-delay: 460ms; }
+
+html.mo-ready body.portfolio-site .portfolio-art-stage {
+    opacity: 0;
+    clip-path: inset(0 0 0 14%);
+    transform: translateX(18px) scale(1.04);
+    transition: opacity 820ms var(--mo-ease-cine),
+                clip-path 1000ms var(--mo-ease-cine),
+                transform 1000ms var(--mo-ease-cine) !important;
+    transition-delay: 160ms !important;
+}
+
+html.mo-ready body.portfolio-site.hero-in .portfolio-hero-copy > *,
+html.mo-ready body.portfolio-site.hero-in .portfolio-art-stage {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: none;
+}
+
+/* ---------- Condensing glass header ---------- */
+body.portfolio-site .portfolio-header {
+    transition: padding 220ms ease, background-color 220ms ease, box-shadow 220ms ease, backdrop-filter 220ms ease !important;
+}
+body.portfolio-site .portfolio-header.is-condensed {
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(22px) saturate(150%) !important;
+}
+body.portfolio-site .portfolio-header.is-condensed .portfolio-nav {
+    padding-top: 0.55rem !important;
+    padding-bottom: 0.55rem !important;
+}
+/* Keep nav links at a comfortable touch target */
+body.portfolio-site .portfolio-links a {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+/* ---------- Scroll progress bar ---------- */
+.mo-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 200;
+    transform: scaleX(var(--mo-p, 0));
+    transform-origin: 0 50%;
+    background: linear-gradient(90deg, var(--pmx-burgundy), var(--pmx-gold));
+    pointer-events: none;
+}
+
+/* ---------- Film grain + vignette ---------- */
+body.portfolio-site::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+}
+body.portfolio-site::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    background: radial-gradient(130% 110% at 50% 40%, transparent 56%, rgba(3, 1, 2, 0.42) 100%);
+}
+
+/* ---------- Editorial bento gallery (desktop) ---------- */
+@media (min-width: 900px) {
+    body.portfolio-site .portfolio-gallery {
+        grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+        grid-auto-flow: dense;
+        gap: 1.1rem !important;
+    }
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 1) { grid-column: span 4; }
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 2) { grid-column: span 2; }
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 3) { grid-column: span 3; }
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 4) { grid-column: span 3; }
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 5) { grid-column: span 2; }
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 6) { grid-column: span 4; }
+
+    /* Aspect variety so reused photos read as distinct framings */
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 1) .portfolio-work-media,
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 6) .portfolio-work-media { aspect-ratio: 16 / 10 !important; }
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 3) .portfolio-work-media,
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 4) .portfolio-work-media { aspect-ratio: 4 / 3 !important; }
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 2) .portfolio-work-media,
+    body.portfolio-site .portfolio-work-card:nth-child(6n + 5) .portfolio-work-media { aspect-ratio: 1 / 1 !important; }
+}
+
+/* ---------- Museum matting + gallery label ---------- */
+body.portfolio-site .portfolio-work-media.mo-lightbox-trigger {
+    /* reset the button element */
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+    padding: clamp(8px, 1.2vw, 16px) !important;
+    width: 100%;
+    display: block;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    position: relative;
+    background:
+        linear-gradient(150deg, rgba(251, 243, 234, 0.05), rgba(5, 2, 3, 0.4)) !important;
+    box-shadow: inset 0 0 0 1px rgba(240, 200, 120, 0.18) !important;
+}
+body.portfolio-site .portfolio-work-media.mo-lightbox-trigger picture,
+body.portfolio-site .portfolio-work-media.mo-lightbox-trigger img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: calc(var(--pmx-radius, 12px) - 6px);
+    overflow: hidden;
+}
+body.portfolio-site .portfolio-work-media .mo-view-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 14px;
+    transform: translate(-50%, 8px);
+    padding: 7px 16px;
+    border-radius: 999px;
+    background: rgba(5, 2, 3, 0.66);
+    border: 1px solid rgba(240, 200, 120, 0.4);
+    color: var(--pmx-gold-soft);
+    font-family: "Inter", sans-serif;
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 240ms ease, transform 240ms ease;
+    pointer-events: none;
+    z-index: 2;
+}
+@media (hover: hover) and (pointer: fine) {
+    body.portfolio-site .portfolio-work-card:hover .mo-view-hint,
+    body.portfolio-site .mo-lightbox-trigger:focus-visible .mo-view-hint {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+/* Hover lift + brighter image */
+body.portfolio-site .portfolio-work-card {
+    transition: transform 320ms var(--mo-ease-out) !important;
+}
+body.portfolio-site .portfolio-work-card:hover {
+    transform: translateY(-4px);
+}
+body.portfolio-site .portfolio-work-card:hover .portfolio-work-media img {
+    filter: brightness(1) saturate(1.02) contrast(1.06) !important;
+    transform: scale(1.05) !important;
+}
+
+/* ---------- Gallery wall-label caption ---------- */
+body.portfolio-site .portfolio-work-copy small {
+    position: relative;
+    display: inline-block;
+    padding-top: 0.7rem;
+}
+body.portfolio-site .portfolio-work-copy small::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 26px;
+    height: 1px;
+    background: var(--pmx-gold);
+}
+
+/* ---------- Animated gold section dividers ---------- */
+body.portfolio-site .portfolio-section-heading {
+    position: relative;
+    padding-top: 1.4rem;
+}
+body.portfolio-site .portfolio-section-heading::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 64px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--pmx-gold), transparent);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 700ms var(--mo-ease-out);
+}
+body.portfolio-site .portfolio-section-heading.is-in::before,
+html:not(.mo-ready) body.portfolio-site .portfolio-section-heading::before { transform: scaleX(1); }
+
+/* ---------- Drop-cap on About ---------- */
+body.portfolio-site .about-portfolio-section > div:last-child p:first-of-type::first-letter {
+    float: left;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 3.4em;
+    line-height: 0.72;
+    padding: 0.06em 0.12em 0 0;
+    color: var(--pmx-gold-soft);
+    font-weight: 600;
+}
+
+/* ---------- Monogram watermark behind hero ---------- */
+body.portfolio-site .portfolio-hero {
+    position: relative;
+    overflow: hidden;
+}
+body.portfolio-site .portfolio-hero::after {
+    content: "ML";
+    position: absolute;
+    right: -2rem;
+    bottom: -5rem;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(14rem, 30vw, 30rem);
+    line-height: 1;
+    color: rgba(240, 200, 120, 0.035);
+    pointer-events: none;
+    z-index: 0;
+    user-select: none;
+}
+body.portfolio-site .portfolio-hero-grid { position: relative; z-index: 1; }
+
+/* ---------- Refined empty states ---------- */
+body.portfolio-site .portfolio-empty-state {
+    text-align: center;
+    display: grid;
+    gap: 0.7rem;
+    place-items: center;
+    padding: clamp(2rem, 5vw, 3.4rem) !important;
+}
+body.portfolio-site .portfolio-empty-state h3 {
+    font-style: italic;
+    font-family: "Cormorant Garamond", Georgia, serif !important;
+}
+body.portfolio-site .portfolio-empty-state h3::after {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    margin: 0.8rem auto 0;
+    border-radius: 50%;
+    background: var(--pmx-gold-soft);
+    animation: mo-breathe 2600ms ease-in-out infinite;
+}
+
+@keyframes mo-breathe {
+    0%, 100% { opacity: 0.3; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* ---------- Cred-strip count-up + mini map ---------- */
+body.portfolio-site .portfolio-mallorca-map {
+    position: relative;
+    height: 78px;
+    margin-bottom: 0.85rem;
+    border-radius: calc(var(--pmx-radius, 12px) - 4px);
+    overflow: hidden;
+    border: 1px solid rgba(240, 200, 120, 0.18);
+    background: linear-gradient(180deg, rgba(42, 7, 16, 0.6), rgba(5, 2, 3, 0.85));
+}
+body.portfolio-site .portfolio-mallorca-map svg { display: block; width: 100%; height: 100%; }
+body.portfolio-site .portfolio-mallorca-map .mallorca-island {
+    fill: rgba(240, 200, 120, 0.12);
+    stroke: var(--pmx-gold-soft);
+    stroke-width: 1.4;
+    stroke-linejoin: round;
+}
+body.portfolio-site .portfolio-mallorca-map .mallorca-grid { stroke: rgba(251, 243, 234, 0.1); stroke-width: 0.6; }
+body.portfolio-site .portfolio-mallorca-map .mallorca-pin-dot { fill: var(--pmx-red); stroke: var(--pmx-ivory); stroke-width: 1.2; }
+body.portfolio-site .portfolio-mallorca-map .mallorca-ping {
+    fill: none;
+    stroke: var(--pmx-gold-soft);
+    stroke-width: 1;
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+    animation: mallorca-ping-dark 2800ms var(--mo-ease-out) infinite;
+}
+body.portfolio-site .portfolio-mallorca-map .mallorca-ping.delay { animation-delay: 1400ms; }
+@keyframes mallorca-ping-dark {
+    0% { transform: scale(0.45); opacity: 0.5; }
+    80% { opacity: 0; }
+    100% { transform: scale(3.4); opacity: 0; }
+}
+
+/* ---------- Lightbox ---------- */
+.mo-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 4000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4vmin;
+    background: rgba(5, 2, 3, 0.93);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 240ms ease, visibility 240ms ease;
+}
+.mo-lightbox.is-open { opacity: 1; visibility: visible; }
+.mo-lightbox figure {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    max-width: 94vw;
+    max-height: 92vh;
+    transform: scale(0.96);
+    transition: transform 320ms var(--mo-ease-cine);
+}
+.mo-lightbox.is-open figure { transform: none; }
+.mo-lightbox img {
+    max-width: 92vw;
+    max-height: 78vh;
+    object-fit: contain;
+    border: 1px solid rgba(240, 200, 120, 0.28);
+    border-radius: 12px;
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+}
+.mo-lightbox figcaption {
+    color: var(--pmx-ivory);
+    font-family: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+    font-size: 1.3rem;
+    text-align: center;
+}
+.mo-lightbox figcaption small {
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--pmx-gold-soft);
+    font-family: "Inter", sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+.mo-lightbox button {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid rgba(240, 200, 120, 0.3);
+    background: rgba(5, 2, 3, 0.7);
+    color: var(--pmx-ivory);
+    cursor: pointer;
+    transition: background-color 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+.mo-lightbox button:hover { background: rgba(42, 7, 16, 0.9); border-color: var(--pmx-gold-soft); }
+.mo-lightbox button svg { width: 22px; height: 22px; }
+.mo-lightbox-close { top: 18px; right: 18px; }
+.mo-lightbox-prev { left: 18px; top: 50%; transform: translateY(-50%); }
+.mo-lightbox-next { right: 18px; top: 50%; transform: translateY(-50%); }
+.mo-lightbox-prev:hover { transform: translateY(-50%) scale(1.06); }
+.mo-lightbox-next:hover { transform: translateY(-50%) scale(1.06); }
+
+/* ---------- Portfolio footer brand: seal ---------- */
+body.portfolio-site .portfolio-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+body.portfolio-site .mallorca-seal {
+    position: relative;
+    width: 88px;
+    height: 88px;
+    display: grid;
+    place-items: center;
+}
+body.portfolio-site .mallorca-seal .seal-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    animation: seal-spin 32s linear infinite;
+}
+body.portfolio-site .mallorca-seal .seal-ring text {
+    fill: var(--pmx-gold-soft);
+    font-family: "Inter", sans-serif;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+}
+body.portfolio-site .mallorca-seal .seal-core {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--pmx-burgundy), var(--pmx-red));
+    color: var(--pmx-ivory);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 18px;
+    line-height: 1;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+@keyframes seal-spin { to { transform: rotate(360deg); } }
+
+/* ---------- Desktop cursor follower ---------- */
+.mo-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 56px;
+    height: 56px;
+    margin: -28px 0 0 -28px;
+    border-radius: 50%;
+    border: 1px solid rgba(240, 200, 120, 0.5);
+    display: grid;
+    place-items: center;
+    color: var(--pmx-gold-soft);
+    font-family: "Inter", sans-serif;
+    font-size: 0.56rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 3500;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 220ms ease, transform 220ms var(--mo-ease-out);
+    will-change: transform, left, top;
+}
+.mo-cursor.is-active { opacity: 1; transform: scale(1); }
+
+/* ---------- Reduced-motion safety (belt + braces) ---------- */
+@media (prefers-reduced-motion: reduce) {
+    html.mo-ready .is-reveal,
+    body.portfolio-site .portfolio-hero-copy > *,
+    body.portfolio-site .portfolio-art-stage { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+    body.portfolio-site .portfolio-section-heading::before { transform: scaleX(1) !important; }
+    body.portfolio-site .mallorca-seal .seal-ring,
+    body.portfolio-site .portfolio-mallorca-map .mallorca-ping,
+    body.portfolio-site .portfolio-empty-state h3::after { animation: none !important; }
+    .mo-cursor { display: none !important; }
+}

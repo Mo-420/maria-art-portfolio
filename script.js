@@ -160,13 +160,9 @@
     }
 
     function cleanMediaUrl(value) {
-        const url = String(value || "").trim();
-        const oldGeneratedPlaceholders = [
-            "assets/maryilu-luxury-chest-hero.png",
-            "assets/maryilu-editorial-store-hero.png",
-            "assets/maria-luisa-portfolio-studio.png"
-        ];
-        return oldGeneratedPlaceholders.includes(url) ? "" : url;
+        // Studio imagery is now used as real default product visuals (served as
+        // optimized WebP/AVIF via <picture>), so no URLs are blocklisted here.
+        return String(value || "").trim();
     }
 
     function normalizeAssetSlot(slot, fallbackLabel, fallbackAlt = "") {
@@ -221,14 +217,26 @@
             canvases.mediaUrl = cleanMediaUrl(assets.portfolioImage);
         }
 
+        const giftBoxes = normalizeAssetSlot(assets.categories?.["gift-boxes"], categoryPlaceholderLabel("gift-boxes"), "Painted Maryilu chest");
+        const babyShower = normalizeAssetSlot(assets.categories?.["baby-shower"], categoryPlaceholderLabel("baby-shower"), "Baby shower gift");
+
+        // Default studio imagery so the store reads as finished, not empty boxes.
+        // Admin-provided images still take priority (these only fill empty slots).
+        if (!storeHero.mediaUrl) storeHero.mediaUrl = "assets/maryilu-editorial-store-hero.png";
+        if (!about.mediaUrl) about.mediaUrl = "assets/maria-luisa-portfolio-studio.png";
+        if (!flowers.mediaUrl) flowers.mediaUrl = "assets/maryilu-editorial-store-hero.png";
+        if (!canvases.mediaUrl) canvases.mediaUrl = "assets/maria-luisa-portfolio-studio.png";
+        if (!giftBoxes.mediaUrl) giftBoxes.mediaUrl = "assets/maryilu-luxury-chest-hero.png";
+        if (!babyShower.mediaUrl) babyShower.mediaUrl = "assets/maryilu-luxury-chest-hero.png";
+
         return {
             storeHero,
             about,
             categories: {
-                "gift-boxes": normalizeAssetSlot(assets.categories?.["gift-boxes"], categoryPlaceholderLabel("gift-boxes"), "Painted Maryilu chest"),
+                "gift-boxes": giftBoxes,
                 flowers,
                 canvases,
-                "baby-shower": normalizeAssetSlot(assets.categories?.["baby-shower"], categoryPlaceholderLabel("baby-shower"), "Baby shower gift")
+                "baby-shower": babyShower
             }
         };
     }
@@ -237,10 +245,35 @@
         return `<div class="warm-placeholder ${escapeHTML(extraClass)}">${escapeHTML(label || "Photo placeholder")}</div>`;
     }
 
-    function imageSlotMarkup(slot, fallbackLabel, extraClass = "") {
+    const OPTIMIZED_IMAGE_BASES = new Set([
+        "maryilu-editorial-store-hero",
+        "maryilu-luxury-chest-hero",
+        "maria-luisa-portfolio-studio"
+    ]);
+
+    function optimizedImageBase(url) {
+        const match = String(url || "").match(/(?:^|\/)([^/?#]+)\.png(?:[?#].*)?$/i);
+        if (!match) return null;
+        return OPTIMIZED_IMAGE_BASES.has(match[1]) ? match[1] : null;
+    }
+
+    // Returns a <picture> (AVIF/WebP/PNG) for our optimized hero assets, else a plain <img>.
+    function pictureMarkup(url, alt, { eager = false, sizes = "(max-width: 700px) 100vw, 50vw" } = {}) {
+        const loadAttrs = eager ? `loading="eager" fetchpriority="high"` : `loading="lazy"`;
+        const img = `<img src="${escapeHTML(url)}" alt="${escapeHTML(alt || "")}" ${loadAttrs} decoding="async" sizes="${escapeHTML(sizes)}">`;
+        const base = optimizedImageBase(url);
+        if (!base) return img;
+        return `<picture>`
+            + `<source type="image/avif" srcset="assets/${base}.avif">`
+            + `<source type="image/webp" srcset="assets/${base}.webp">`
+            + img
+            + `</picture>`;
+    }
+
+    function imageSlotMarkup(slot, fallbackLabel, extraClass = "", options = {}) {
         const normalized = normalizeAssetSlot(slot, fallbackLabel);
         if (normalized.mediaUrl) {
-            return `<img src="${escapeHTML(normalized.mediaUrl)}" alt="${escapeHTML(normalized.alt || normalized.placeholderLabel || fallbackLabel)}" loading="lazy" decoding="async" sizes="(max-width: 700px) 100vw, 50vw">`;
+            return pictureMarkup(normalized.mediaUrl, normalized.alt || normalized.placeholderLabel || fallbackLabel, options);
         }
         return placeholderMarkup(normalized.placeholderLabel || fallbackLabel, extraClass);
     }
@@ -248,7 +281,7 @@
     function renderStoreAssetSlots() {
         const assets = storeAssets();
         const heroSlot = document.getElementById("heroVisualSlot");
-        if (heroSlot) heroSlot.innerHTML = imageSlotMarkup(assets.storeHero, "Photo placeholder: Hero product", "hero-placeholder");
+        if (heroSlot) heroSlot.innerHTML = imageSlotMarkup(assets.storeHero, "Photo placeholder: Hero product", "hero-placeholder", { eager: true });
 
         const aboutSlot = document.getElementById("aboutVisualSlot");
         if (aboutSlot) aboutSlot.innerHTML = imageSlotMarkup(assets.about, "Photo placeholder: Maria in the studio", "about-placeholder");
@@ -483,8 +516,15 @@
         }));
     }
 
-    function fallbackVisualForCategory() {
-        return "";
+    function fallbackVisualForCategory(category) {
+        const raw = String(category || "").toLowerCase();
+        if (raw.includes("flower") || raw.includes("bouquet") || raw.includes("ribbon") || raw.includes("flor")) {
+            return "assets/maryilu-editorial-store-hero.png";
+        }
+        if (raw.includes("canvas") || raw.includes("paint") || raw.includes("original") || raw.includes("art") || raw.includes("lienzo")) {
+            return "assets/maria-luisa-portfolio-studio.png";
+        }
+        return "assets/maryilu-luxury-chest-hero.png";
     }
 
     function portfolioHref() {
@@ -525,7 +565,9 @@
             ".automation-live-metric",
             ".hero-art-image",
             ".hero-live-hud",
-            ".hero-live-hud article"
+            ".hero-live-hud article",
+            ".hero-studio-card",
+            ".product-category-card"
         ].join(",");
 
         document.addEventListener("pointermove", (event) => {
@@ -976,7 +1018,7 @@
             const caption = displayDescriptionForShopItem(item, meta);
             const image = item.image || fallbackVisualForCategory(item.category, index);
             const imageMarkup = image
-                ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}" loading="lazy" decoding="async" sizes="(max-width: 700px) 100vw, 42vw">`
+                ? pictureMarkup(image, title, { sizes: "(max-width: 700px) 100vw, 42vw" })
                 : placeholderMarkup(categoryPlaceholderLabel(item.category), "shop-placeholder");
             const priceGuide = localizedPriceGuide(meta.priceFrom);
             const priceMarkup = item.priceCents
@@ -1094,7 +1136,7 @@
             const isPreview = isSimulatedInstagramItem(item);
             const image = item.image || fallbackVisualForCategory(item.category || "studio-post", index);
             const imageMarkup = image
-                ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}" loading="lazy" decoding="async" sizes="(max-width: 700px) 100vw, 32vw">`
+                ? pictureMarkup(image, title, { sizes: "(max-width: 700px) 100vw, 32vw" })
                 : placeholderMarkup(categoryPlaceholderLabel(item.category || "studio-post"), "social-placeholder");
             const label = item.fallbackSocial
                 ? copy("socialFallbackLabel")
@@ -1399,9 +1441,170 @@
 
         window.addEventListener("hashchange", () => alignHashTarget("auto"));
 
-        window.addEventListener("scroll", () => {
-            header?.classList.toggle("scrolled", window.scrollY > 30);
-        }, { passive: true });
+        const root = document.documentElement;
+        const updateScrollState = () => {
+            const y = window.scrollY;
+            header?.classList.toggle("scrolled", y > 30);
+            const max = root.scrollHeight - window.innerHeight;
+            root.style.setProperty("--scroll-progress", max > 0 ? Math.min(1, y / max).toFixed(4) : "0");
+            scrollTopButton?.classList.toggle("is-visible", y > 600);
+        };
+        window.addEventListener("scroll", updateScrollState, { passive: true });
+        window.addEventListener("resize", updateScrollState, { passive: true });
+        updateScrollState();
+    }
+
+    // ---- Premium motion layer (added 2026-06) ----
+
+    let scrollTopButton = null;
+
+    function motionAllowed() {
+        return !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            && navigator.connection?.saveData !== true;
+    }
+
+    // Scroll-reveal: CSS hides targets only under <html>.reveal-on (set pre-paint by
+    // an inline head script). We observe them and add .is-revealed as they enter.
+    const REVEAL_SELECTOR = [
+        ".section-heading",
+        ".product-category-card",
+        ".gallery-proof-card",
+        ".price-card",
+        ".shipping-card",
+        ".faq-item",
+        ".instagram-card",
+        ".steps-list li",
+        ".process-note",
+        ".final-cta-panel"
+    ].join(",");
+
+    let revealObserver = null;
+
+    function revealObserve(scope = document) {
+        if (!revealObserver) return;
+        scope.querySelectorAll(REVEAL_SELECTOR).forEach((el) => {
+            if (el.dataset.revealBound) return;
+            el.dataset.revealBound = "1";
+            // Stagger index within the element's immediate group.
+            const siblings = el.parentElement ? Array.from(el.parentElement.children).filter((c) => c.matches(REVEAL_SELECTOR)) : [el];
+            const idx = Math.min(5, Math.max(0, siblings.indexOf(el)));
+            el.style.setProperty("--reveal-index", String(idx));
+            revealObserver.observe(el);
+        });
+    }
+
+    function bindRevealMotion() {
+        const root = document.documentElement;
+        if (!motionAllowed()) {
+            root.classList.remove("reveal-on");
+            return;
+        }
+        root.classList.add("reveal-on", "reveal-ready");
+        revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-revealed");
+                revealObserver.unobserve(entry.target);
+            });
+        }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+        revealObserve(document);
+    }
+
+    function bindHeroIntro() {
+        // rAF after first paint so the hero animates in on load. A timeout fallback
+        // guarantees the hero reveals even when rAF is throttled (background tabs).
+        const reveal = () => document.body.classList.add("hero-ready");
+        requestAnimationFrame(() => requestAnimationFrame(reveal));
+        window.setTimeout(reveal, 200);
+    }
+
+    function bindNavScrollSpy() {
+        const links = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+        if (!links.length || !("IntersectionObserver" in window)) return;
+        // Map a section id -> the nav link that should light up.
+        const linkFor = (id) => links.find((a) => a.getAttribute("href") === `#${id}`)
+            || (id === "shop" || id === "prices" ? links.find((a) => a.getAttribute("href") === "#products") : null);
+        const sections = ["home", "products", "how", "shop", "prices", "order", "socials", "about", "policies"]
+            .map((id) => document.getElementById(id))
+            .filter(Boolean);
+        if (!sections.length) return;
+        const visible = new Map();
+        const spy = new IntersectionObserver((entries) => {
+            entries.forEach((e) => visible.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0));
+            let best = null, bestRatio = 0;
+            visible.forEach((ratio, id) => { if (ratio > bestRatio) { bestRatio = ratio; best = id; } });
+            links.forEach((a) => a.removeAttribute("aria-current"));
+            const active = best && linkFor(best);
+            if (active) active.setAttribute("aria-current", "true");
+        }, { threshold: [0.15, 0.4, 0.7], rootMargin: "-20% 0px -55% 0px" });
+        sections.forEach((s) => spy.observe(s));
+    }
+
+    function renderMallorcaMap() {
+        const host = document.querySelector(".mallorca-map");
+        if (!host) return;
+        // Hand-tuned silhouette of Mallorca; studio pin near Palma (south coast).
+        host.innerHTML = `
+            <svg viewBox="0 0 220 160" role="img" aria-labelledby="mallorca-map-title">
+                <title id="mallorca-map-title">Map of Mallorca with the studio marked near Palma</title>
+                <defs>
+                    <filter id="mallorcaShadow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#8e3f53" flood-opacity="0.26"></feDropShadow>
+                    </filter>
+                </defs>
+                <g class="mallorca-grid" aria-hidden="true">
+                    <line x1="0" y1="53" x2="220" y2="53"></line>
+                    <line x1="0" y1="106" x2="220" y2="106"></line>
+                    <line x1="73" y1="0" x2="73" y2="160"></line>
+                    <line x1="146" y1="0" x2="146" y2="160"></line>
+                </g>
+                <path class="mallorca-island" filter="url(#mallorcaShadow)" d="M22 87 L46 67 L76 53 L112 37 L158 22 L137 39 L144 52 L181 58 L202 65 L179 92 L165 120 L133 136 L123 130 L89 122 L84 98 L66 86 L47 105 Z"></path>
+                <circle class="mallorca-ping" cx="76" cy="95" r="6"></circle>
+                <circle class="mallorca-ping delay" cx="76" cy="95" r="6"></circle>
+                <circle class="mallorca-pin-dot" cx="76" cy="95" r="3.6"></circle>
+            </svg>
+            <p class="mallorca-label">Palma · Mallorca</p>`;
+        host.removeAttribute("aria-hidden");
+    }
+
+    function sealSVG(ringColorClass = "") {
+        // Circular "Handmade · Mallorca" seal with the ML monogram core.
+        return `
+            <span class="mallorca-seal ${ringColorClass}" aria-hidden="true">
+                <svg class="seal-ring" viewBox="0 0 100 100">
+                    <defs><path id="sealArc" d="M50,50 m-39,0 a39,39 0 1,1 78,0 a39,39 0 1,1 -78,0"></path></defs>
+                    <text><textPath href="#sealArc" startOffset="0">HANDMADE · IN MALLORCA · WITH HEART · </textPath></text>
+                </svg>
+                <span class="seal-core">ML</span>
+            </span>`;
+    }
+
+    function renderFooterSeal() {
+        const footerInner = document.querySelector(".sales-footer-inner");
+        if (!footerInner || footerInner.querySelector(".mallorca-seal")) return;
+        const copyEl = footerInner.querySelector("p");
+        const brandWrap = document.createElement("div");
+        brandWrap.className = "footer-brand";
+        brandWrap.innerHTML = sealSVG();
+        if (copyEl) {
+            brandWrap.appendChild(copyEl);
+            footerInner.insertBefore(brandWrap, footerInner.firstChild);
+        }
+    }
+
+    function bindScrollTop() {
+        if (document.querySelector(".scroll-top")) return;
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "scroll-top";
+        btn.setAttribute("aria-label", "Back to top");
+        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"></path><path d="m5 12 7-7 7 7"></path></svg>`;
+        btn.addEventListener("click", () => {
+            const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+        });
+        document.body.appendChild(btn);
+        scrollTopButton = btn;
     }
 
     function bindLanguageSwitcher() {
@@ -1694,14 +1897,21 @@
     }
 
     async function init() {
+        bindScrollTop();
         bindNavigation();
         bindLanguageSwitcher();
         bindOrderForm();
         bindSpotlightInteraction();
         bindPremiumScrollScenes();
+        renderMallorcaMap();
+        renderFooterSeal();
+        bindRevealMotion();
+        bindNavScrollSpy();
+        bindHeroIntro();
         await loadSiteSettings();
         setLanguage(state.lang);
         await loadShopAndSocial();
+        revealObserve(document);
         alignHashTarget();
     }
 

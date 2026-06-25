@@ -52,9 +52,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="heart-icon.png">
     <link rel="manifest" href="/manifest.json">
+    <link rel="preload" as="image" href="assets/maria-luisa-portfolio-studio.avif" type="image/avif">
     <link rel="stylesheet" href="portfolio.css?v=20260624-burgundy-portfolio">
     <link rel="stylesheet" href="portfolio-review-panel.css?v=20260624-review-panel">
     <link rel="stylesheet" href="maryilu-pro-max.css?v=20260624-premium-palette-cleanup5">
+    <link rel="stylesheet" href="portfolio-motion.css?v=20260625-premium-motion-2">
+    <script>
+      /* Mark reveal capability before first paint (skip for reduced-motion / data-saver).
+         Auto-cleared if the motion JS never boots, so content never stays hidden. */
+      (function () {
+        var d = document.documentElement;
+        try {
+          if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          if (navigator.connection && navigator.connection.saveData) return;
+          d.classList.add('mo-ready');
+          window.addEventListener('load', function () {
+            setTimeout(function () {
+              if (!d.classList.contains('mo-armed')) d.classList.remove('mo-ready');
+            }, 1800);
+          });
+        } catch (e) { d.classList.remove('mo-ready'); }
+      })();
+    </script>
 </head>
 <body class="portfolio-site">
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -96,24 +115,28 @@
                     </div>
                 </div>
                 <div class="portfolio-art-stage" aria-label="Featured portfolio artwork composition">
-                    <img src="assets/maria-luisa-portfolio-studio.png" alt="Maria Luisa studio wall with framed paintings, brushes, and art materials">
+                    <picture>
+                        <source type="image/avif" srcset="assets/maria-luisa-portfolio-studio.avif">
+                        <source type="image/webp" srcset="assets/maria-luisa-portfolio-studio.webp">
+                        <img src="assets/maria-luisa-portfolio-studio.png" alt="Maria Luisa studio wall with framed paintings, brushes, and art materials" fetchpriority="high" decoding="async">
+                    </picture>
                 </div>
             </div>
         </section>
 
         <section class="portfolio-cred-strip" aria-label="Maryilu portfolio credibility">
             <div class="portfolio-shell portfolio-cred-grid">
-                <article>
+                <article class="is-reveal">
                     <span>Archive</span>
-                    <strong>6 selected studies</strong>
+                    <strong><span data-countup="6">6</span> selected studies</strong>
                     <p>Objects, florals, portrait language, and studio views.</p>
                 </article>
-                <article>
+                <article class="is-reveal">
                     <span>Process</span>
                     <strong>Handmade in Mallorca</strong>
                     <p>Color, detail, and finish stay visibly studio-led.</p>
                 </article>
-                <article>
+                <article class="is-reveal">
                     <span>Freshness</span>
                     <strong>Instagram profile linked</strong>
                     <p>Visitors can open the public feed while automatic sync is being connected.</p>
@@ -123,7 +146,7 @@
 
         <section id="gallery" class="portfolio-section portfolio-gallery-section" aria-labelledby="gallery-heading">
             <div class="portfolio-shell">
-                <div class="portfolio-section-heading">
+                <div class="portfolio-section-heading is-reveal">
                     <h2 id="gallery-heading">Selected studies</h2>
                     <p>A compact selection of Maria Luisa’s studio language: color, memory, florals, portraits, and painted objects.</p>
                 </div>
@@ -133,7 +156,7 @@
 
         <section id="poetry" class="portfolio-section portfolio-poetry-section" aria-labelledby="poetry-heading">
             <div class="portfolio-shell">
-                <div class="portfolio-section-heading sticky-copy">
+                <div class="portfolio-section-heading sticky-copy is-reveal">
                     <h2 id="poetry-heading">Poetry and process notes</h2>
                     <p>Fragments, written details, and studio thoughts can live beside the visual archive when Maria is ready to publish them.</p>
                 </div>
@@ -143,22 +166,22 @@
 
         <section id="process" class="portfolio-section process-section" aria-labelledby="process-heading">
             <div class="portfolio-shell">
-                <div class="portfolio-section-heading">
+                <div class="portfolio-section-heading is-reveal">
                     <h2 id="process-heading">How the studio feels</h2>
                     <p>Each piece begins with a mood, a person, a color memory, or a small object that refuses to be ordinary.</p>
                 </div>
                 <div class="process-rail">
-                    <article>
+                    <article class="is-reveal">
                         <span>01</span>
                         <h3>Gather</h3>
                         <p>Images, colors, text, songs, keepsakes, and emotional details.</p>
                     </article>
-                    <article>
+                    <article class="is-reveal">
                         <span>02</span>
                         <h3>Compose</h3>
                         <p>Shapes, symbols, and color are arranged until the piece feels personal.</p>
                     </article>
-                    <article>
+                    <article class="is-reveal">
                         <span>03</span>
                         <h3>Finish</h3>
                         <p>Texture, line, shine, and softness are finished by hand.</p>
@@ -169,7 +192,7 @@
 
         <section id="social-proof" class="portfolio-section portfolio-social-section" aria-labelledby="social-proof-heading">
             <div class="portfolio-shell">
-                <div class="portfolio-section-heading">
+                <div class="portfolio-section-heading is-reveal">
                     <h2 id="social-proof-heading">Public studio feed</h2>
                     <p>Recent public posts become visible here after Instagram sync. Until then, the portfolio stays focused on curated work and a direct Instagram link.</p>
                 </div>
@@ -179,10 +202,14 @@
 
         <section id="about" class="portfolio-section about-portfolio-section" aria-labelledby="about-heading">
             <div class="portfolio-shell about-portfolio-grid">
-                <div class="about-visual" aria-hidden="true">
-                    <img src="assets/maria-luisa-portfolio-studio.png" alt="" loading="eager">
+                <div class="about-visual is-reveal" aria-hidden="true">
+                    <picture>
+                        <source type="image/avif" srcset="assets/maria-luisa-portfolio-studio.avif">
+                        <source type="image/webp" srcset="assets/maria-luisa-portfolio-studio.webp">
+                        <img src="assets/maria-luisa-portfolio-studio.png" alt="" loading="lazy" decoding="async">
+                    </picture>
                 </div>
-                <div>
+                <div class="is-reveal">
                     <h2 id="about-heading">About Maria Luisa</h2>
                     <p>Maria Luisa Matees creates expressive paintings and handmade pieces under the Maryilu name. Her work is personal, colorful, and emotionally specific: the kind of art that wants to remember someone properly.</p>
                     <p>This page keeps the broader art practice visible. Custom gift commissions live on the main Maryilu store.</p>
@@ -199,8 +226,9 @@
         <p>&copy; 2026 Maryilu. <a href="/" data-shop-link>Custom gifts</a> · <a href="https://www.instagram.com/marialuisas_arttt/" target="_blank" rel="noopener">@marialuisas_arttt</a></p>
     </footer>
 
-    <script src="site-data.js?v=20260624-transforming-store"></script>
-    <script src="data-api.js?v=20260624-site-settings"></script>
-    <script src="portfolio.js?v=20260624-burgundy-portfolio"></script>
+    <script src="site-data.js?v=20260625-premium-motion"></script>
+    <script src="data-api.js?v=20260625-premium-motion"></script>
+    <script src="portfolio.js?v=20260625-premium-motion-2"></script>
+    <script src="portfolio-motion.js?v=20260625-premium-motion-3"></script>
 </body>
 </html>

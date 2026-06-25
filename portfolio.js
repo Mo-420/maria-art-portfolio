@@ -15,6 +15,36 @@
             .replace(/'/g, "&#039;");
     }
 
+    const OPTIMIZED_IMAGE_BASES = new Set([
+        "maryilu-editorial-store-hero",
+        "maryilu-luxury-chest-hero",
+        "maria-luisa-portfolio-studio"
+    ]);
+
+    function optimizedImageBase(url) {
+        const match = String(url || "").match(/(?:^|\/)([^/?#]+)\.png(?:[?#].*)?$/i);
+        if (!match) return null;
+        return OPTIMIZED_IMAGE_BASES.has(match[1]) ? match[1] : null;
+    }
+
+    // <picture> with AVIF/WebP/PNG for our optimized assets, else a plain <img>.
+    function pictureMarkup(url, alt, { eager = false, sizes = "" } = {}) {
+        const loadAttrs = eager ? `loading="eager" fetchpriority="high"` : `loading="lazy"`;
+        const sizeAttr = sizes ? ` sizes="${escapeHTML(sizes)}"` : "";
+        const img = `<img src="${escapeHTML(url)}" alt="${escapeHTML(alt || "")}" ${loadAttrs} decoding="async"${sizeAttr}>`;
+        const base = optimizedImageBase(url);
+        if (!base) return img;
+        return `<picture>`
+            + `<source type="image/avif" srcset="assets/${base}.avif">`
+            + `<source type="image/webp" srcset="assets/${base}.webp">`
+            + img
+            + `</picture>`;
+    }
+
+    function emitRendered(section) {
+        document.dispatchEvent(new CustomEvent("portfolio:rendered", { detail: { section } }));
+    }
+
     function safeClassToken(value) {
         return String(value || "item")
             .toLowerCase()
@@ -215,6 +245,10 @@
 
     function workIdentity(item) {
         const work = normalizeArtwork(item);
+        // Prefer the stable id so distinct studies that reuse the same photo
+        // (curated portfolio works) each render as their own gallery tile.
+        const id = String(work.id || work.sourcePostId || "").toLowerCase();
+        if (id) return "id:" + id;
         const image = String(work.imageUrl || "").toLowerCase();
         const permalink = String(work.permalink || "").toLowerCase();
         const title = String(work.title || "").toLowerCase();
@@ -236,21 +270,26 @@
 
         if (!items.length) {
             gallery.innerHTML = `
-                <article class="portfolio-empty-state">
+                <article class="portfolio-empty-state is-reveal">
                     <h3>Current works are being curated.</h3>
                     <p>Recent studio pieces will appear here once the live artwork feed is connected. For now, follow Maria Luisa on Instagram for the latest work.</p>
                     <a href="${escapeHTML(portfolioState.instagramHref)}" target="_blank" rel="noopener">Open Instagram</a>
                 </article>
             `;
+            emitRendered("gallery");
             return;
         }
 
         gallery.innerHTML = items.map((item) => {
             const work = normalizeArtwork(item);
             const meta = [work.year, work.medium, work.size].filter(Boolean).join(" · ");
-            const media = work.imageUrl
-                ? `<img src="${escapeHTML(work.imageUrl)}" alt="${escapeHTML(work.title)}" loading="lazy">`
+            const mediaInner = work.imageUrl
+                ? pictureMarkup(work.imageUrl, work.title)
                 : `<div class="portfolio-work-fallback" aria-hidden="true"></div>`;
+            // The media is a button so the artwork opens in the lightbox (keyboard accessible).
+            const media = work.imageUrl
+                ? `<button type="button" class="portfolio-work-media mo-lightbox-trigger" aria-label="View ${escapeHTML(work.title)} enlarged" data-full="${escapeHTML(work.imageUrl)}" data-title="${escapeHTML(work.title)}" data-meta="${escapeHTML(meta || "Studio work")}">${mediaInner}<span class="mo-view-hint" aria-hidden="true">View</span></button>`
+                : `<div class="portfolio-work-media">${mediaInner}</div>`;
             const link = work.permalink && !work.simulated
                 ? `<a class="portfolio-work-link" href="${escapeHTML(work.permalink)}" target="_blank" rel="noopener">Open on Instagram</a>`
                 : work.simulated
@@ -258,8 +297,8 @@
                 : "";
 
             return `
-                <article class="portfolio-work-card portfolio-work-${escapeHTML(safeClassToken(work.id))}">
-                    <div class="portfolio-work-media">${media}</div>
+                <article class="portfolio-work-card is-reveal portfolio-work-${escapeHTML(safeClassToken(work.id))}">
+                    ${media}
                     <div class="portfolio-work-copy">
                         <small>${escapeHTML(meta || "Studio work")}</small>
                         <h3>${escapeHTML(work.title)}</h3>
@@ -269,6 +308,7 @@
                 </article>
             `;
         }).join("");
+        emitRendered("gallery");
     }
 
     function renderPoetry(items) {
@@ -277,21 +317,23 @@
 
         if (!items.length) {
             poetry.innerHTML = `
-                <article class="portfolio-poem-card portfolio-empty-state">
+                <article class="portfolio-poem-card portfolio-empty-state is-reveal">
                     <h3>Poetry notes are being curated.</h3>
                     <p>Written fragments and process notes will appear here when Maria Luisa is ready to publish them.</p>
                 </article>
             `;
+            emitRendered("poetry");
             return;
         }
 
         poetry.innerHTML = items.map((item) => `
-            <article class="portfolio-poem-card">
+            <article class="portfolio-poem-card is-reveal">
                 <h3>${escapeHTML(item.title || "Untitled poem")}</h3>
                 <p>${escapeHTML(item.content || "").replace(/&lt;br\s*\/?&gt;/gi, "<br>")}</p>
                 <small>${escapeHTML([item.date, item.theme].filter(Boolean).join(" · ") || "Poetry")}</small>
             </article>
         `).join("");
+        emitRendered("poetry");
     }
 
     function renderSocialProof(items) {
@@ -304,12 +346,13 @@
 
         if (!liveItems.length) {
             social.innerHTML = `
-                <article class="portfolio-social-card portfolio-empty-state portfolio-social-profile-card">
+                <article class="portfolio-social-card portfolio-empty-state portfolio-social-profile-card is-reveal">
                     <h3>Instagram profile linked</h3>
                     <p>See Maria Luisa's public studio posts on Instagram. The website feed will turn on after the official Meta connection is finished.</p>
                     <a href="${escapeHTML(portfolioState.instagramHref)}" target="_blank" rel="noopener">Follow on Instagram</a>
                 </article>
             `;
+            emitRendered("social");
             return;
         }
 
@@ -317,14 +360,14 @@
             const isPreview = Boolean(work.previewSocial || work.simulated);
             const isInstagram = Boolean(work.permalink);
             const media = work.imageUrl
-                ? `<img src="${escapeHTML(work.imageUrl)}" alt="${escapeHTML(work.title)}" loading="lazy">`
+                ? pictureMarkup(work.imageUrl, work.title)
                 : `<div class="portfolio-work-fallback" aria-hidden="true"></div>`;
             const link = work.permalink
                 ? `<a href="${escapeHTML(work.permalink)}" target="_blank" rel="noopener">${isPreview ? "Open Instagram" : "Follow on Instagram"}</a>`
                 : "";
 
             return `
-                <article class="portfolio-social-card ${isPreview ? "portfolio-social-card-preview" : ""}">
+                <article class="portfolio-social-card is-reveal ${isPreview ? "portfolio-social-card-preview" : ""}">
                     ${media}
                     <small>${isPreview ? "Curated studio work" : isInstagram ? "Instagram studio proof" : "Published studio work"}</small>
                     <p>${escapeHTML(work.description || work.title)}</p>
@@ -332,6 +375,7 @@
                 </article>
             `;
         }).join("");
+        emitRendered("social");
     }
 
     function shopHref() {

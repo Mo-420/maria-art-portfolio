@@ -1,6 +1,6 @@
 {
   "appId": "com.maria.art.admin",
-  "appName": "Maria's Art Admin",
+  "appName": "Maryilu Studio",
   "server": {
     "url": "https://maryilu.com/admin.html",
     "cleartext": false,

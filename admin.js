@@ -247,7 +247,8 @@ class ArtAdmin {
             button.addEventListener('click', async () => {
                 await this.activateSection(
                     button.getAttribute('data-studio-jump'),
-                    button.getAttribute('data-nav-target')
+                    button.getAttribute('data-nav-target'),
+                    button.getAttribute('data-studio-anchor')
                 );
             });
         });
@@ -575,7 +576,7 @@ class ArtAdmin {
         return navMap[sectionId] || 'view-dashboard';
     }
 
-    async activateSection(sectionId, activeNavId) {
+    async activateSection(sectionId, activeNavId, anchorId = '') {
         if (!sectionId) return;
         this.showSection(sectionId);
         this.updateActiveNav(activeNavId || this.navIdForSection(sectionId));
@@ -594,6 +595,12 @@ class ArtAdmin {
             await this.loadSiteContent();
         } else if (sectionId === 'settings-section') {
             this.updateSettingsPanel();
+        }
+
+        if (anchorId) {
+            window.requestAnimationFrame(() => {
+                document.getElementById(anchorId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
         }
     }
 
@@ -1026,14 +1033,14 @@ class ArtAdmin {
             let successMessage = '';
             if (upload && upload.success && (upload.mediaUrl || upload.url)) {
                 mediaUrl = upload.mediaUrl || upload.url;
-                successMessage = `Image uploaded (${prepared.width}x${prepared.height}). Save Site Settings to publish this slot.`;
+                successMessage = `Uploaded to Maryilu media (${prepared.width}x${prepared.height}). Save Site Settings to publish this slot.`;
             } else if (upload?.status === 401) {
                 throw new Error('The admin token was rejected.');
             } else if (this.dataAPI.isLocalApiUrl()) {
                 mediaUrl = prepared.dataUrl;
                 successMessage = `Local image prepared (${prepared.width}x${prepared.height}). Save Site Settings to keep this local preview.`;
             } else {
-                throw new Error(upload?.error || 'Image upload failed. Check Worker R2 configuration.');
+                throw new Error(upload?.error || 'Image upload failed. Check the media service connection.');
             }
 
             if (mediaInput) mediaInput.value = mediaUrl;
@@ -1405,7 +1412,7 @@ class ArtAdmin {
         if (upload && upload.success && (upload.mediaUrl || upload.url)) {
             return {
                 mediaUrl: upload.mediaUrl || upload.url,
-                storage: 'r2',
+                storage: 'media-service',
                 prepared,
                 upload
             };
@@ -1490,7 +1497,7 @@ class ArtAdmin {
             this.shopItems = [result.item, ...this.shopItems.filter(item => item.id !== result.item.id)];
             this.renderShopItems();
             this.resetShopUploadForm();
-            this.setShopUploadStatus(image.storage === 'r2' ? 'Artwork uploaded and saved.' : 'Artwork saved with an optimized local image.', 'success');
+            this.setShopUploadStatus(image.storage === 'media-service' ? 'Artwork uploaded and saved.' : 'Artwork saved with an optimized local image.', 'success');
         } catch (error) {
             this.setShopUploadStatus(error.message || 'Artwork could not be saved.', 'error');
         } finally {
@@ -2806,7 +2813,7 @@ class ArtAdmin {
                     uploadedAt: now
                 }
             };
-            await this.saveShopItemUpdates(itemId, updates, image.storage === 'r2' ? 'Image uploaded and item saved.' : 'Optimized image saved on this item.');
+            await this.saveShopItemUpdates(itemId, updates, image.storage === 'media-service' ? 'Image uploaded and item saved.' : 'Optimized image saved on this item.');
         } catch (error) {
             if (status) status.textContent = error.message || 'Upload failed.';
             this.showShopItemMessage(error.message || 'Image upload failed.', 'error');

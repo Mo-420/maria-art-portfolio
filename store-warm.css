@@ -86,10 +86,33 @@ textarea {
     background: rgba(255, 246, 248, 0.92);
     border-bottom: 1px solid rgba(239, 209, 216, 0.92);
     backdrop-filter: blur(14px);
+    transition: box-shadow 240ms ease, background-color 240ms ease, border-color 240ms ease, padding 240ms ease;
 }
 
 .sales-header.scrolled {
-    box-shadow: 0 8px 28px rgba(75, 48, 31, 0.08);
+    background: rgba(255, 246, 248, 0.82);
+    border-bottom-color: rgba(201, 101, 122, 0.22);
+    box-shadow: 0 10px 30px rgba(75, 48, 31, 0.10);
+}
+
+/* Hairline reading-progress bar under the header */
+.sales-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    transform: scaleX(var(--scroll-progress, 0));
+    transform-origin: 0 50%;
+    background: linear-gradient(90deg, var(--warm-clay), var(--warm-gold));
+    opacity: 0;
+    transition: opacity 220ms ease;
+    pointer-events: none;
+}
+
+.sales-header.scrolled::after {
+    opacity: 0.9;
 }
 
 .sales-nav {
@@ -141,7 +164,7 @@ textarea {
 
 .nav-links a,
 .language-switcher button {
-    min-height: 42px;
+    min-height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -291,7 +314,12 @@ p {
     font-weight: 850;
     line-height: 1;
     cursor: pointer;
-    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease, transform 160ms ease;
+}
+
+.button:active {
+    transform: translateY(0) scale(0.985);
+    transition-duration: 90ms;
 }
 
 .button-primary {
@@ -303,7 +331,13 @@ p {
 .button-primary:hover,
 .button-primary:focus-visible {
     background: var(--warm-clay-dark);
-    box-shadow: 0 14px 30px rgba(142, 63, 83, 0.26);
+    box-shadow: 0 18px 36px rgba(142, 63, 83, 0.30);
+    transform: translateY(-2px);
+}
+
+.button-primary:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.92), 0 0 0 5px var(--warm-clay), 0 18px 36px rgba(142, 63, 83, 0.30);
 }
 
 .button-secondary {
@@ -316,6 +350,7 @@ p {
 .button-secondary:focus-visible {
     border-color: rgba(201, 101, 122, 0.45);
     color: var(--warm-clay-dark);
+    transform: translateY(-1px);
 }
 
 .button-quiet {
@@ -544,7 +579,7 @@ p {
     border-radius: var(--warm-radius);
     background: var(--warm-panel);
     box-shadow: 0 12px 30px rgba(126, 54, 70, 0.07);
-    transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+    transition: border-color 180ms ease, box-shadow 220ms ease, background-color 180ms ease, transform 240ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .product-category-card:hover,
@@ -554,7 +589,26 @@ p {
 .shipping-card:hover,
 .faq-item:hover {
     border-color: rgba(201, 101, 122, 0.34);
-    box-shadow: 0 16px 34px rgba(126, 54, 70, 0.1);
+    box-shadow: 0 22px 44px rgba(126, 54, 70, 0.14);
+}
+
+.product-category-card:hover,
+.gallery-proof-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Image zoom on hover, clipped by the media wrapper's overflow:hidden */
+.category-card-media img,
+.shop-card-media img,
+.gallery-media img,
+.instagram-media img {
+    transition: transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.product-category-card:hover .category-card-media img,
+.gallery-proof-card:hover .shop-card-media img,
+.gallery-proof-card:hover .gallery-media img {
+    transform: scale(1.045);
 }
 
 .product-category-card {
@@ -789,13 +843,93 @@ p {
 }
 
 .mallorca-map {
-    height: 120px;
+    position: relative;
+    height: 150px;
     margin-bottom: 14px;
     border-radius: var(--warm-radius);
+    overflow: hidden;
+    border: 1px solid var(--warm-line);
     background:
-        linear-gradient(135deg, rgba(111, 138, 114, 0.2), rgba(241, 170, 188, 0.28)),
-        var(--warm-paper);
-    border: 1px dashed rgba(112, 132, 106, 0.42);
+        radial-gradient(120% 80% at 70% 12%, rgba(241, 170, 188, 0.22), transparent 60%),
+        linear-gradient(180deg, #ffffff, var(--warm-paper));
+}
+
+.mallorca-map svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.mallorca-map .mallorca-island {
+    fill: var(--warm-blush);
+    stroke: var(--warm-clay);
+    stroke-width: 1.4;
+    stroke-linejoin: round;
+    fill-opacity: 0.85;
+}
+
+.mallorca-map .mallorca-grid {
+    stroke: var(--warm-line);
+    stroke-width: 0.6;
+    opacity: 0.7;
+}
+
+.mallorca-map .mallorca-pin-dot {
+    fill: var(--warm-clay-dark);
+    stroke: #ffffff;
+    stroke-width: 1.4;
+}
+
+.mallorca-map .mallorca-ping {
+    fill: none;
+    stroke: var(--warm-clay);
+    stroke-width: 1.2;
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+    animation: mallorca-ping 2800ms cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
+.mallorca-map .mallorca-ping.delay {
+    animation-delay: 1400ms;
+}
+
+.mallorca-map .mallorca-label {
+    position: absolute;
+    left: 12px;
+    bottom: 10px;
+    margin: 0;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.78);
+    color: var(--warm-clay-dark);
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    backdrop-filter: blur(4px);
+}
+
+@keyframes mallorca-ping {
+    0% {
+        transform: scale(0.45);
+        opacity: 0.55;
+    }
+    80% {
+        opacity: 0;
+    }
+    100% {
+        transform: scale(3.4);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mallorca-map .mallorca-ping {
+        animation: none;
+        opacity: 0;
+    }
 }
 
 .prices-section {
@@ -1493,3 +1627,253 @@ p {
         animation-iteration-count: 1 !important;
     }
 }
+
+/* ============================================================
+   PREMIUM MOTION & DETAIL LAYER  (2026-06)
+   All hiding is gated behind <html>.reveal-on, which JS only
+   adds when motion is allowed — content stays visible otherwise.
+   ============================================================ */
+
+/* --- Scroll reveal --- */
+.reveal-on :is(
+    .section-heading,
+    .product-category-card,
+    .gallery-proof-card,
+    .price-card,
+    .shipping-card,
+    .faq-item,
+    .instagram-card,
+    .steps-list li,
+    .process-note,
+    .final-cta-panel
+) {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    transition: opacity 460ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                transform 460ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: calc(var(--reveal-index, 0) * 70ms);
+    will-change: transform, opacity;
+}
+
+.reveal-on :is(
+    .section-heading,
+    .product-category-card,
+    .gallery-proof-card,
+    .price-card,
+    .shipping-card,
+    .faq-item,
+    .instagram-card,
+    .steps-list li,
+    .process-note,
+    .final-cta-panel
+).is-revealed {
+    opacity: 1;
+    transform: none;
+}
+
+/* --- Hero entrance (sequenced on body.hero-ready) --- */
+.reveal-on .hero-copy > *,
+.reveal-on .hero-studio-card {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+    transition: opacity 560ms cubic-bezier(0.22, 0.61, 0.36, 1),
+                transform 560ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.reveal-on .hero-copy > .eyebrow { transition-delay: 60ms; }
+.reveal-on .hero-copy > h1 { transition-delay: 150ms; }
+.reveal-on .hero-copy > .hero-subtitle { transition-delay: 240ms; }
+.reveal-on .hero-copy > .hero-trust-micro { transition-delay: 330ms; }
+.reveal-on .hero-copy > .hero-actions { transition-delay: 420ms; }
+.reveal-on .hero-copy > .hero-proof-strip { transition-delay: 500ms; }
+.reveal-on .hero-studio-card {
+    transition-delay: 260ms;
+    transform: translate3d(0, 16px, 0) scale(0.985);
+}
+
+.hero-ready .hero-copy > *,
+.hero-ready .hero-studio-card {
+    opacity: 1;
+    transform: none;
+}
+
+/* --- Nav underline + active state --- */
+.nav-links a { position: relative; }
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 6px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--warm-clay);
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 220ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after,
+.nav-links a[aria-current="true"]::after { transform: scaleX(1); }
+.nav-links a[aria-current="true"] { color: var(--warm-clay-dark); }
+
+/* --- Cursor sheen on cards (reuses live --spot-x / --spot-y) --- */
+.product-category-card,
+.gallery-proof-card,
+.custom-order-card,
+.hero-studio-card { position: relative; isolation: isolate; }
+
+.product-category-card::after,
+.gallery-proof-card::after,
+.hero-studio-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 3;
+    mix-blend-mode: soft-light;
+    background: radial-gradient(240px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+        rgba(255, 255, 255, 0.5), transparent 60%);
+    opacity: 0;
+    transition: opacity 240ms ease;
+}
+@media (hover: hover) and (pointer: fine) {
+    .product-category-card:hover::after,
+    .gallery-proof-card:hover::after,
+    .hero-studio-card:hover::after { opacity: 1; }
+}
+
+/* --- Luxe kicker: gold hairline tick --- */
+.section-kicker,
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.12em;
+}
+.section-kicker::before,
+.eyebrow::before {
+    content: "";
+    flex: none;
+    width: 18px;
+    height: 1px;
+    background: var(--warm-gold);
+}
+
+/* --- Balanced headings --- */
+h1, h2 { text-wrap: balance; }
+h1 { letter-spacing: -0.012em; }
+
+/* --- Hairline section dividers --- */
+.sales-section + .sales-section { position: relative; }
+.sales-section + .sales-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(var(--warm-max), calc(100% - 64px));
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(239, 209, 216, 0.9) 24%, rgba(239, 209, 216, 0.9) 76%, transparent);
+}
+
+/* --- Refined form focus --- */
+.order-form input,
+.order-form select,
+.order-form textarea {
+    transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+.order-form input:focus,
+.order-form select:focus,
+.order-form textarea:focus {
+    border-color: var(--warm-clay);
+    box-shadow: 0 0 0 3px rgba(201, 101, 122, 0.16);
+    outline: none;
+}
+
+/* --- Selection colour --- */
+::selection { background: var(--warm-blush); color: var(--warm-clay-dark); }
+
+/* --- Film grain overlay --- */
+body.sales-site::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    pointer-events: none;
+    opacity: 0.035;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 140px 140px;
+}
+
+/* --- Scroll-to-top --- */
+.scroll-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--warm-line);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--warm-clay-dark);
+    box-shadow: 0 12px 30px rgba(126, 54, 70, 0.18);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 240ms ease, transform 240ms ease, background-color 180ms ease;
+    z-index: 2100;
+    backdrop-filter: blur(8px);
+}
+.scroll-top.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.scroll-top:hover { background: #fff; transform: translateY(-3px); }
+.scroll-top svg { width: 20px; height: 20px; }
+
+/* --- "Handmade · Mallorca" footer seal --- */
+.mallorca-seal {
+    position: relative;
+    width: 94px;
+    height: 94px;
+    flex: none;
+    display: grid;
+    place-items: center;
+}
+.mallorca-seal .seal-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    animation: seal-spin 30s linear infinite;
+}
+.mallorca-seal .seal-ring text {
+    fill: var(--warm-clay-dark);
+    font-family: "Inter", sans-serif;
+    font-size: 8.4px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.mallorca-seal .seal-core {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--warm-clay), var(--warm-clay-dark));
+    color: #fff;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 19px;
+    line-height: 1;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+@keyframes seal-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+    .mallorca-seal .seal-ring { animation: none; }
+}
+.sales-footer-inner { align-items: center; }
+.footer-brand { display: flex; align-items: center; gap: 16px; }
