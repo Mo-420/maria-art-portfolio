@@ -432,7 +432,7 @@ export default {
             if (!isAdminPageAuthorized(request, env)) {
                 return adminUnauthorizedResponse(env);
             }
-            url.pathname = "/admin.html";
+            url.pathname = "/admin";
             return env.ASSETS.fetch(new Request(url, request));
         }
 

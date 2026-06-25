@@ -1,5 +1,6 @@
 name = "maria-art-data-api"
 main = "cloudflare-worker.js"
+pages_build_output_dir = "dist"
 compatibility_date = "2026-06-23"
 compatibility_flags = ["nodejs_compat"]
 

@@ -197,7 +197,7 @@ async function run() {
 
     const localAdminPreview = await pagesWorker.fetch(new Request("http://127.0.0.1/admin.html"), pagesEnv);
     assert.equal(localAdminPreview.status, 200, "local admin preview should remain available without Pages password");
-    assert.equal(await localAdminPreview.text(), "asset:/admin.html");
+    assert.equal(await localAdminPreview.text(), "asset:/admin");
 
     const externalAccessManagedEnv = {
         ...pagesEnv,
@@ -205,7 +205,7 @@ async function run() {
     };
     const accessManagedAdmin = await pagesWorker.fetch(new Request("https://maryilu.com/admin.html"), externalAccessManagedEnv);
     assert.equal(accessManagedAdmin.status, 200, "admin page may be served when an external access gate is deliberately declared");
-    assert.equal(await accessManagedAdmin.text(), "asset:/admin.html");
+    assert.equal(await accessManagedAdmin.text(), "asset:/admin");
 
     const gatedAdminEnv = {
         ...pagesEnv,
@@ -226,7 +226,7 @@ async function run() {
         headers: { "Authorization": `Basic ${Buffer.from("maria:studio-secret").toString("base64")}` }
     }), gatedAdminEnv);
     assert.equal(authorizedAdmin.status, 200, "correct Pages admin password should serve admin.html");
-    assert.equal(await authorizedAdmin.text(), "asset:/admin.html");
+    assert.equal(await authorizedAdmin.text(), "asset:/admin");
 
     const redirectReadyEnv = { ...pagesEnv, PORTFOLIO_REDIRECT_READY: "true" };
     const mainPortfolioCanonical = await pagesWorker.fetch(new Request("https://maryilu.com/portfolio.html"), redirectReadyEnv);
