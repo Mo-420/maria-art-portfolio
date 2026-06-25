@@ -445,6 +445,7 @@ export default {
             const allowedPortfolioPaths = new Set([
                 "/",
                 "/index.html",
+                "/portfolio",
                 "/portfolio.html",
                 "/portfolio.css",
                 "/portfolio.js",
@@ -462,7 +463,7 @@ export default {
             }
 
             if (url.pathname === "/" || url.pathname === "/index.html") {
-                url.pathname = "/portfolio.html";
+                url.pathname = "/portfolio";
                 return env.ASSETS.fetch(new Request(url, request));
             }
 
