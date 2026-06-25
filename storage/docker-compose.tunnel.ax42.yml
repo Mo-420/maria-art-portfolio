@@ -1,0 +1,10 @@
+services:
+  maryilu-media-tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: maryilu-media-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARED_TOKEN}
+    env_file:
+      - .tunnel.env
+    depends_on:
+      - maryilu-image-storage

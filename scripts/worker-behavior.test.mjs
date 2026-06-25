@@ -383,6 +383,60 @@ async function run() {
     assert.equal(missingBucketUpload.status, 503, "image upload should report missing R2 binding");
     assert.equal(missingBucketUpload.data.fallback, "compressed-data-url");
 
+    const externalStorageEnv = makeEnv();
+    externalStorageEnv.MARYILU_IMAGE_STORAGE_URL = "https://storage.test";
+    externalStorageEnv.MARYILU_IMAGE_STORAGE_TOKEN = "external-token";
+    const externalStorageOriginalFetch = globalThis.fetch;
+    globalThis.fetch = async (url, options = {}) => {
+        const href = String(url);
+        if (href === "https://storage.test/uploads/images") {
+            assert.equal(options.headers.Authorization, "Bearer external-token");
+            const image = options.body.get("image");
+            assert.equal(image.type, "image/png");
+            assert.equal(await image.text(), "external-png");
+            return new Response(JSON.stringify({
+                success: true,
+                key: "shop-items/external-test.png",
+                mediaUrl: "https://storage.test/media/shop-items/external-test.png",
+                contentType: "image/png",
+                size: image.size,
+                uploadedAt: "2026-06-25T12:00:00.000Z"
+            }), {
+                status: 201,
+                headers: { "Content-Type": "application/json" }
+            });
+        }
+        if (href === "https://storage.test/media/shop-items/external-test.png") {
+            return new Response("external-png", {
+                status: 200,
+                headers: {
+                    "Content-Type": "image/png",
+                    "Content-Length": "12"
+                }
+            });
+        }
+        return externalStorageOriginalFetch(url, options);
+    };
+    try {
+        const externalUploadForm = new FormData();
+        externalUploadForm.append("image", new Blob(["external-png"], { type: "image/png" }), "external-test.png");
+        const externalUpload = await json(await worker.fetch(request("/uploads/images", {
+            method: "POST",
+            admin: true,
+            formData: externalUploadForm
+        }), externalStorageEnv, makeCtx()));
+        assert.equal(externalUpload.status, 201, "external image storage should accept uploads when R2 is absent");
+        assert.equal(externalUpload.data.storage, "external");
+        assert.equal(externalUpload.data.mediaUrl, "https://worker.test/media/shop-items/external-test.png");
+
+        const externalMedia = await worker.fetch(new Request(externalUpload.data.mediaUrl), externalStorageEnv, makeCtx());
+        assert.equal(externalMedia.status, 200, "external media should be proxied through the Worker");
+        assert.equal(externalMedia.headers.get("Content-Type"), "image/png");
+        assert.equal(await externalMedia.text(), "external-png");
+    } finally {
+        globalThis.fetch = externalStorageOriginalFetch;
+    }
+
     const imageEnv = makeEnv({}, { images: true });
     const invalidUploadForm = new FormData();
     invalidUploadForm.append("image", new Blob(["not-image"], { type: "text/plain" }), "notes.txt");

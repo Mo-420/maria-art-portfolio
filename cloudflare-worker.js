@@ -3,6 +3,7 @@
 // ADMIN_TOKEN, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, INSTAGRAM_ACCESS_TOKEN, INSTAGRAM_USER_ID.
 // Optional Instagram webhook secrets: INSTAGRAM_WEBHOOK_VERIFY_TOKEN, INSTAGRAM_APP_SECRET.
 // Optional: NOTIFICATION_WEBHOOK_URL, NOTIFICATION_WEBHOOK_TOKEN.
+// Optional image storage: ART_IMAGES R2, or MARYILU_IMAGE_STORAGE_URL + MARYILU_IMAGE_STORAGE_TOKEN.
 
 const LEAD_STATUSES = [
     "New request",
@@ -911,10 +912,48 @@ function hasImageBucket(env) {
     return Boolean(env.ART_IMAGES && typeof env.ART_IMAGES.put === "function" && typeof env.ART_IMAGES.get === "function");
 }
 
+function externalImageStorageConfig(env) {
+    const baseUrl = cleanString(
+        env.MARYILU_IMAGE_STORAGE_URL || env.MARYILU_STORAGE_API_URL || env.IMAGE_STORAGE_API_URL,
+        500
+    ).replace(/\/+$/, "");
+    const token = cleanString(
+        env.MARYILU_IMAGE_STORAGE_TOKEN || env.MARYILU_STORAGE_API_TOKEN || env.IMAGE_STORAGE_API_TOKEN,
+        500
+    );
+
+    if (!baseUrl || !token) return null;
+    try {
+        const parsed = new URL(baseUrl);
+        if (!["https:", "http:"].includes(parsed.protocol)) return null;
+        return { baseUrl, token };
+    } catch {
+        return null;
+    }
+}
+
+function hasExternalImageStorage(env) {
+    return Boolean(externalImageStorageConfig(env));
+}
+
 function normalizeMediaKey(value) {
     const decoded = cleanString(decodeURIComponent(String(value || "")), 360).replace(/^\/+/, "");
     if (!decoded || decoded.includes("..") || !/^[A-Za-z0-9/_\-.]+$/.test(decoded)) return "";
     return decoded;
+}
+
+function mediaUrlForKey(request, key) {
+    const mediaPath = `/media/${key.split("/").map(part => encodeURIComponent(part)).join("/")}`;
+    return new URL(mediaPath, request.url).toString();
+}
+
+function externalStorageUrl(baseUrl, path) {
+    const base = new URL(baseUrl);
+    const cleanPath = String(path || "").replace(/^\/+/, "");
+    base.pathname = `${base.pathname.replace(/\/+$/, "")}/${cleanPath}`.replace(/\/{2,}/g, "/");
+    base.search = "";
+    base.hash = "";
+    return base.toString();
 }
 
 function uploadedImageExtension(file) {
@@ -941,14 +980,6 @@ async function uploadImage(request, env) {
     const authError = requireAdmin(request, env);
     if (authError) return authError;
 
-    if (!hasImageBucket(env)) {
-        return jsonResponse({
-            success: false,
-            error: "ART_IMAGES R2 bucket is not configured.",
-            fallback: "compressed-data-url"
-        }, 503, request);
-    }
-
     const form = await request.formData().catch(() => null);
     const file = form?.get("image") || form?.get("file");
     if (!file || typeof file.arrayBuffer !== "function" || typeof file.size !== "number") {
@@ -969,6 +1000,49 @@ async function uploadImage(request, env) {
         return jsonResponse({ success: false, error: "Upload a JPG, PNG, or WebP image." }, 415, request);
     }
 
+    const externalStorage = externalImageStorageConfig(env);
+    if (!hasImageBucket(env) && externalStorage) {
+        const externalForm = new FormData();
+        externalForm.append("image", file, cleanString(file.name, 220) || `maryilu-upload.${extension}`);
+
+        const response = await fetch(externalStorageUrl(externalStorage.baseUrl, "/uploads/images"), {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${externalStorage.token}`
+            },
+            body: externalForm
+        }).catch((error) => ({ ok: false, status: 502, json: async () => ({ error: error.message }) }));
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.key) {
+            return jsonResponse({
+                success: false,
+                error: data.error || "External image storage upload failed.",
+                fallback: "compressed-data-url"
+            }, response.status || 502, request);
+        }
+
+        const mediaUrl = mediaUrlForKey(request, data.key);
+        return jsonResponse({
+            success: true,
+            key: data.key,
+            url: mediaUrl,
+            mediaUrl,
+            storage: "external",
+            contentType: data.contentType || contentType,
+            size: data.size || file.size,
+            uploadedAt: data.uploadedAt || new Date().toISOString()
+        }, 201, request);
+    }
+
+    if (!hasImageBucket(env)) {
+        return jsonResponse({
+            success: false,
+            error: "Image storage is not configured.",
+            fallback: "compressed-data-url"
+        }, 503, request);
+    }
+
     const uploadedAt = new Date().toISOString();
     const key = `shop-items/${Date.now()}-${crypto.randomUUID()}.${extension}`;
     const body = typeof file.stream === "function" ? file.stream() : await file.arrayBuffer();
@@ -984,13 +1058,13 @@ async function uploadImage(request, env) {
         }
     });
 
-    const mediaPath = `/media/${key.split("/").map(part => encodeURIComponent(part)).join("/")}`;
-    const url = new URL(mediaPath, request.url).toString();
+    const url = mediaUrlForKey(request, key);
     return jsonResponse({
         success: true,
         key,
         url,
         mediaUrl: url,
+        storage: "r2",
         contentType,
         size: file.size,
         uploadedAt
@@ -998,13 +1072,35 @@ async function uploadImage(request, env) {
 }
 
 async function serveMedia(request, env, keyInput) {
-    if (!hasImageBucket(env)) {
-        return textResponse("Image storage is not configured.", 503, request);
-    }
-
     const key = normalizeMediaKey(keyInput);
     if (!key) {
         return textResponse("Invalid media key.", 400, request);
+    }
+
+    const externalStorage = externalImageStorageConfig(env);
+    if (!hasImageBucket(env) && externalStorage) {
+        const response = await fetch(externalStorageUrl(externalStorage.baseUrl, `/media/${key.split("/").map(part => encodeURIComponent(part)).join("/")}`), {
+            method: "GET",
+            headers: {
+                "Accept": request.headers.get("Accept") || "*/*"
+            }
+        }).catch(() => null);
+
+        if (!response) return textResponse("Image storage is unavailable.", 502, request);
+        if (!response.ok) return textResponse(response.status === 404 ? "Media not found." : "Image storage is unavailable.", response.status, request);
+
+        const headers = new Headers(corsHeaders(request));
+        const contentType = response.headers.get("Content-Type");
+        const contentLength = response.headers.get("Content-Length");
+        if (contentType) headers.set("Content-Type", contentType);
+        if (contentLength) headers.set("Content-Length", contentLength);
+        headers.set("Cache-Control", response.headers.get("Cache-Control") || "public, max-age=31536000, immutable");
+        headers.set("X-Content-Type-Options", "nosniff");
+        return new Response(response.body, { status: 200, headers });
+    }
+
+    if (!hasImageBucket(env)) {
+        return textResponse("Image storage is not configured.", 503, request);
     }
 
     const object = await env.ART_IMAGES.get(key);

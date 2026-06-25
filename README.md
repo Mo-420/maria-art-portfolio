@@ -17,7 +17,7 @@ A static Maryilu website with two public surfaces:
 - Admin automation status check for Stripe, Instagram, shop items, and leads
 - Recent automation event log plus optional webhook alerts for new leads, Instagram review candidates, sync failures, and payment outcomes
 - Cloudflare Worker + KV storage for shared data
-- Protected admin image uploads through a Cloudflare R2 `ART_IMAGES` bucket, with compressed-image fallback for local preview
+- Protected admin image uploads through either the AX42 Maryilu image service or an optional Cloudflare R2 `ART_IMAGES` bucket, with compressed-image fallback for local preview
 - Maryilu Studio Android admin wrapper via Capacitor
 - Responsive static-site deployment on Cloudflare Pages
 
@@ -172,7 +172,7 @@ Do not publish the whole repository as the public site. The `dist/` folder is th
 - Reading leads and publishing content require the token.
 - Shop review actions are grouped by risk in the admin: safe edits, public publish, payment approval, and source links. Local simulated Instagram items cannot be approved for direct Stripe checkout.
 - The Shop Items screen includes an `Upload Art` composer and per-item image replacement. Uploads save or update the image only; publishing and direct checkout still require separate review actions.
-- Production image uploads should use the Worker `ART_IMAGES` R2 bucket. If the bucket is not connected during local preview, the admin stores an optimized compressed image on the hidden/request-only shop item so real art can still be reviewed without placeholder cards.
+- Production image uploads should use the AX42 Maryilu image service by setting Worker secrets `MARYILU_IMAGE_STORAGE_URL` and `MARYILU_IMAGE_STORAGE_TOKEN`. If an `ART_IMAGES` R2 bucket is bound later, the Worker can still use it, but R2 is no longer required. If neither storage backend is connected during local preview, the admin stores an optimized compressed image on the hidden/request-only shop item so real art can still be reviewed without placeholder cards.
 
 ### Instagram Sync
 - Use Meta's official Instagram API; do not scrape Instagram pages.

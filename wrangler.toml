@@ -13,6 +13,7 @@ head_sampling_rate = 1
 binding = "ART_DATA"
 id = "a4b2ecc13ea74e13b4aa14e329d6892f"
 
-[[r2_buckets]]
-binding = "ART_IMAGES"
-bucket_name = "maryilu-art-images"
+# Optional paid Cloudflare image storage can be restored later if needed:
+# [[r2_buckets]]
+# binding = "ART_IMAGES"
+# bucket_name = "maryilu-art-images"

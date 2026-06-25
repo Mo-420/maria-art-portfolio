@@ -57,13 +57,21 @@ The storefront can render without the Worker, but Stripe checkout, Instagram syn
 
 `wrangler.toml` already points at the current KV namespace for this project. If you create a new namespace, update `wrangler.toml` before deploying.
 
-### 3a. Create R2 Bucket for Artwork Uploads
-The admin `Upload Art` flow stores real shop images in R2 when the bucket is connected.
+### 3a. Connect Image Storage
+The admin `Upload Art` and Store Images flows store real shop images through the Worker.
 
-1. Go to Cloudflare Dashboard → R2 Object Storage.
-2. Create a bucket named `maryilu-art-images`.
-3. Bind it to the Worker as `ART_IMAGES`.
-4. Keep the existing `wrangler.toml` `[[r2_buckets]]` entry aligned if the bucket name changes.
+Preferred no-R2 setup:
+
+1. Deploy the AX42 storage service from `storage/` to `/opt/maryilu-storage`.
+2. Route `https://media.maryilu.com` to `http://maryilu-image-storage:18142` through the dedicated `maryilu-media-ax42` Cloudflare Tunnel.
+3. Set Worker secrets `MARYILU_IMAGE_STORAGE_URL` and `MARYILU_IMAGE_STORAGE_TOKEN`.
+4. Keep the same token in `/opt/maryilu-storage/.env` as `MARYILU_STORAGE_TOKEN`.
+
+Optional Cloudflare R2 setup:
+
+1. Create a bucket named `maryilu-art-images`.
+2. Bind it to the Worker as `ART_IMAGES`.
+3. Restore the commented `[[r2_buckets]]` block in `wrangler.toml`.
 
 The Worker serves uploaded files from `/media/...`. Uploading an image only updates the shop item image; public publishing and direct Stripe checkout stay behind the existing admin review buttons.
 
