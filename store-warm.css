@@ -1009,11 +1009,17 @@ p {
 
 .price-tier,
 .addon-item {
-    display: flex;
-    justify-content: space-between;
-    gap: 18px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(7.5rem, 0.72fr);
+    gap: 14px;
+    align-items: start;
     padding: 12px 0;
     border-top: 1px solid var(--warm-line);
+}
+
+.price-tier > div,
+.addon-item > span {
+    min-width: 0;
 }
 
 .price-tier small {
@@ -1023,8 +1029,11 @@ p {
 
 .price-tier span,
 .addon-item strong {
+    min-width: 0;
     color: var(--warm-clay-dark);
-    white-space: nowrap;
+    text-align: right;
+    overflow-wrap: anywhere;
+    word-break: normal;
 }
 
 .addons-panel {
@@ -1601,14 +1610,14 @@ p {
 
     .price-tier,
     .addon-item {
-        align-items: flex-start;
-        flex-direction: column;
+        grid-template-columns: 1fr;
         gap: 4px;
     }
 
     .price-tier span,
     .addon-item strong {
-        white-space: normal;
+        justify-self: start;
+        text-align: left;
     }
 
     .sales-footer-inner {

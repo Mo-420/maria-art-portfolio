@@ -34,7 +34,7 @@ const config = {
 };
 
 const storeMarkers = [
-    "store-warm.css?v=20260625-premium-motion",
+    "store-warm.css?v=20260625-overflow-fix",
     "Custom Art Gifts Worth Keeping",
     "Choose the kind of gift",
     "Gift Ideas & Custom Art",
